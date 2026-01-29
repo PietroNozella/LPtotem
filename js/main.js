@@ -255,7 +255,7 @@ function openProjectModal(colors) {
             `• Emblema: ${colors.emblem}\n\n` +
             `Aguardo contato para discutirmos os próximos passos!`
         );
-        whatsappLink.href = `https://wa.me/5511999999999?text=${message}`;
+        whatsappLink.href = `https://wa.me/5511969218791?text=${message}`;
     }
     
     // Show modal
