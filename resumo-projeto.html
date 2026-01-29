@@ -307,20 +307,73 @@
     </div>
     
     <script>
+        // Security: Validate hex color format
+        function isValidHexColor(color) {
+            if (typeof color !== 'string') return false;
+            return /^#[0-9A-Fa-f]{6}$/.test(color);
+        }
+        
+        // Security: Sanitize color input
+        function sanitizeColor(color, defaultColor) {
+            if (!color || typeof color !== 'string') return defaultColor;
+            
+            // Decode URL encoding and trim
+            try {
+                color = decodeURIComponent(color).trim().toLowerCase();
+            } catch (e) {
+                return defaultColor;
+            }
+            
+            // Add # if missing
+            if (!color.startsWith('#')) color = '#' + color;
+            
+            // Validate format strictly
+            if (isValidHexColor(color)) {
+                return color;
+            }
+            
+            console.warn('Invalid color detected, using default:', color);
+            return defaultColor;
+        }
+        
+        // Security: Escape HTML to prevent XSS
+        function escapeHtml(str) {
+            if (typeof str !== 'string') return '';
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return str.replace(/[&<>"']/g, s => map[s]);
+        }
+        
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const projectCard = document.getElementById('projectCard');
             
-            // Get colors from URL parameters
-            const colors = {
-                body: params.get('body') || null,
-                accent: params.get('accent') || null,
-                led: params.get('led') || null,
-                emblem: params.get('emblem') || null
+            // Security: Limit parameter length to prevent DoS
+            const maxParamLength = 10;
+            
+            // Get and SANITIZE colors from URL parameters
+            const rawColors = {
+                body: params.get('body'),
+                accent: params.get('accent'),
+                led: params.get('led'),
+                emblem: params.get('emblem')
             };
             
-            // Check if we have valid parameters
-            if (!colors.body && !colors.accent && !colors.led && !colors.emblem) {
+            // Check for suspiciously long parameters (potential attack)
+            for (const key in rawColors) {
+                if (rawColors[key] && rawColors[key].length > maxParamLength) {
+                    console.error('Suspicious parameter length detected');
+                    rawColors[key] = null;
+                }
+            }
+            
+            // Check if we have any parameters
+            if (!rawColors.body && !rawColors.accent && !rawColors.led && !rawColors.emblem) {
                 projectCard.innerHTML = `
                     <div class="no-params">
                         <i class="fas fa-palette"></i>
@@ -335,11 +388,13 @@
                 return;
             }
             
-            // Set default values if not provided
-            colors.body = colors.body || '#1a1a2e';
-            colors.accent = colors.accent || '#3b82f6';
-            colors.led = colors.led || '#3b82f6';
-            colors.emblem = colors.emblem || '#ffffff';
+            // SANITIZE all colors with strict validation
+            const colors = {
+                body: sanitizeColor(rawColors.body, '#1a1a2e'),
+                accent: sanitizeColor(rawColors.accent, '#3b82f6'),
+                led: sanitizeColor(rawColors.led, '#3b82f6'),
+                emblem: sanitizeColor(rawColors.emblem, '#ffffff')
+            };
             
             // Format date
             const now = new Date();

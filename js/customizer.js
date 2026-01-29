@@ -1,11 +1,35 @@
 /**
  * SP Security - Totem Customizer
  * Interactive totem color customization
+ * With security validation
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     initCustomizer();
 });
+
+/**
+ * Validate hex color format (security)
+ * @param {string} color - Color to validate
+ * @returns {boolean}
+ */
+function isValidHexColor(color) {
+    if (typeof color !== 'string') return false;
+    return /^#[0-9A-Fa-f]{6}$/.test(color);
+}
+
+/**
+ * Sanitize color input (security)
+ * @param {string} color - Color to sanitize
+ * @param {string} defaultColor - Default if invalid
+ * @returns {string}
+ */
+function sanitizeColor(color, defaultColor) {
+    if (!color || typeof color !== 'string') return defaultColor;
+    color = color.trim().toLowerCase();
+    if (!color.startsWith('#')) color = '#' + color;
+    return isValidHexColor(color) ? color : defaultColor;
+}
 
 /**
  * Initialize the totem customizer
@@ -159,16 +183,20 @@ function initCustomizer() {
     }
     
     /**
-     * Handle color input change
+     * Handle color input change (with security validation)
      */
     function handleColorChange(colorKey, inputElement) {
         if (!inputElement) return;
         
         inputElement.addEventListener('input', (e) => {
-            currentColors[colorKey] = e.target.value;
-            updateColorValue(inputElement.id, e.target.value);
+            // Sanitize and validate color input
+            const sanitizedColor = sanitizeColor(e.target.value, defaultColors[colorKey]);
+            currentColors[colorKey] = sanitizedColor;
+            
+            // Update display with sanitized value
+            updateColorValue(inputElement.id, sanitizedColor);
             updateTotem();
-            updatePresets(inputElement.id, e.target.value);
+            updatePresets(inputElement.id, sanitizedColor);
         });
     }
     
