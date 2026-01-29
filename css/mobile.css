@@ -1,0 +1,526 @@
+/* ===== Mobile-First Optimizations ===== */
+/* Touch & Accessibility Improvements for iOS and Android */
+
+/* ===== Touch Optimizations ===== */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+/* Prevent text selection on interactive elements */
+button, a, .btn, .preset, .color-input {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Allow text selection on content */
+p, h1, h2, h3, h4, h5, h6, li, span {
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+/* ===== Safe Area Support (iPhone X+, Android notch) ===== */
+body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
+.navbar {
+    padding-top: calc(20px + env(safe-area-inset-top));
+}
+
+.footer {
+    padding-bottom: calc(30px + env(safe-area-inset-bottom));
+}
+
+/* ===== Minimum Touch Target Size (44x44px for iOS, 48x48px for Android) ===== */
+.btn,
+.nav-links a,
+.mobile-nav-links a,
+.mobile-menu-btn,
+.preset,
+.color-input,
+.preview-btn,
+.reset-btn,
+.social-links a,
+.modal-close,
+.scroll-indicator {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* ===== Improved Touch States ===== */
+.btn:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+}
+
+.benefit-card:active,
+.project-card:active {
+    transform: scale(0.98);
+}
+
+.preset:active {
+    transform: scale(1.15);
+}
+
+/* ===== Mobile Navigation Improvements ===== */
+.mobile-menu-btn {
+    width: 48px;
+    height: 48px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn:active {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-btn span {
+    width: 22px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ===== Smooth Scrolling ===== */
+html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar on mobile but keep functionality */
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* ===== Form Elements for Mobile ===== */
+input, button, select, textarea {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+}
+
+.color-input {
+    width: 60px;
+    height: 50px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* ===== Mobile-Specific Media Queries ===== */
+
+/* Large phones and small tablets */
+@media (max-width: 768px) {
+    /* Navigation */
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(10, 10, 15, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 999;
+        padding: calc(100px + env(safe-area-inset-top)) 24px calc(40px + env(safe-area-inset-bottom));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .mobile-menu.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .mobile-nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+    
+    .mobile-nav-links a {
+        font-size: 1.5rem;
+        font-weight: 600;
+        padding: 12px 24px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        width: 100%;
+        text-align: center;
+        max-width: 300px;
+    }
+    
+    .mobile-nav-links a:active {
+        background: rgba(59, 130, 246, 0.2);
+    }
+    
+    .mobile-nav-links .btn {
+        margin-top: 20px;
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+    
+    /* Hero adjustments */
+    .hero {
+        min-height: calc(100vh - env(safe-area-inset-top));
+        padding-top: calc(80px + env(safe-area-inset-top));
+    }
+    
+    .hero-scroll {
+        bottom: calc(20px + env(safe-area-inset-bottom));
+    }
+    
+    /* Feature points hidden on mobile */
+    .totem-features {
+        display: none;
+    }
+    
+    /* Better touch on cards */
+    .benefit-card,
+    .project-card {
+        cursor: pointer;
+    }
+    
+    /* Customizer mobile improvements */
+    .customizer-container {
+        gap: 30px;
+    }
+    
+    .customizer-preview {
+        position: relative;
+        top: 0;
+    }
+    
+    .preview-wrapper {
+        padding: 40px 20px 30px;
+        min-height: 380px;
+        border-radius: 20px;
+    }
+    
+    /* Color presets larger for touch */
+    .color-presets {
+        gap: 12px;
+    }
+    
+    .color-presets .preset {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+    }
+    
+    /* Control groups spacing */
+    .control-group {
+        margin-bottom: 32px;
+    }
+    
+    /* Modal improvements */
+    .modal-content {
+        margin: 16px;
+        max-height: calc(100vh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+        overflow-y: auto;
+    }
+    
+    /* CTA section */
+    .cta-section {
+        padding: 60px 0;
+    }
+    
+    .cta-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+    /* Typography scaling */
+    .hero-title {
+        font-size: 1.75rem;
+        line-height: 1.2;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .section-description {
+        font-size: 0.95rem;
+    }
+    
+    /* Buttons */
+    .btn {
+        padding: 14px 20px;
+        font-size: 0.95rem;
+    }
+    
+    .btn-lg {
+        padding: 16px 24px;
+        font-size: 1rem;
+    }
+    
+    /* Stats */
+    .hero-stats {
+        gap: 20px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.75rem;
+    }
+    
+    /* Benefits */
+    .benefit-card {
+        padding: 20px 16px;
+    }
+    
+    .benefit-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+    }
+    
+    .benefit-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .benefit-card p {
+        font-size: 0.9rem;
+    }
+    
+    /* Projects */
+    .project-info h3 {
+        font-size: 1.1rem;
+    }
+    
+    .project-features li {
+        font-size: 0.8rem;
+    }
+    
+    /* Customizer */
+    .control-label {
+        font-size: 0.9rem;
+    }
+    
+    .color-picker-wrapper {
+        flex-wrap: wrap;
+    }
+    
+    .color-value {
+        flex: 1 1 100%;
+        margin-top: 8px;
+    }
+    
+    .customizer-cta .btn {
+        font-size: 0.95rem;
+    }
+    
+    .cta-note {
+        font-size: 0.8rem;
+    }
+    
+    /* Specs */
+    .spec-category {
+        padding: 20px 16px;
+    }
+    
+    .spec-list li {
+        font-size: 0.85rem;
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+    }
+    
+    .spec-list li strong {
+        font-size: 0.9rem;
+    }
+    
+    /* Footer */
+    .footer {
+        padding: 40px 0 20px;
+    }
+    
+    .logo {
+        font-size: 1.25rem;
+    }
+    
+    .logo-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.5rem;
+    }
+    
+    .btn {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .section-title {
+        font-size: 1.35rem;
+    }
+    
+    .hero-cta {
+        gap: 10px;
+    }
+    
+    .hero-cta .btn {
+        width: 100%;
+    }
+}
+
+/* ===== Landscape Mode ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+        padding: 100px 0 60px;
+    }
+    
+    .hero-visual {
+        display: none;
+    }
+    
+    .hero-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .mobile-menu {
+        padding-top: 80px;
+        overflow-y: auto;
+    }
+    
+    .mobile-nav-links {
+        gap: 16px;
+    }
+    
+    .mobile-nav-links a {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+    }
+}
+
+/* ===== Dark Mode / OLED Optimization ===== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-dark: #000000;
+        --bg-darker: #000000;
+    }
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* ===== High Contrast Mode ===== */
+@media (prefers-contrast: high) {
+    .btn-primary {
+        border: 2px solid white;
+    }
+    
+    .project-card,
+    .benefit-card,
+    .spec-category {
+        border-width: 2px;
+    }
+}
+
+/* ===== iOS Specific Fixes ===== */
+@supports (-webkit-touch-callout: none) {
+    /* Fix for iOS 100vh issue */
+    .hero {
+        min-height: -webkit-fill-available;
+    }
+    
+    .mobile-menu {
+        height: -webkit-fill-available;
+    }
+    
+    /* Fix for iOS input zoom */
+    input[type="color"] {
+        font-size: 16px;
+    }
+}
+
+/* ===== Android Specific ===== */
+@supports not (-webkit-touch-callout: none) {
+    /* Android-specific styles if needed */
+    .color-input {
+        border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* ===== Print Styles ===== */
+@media print {
+    .navbar,
+    .mobile-menu,
+    .hero-scroll,
+    .customizer,
+    .cta-section,
+    .footer {
+        display: none;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .hero {
+        min-height: auto;
+        padding: 20px;
+    }
+}
