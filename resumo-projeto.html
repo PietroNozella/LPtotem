@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo do Projeto | SP Security</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 8px;
+        }
+        
+        .logo .highlight {
+            color: var(--primary);
+        }
+        
+        .header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            padding: 20px 30px;
+            text-align: center;
+        }
+        
+        .card-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .card-header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .card-body {
+            padding: 30px;
+        }
+        
+        .preview-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .totem-preview {
+            display: flex;
+            justify-content: center;
+            padding: 30px;
+            background: linear-gradient(180deg, #0f0f1a 0%, #0a0a12 100%);
+            border-radius: 16px;
+            position: relative;
+        }
+        
+        .totem-preview::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            background: var(--accent-color, #3b82f6);
+            filter: blur(60px);
+            opacity: 0.4;
+        }
+        
+        .totem-svg {
+            width: 150px;
+            height: auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .colors-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            border: 3px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+        
+        .color-info {
+            flex: 1;
+        }
+        
+        .color-info h3 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        
+        .color-info .hex-code {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            background: rgba(0,0,0,0.3);
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        
+        .timestamp {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 20px;
+        }
+        
+        .timestamp i {
+            margin-right: 6px;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .cta-section p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        .no-params {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .no-params i {
+            font-size: 4rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .no-params h2 {
+            margin-bottom: 10px;
+        }
+        
+        .no-params p {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 600px) {
+            .preview-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .totem-preview {
+                order: -1;
+            }
+            
+            .card-body {
+                padding: 20px;
+            }
+            
+            .color-swatch {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .project-card {
+                border: 2px solid #ddd;
+            }
+            
+            .cta-section {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-shield-halved"></i></span>
+                <span>SP<span class="highlight">Security</span></span>
+            </div>
+            <p>Resumo de Personalização do Totem</p>
+        </div>
+        
+        <div class="project-card" id="projectCard">
+            <!-- Conteúdo será inserido via JavaScript -->
+        </div>
+        
+        <div class="cta-section">
+            <p>Gostou das cores? Entre em contato para dar início ao projeto!</p>
+            <a href="https://wa.me/5511969218791" class="btn" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                Falar com Especialista
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const projectCard = document.getElementById('projectCard');
+            
+            // Get colors from URL parameters
+            const colors = {
+                body: params.get('body') || null,
+                accent: params.get('accent') || null,
+                led: params.get('led') || null,
+                emblem: params.get('emblem') || null
+            };
+            
+            // Check if we have valid parameters
+            if (!colors.body && !colors.accent && !colors.led && !colors.emblem) {
+                projectCard.innerHTML = `
+                    <div class="no-params">
+                        <i class="fas fa-palette"></i>
+                        <h2>Nenhuma personalização encontrada</h2>
+                        <p>Acesse nosso site para personalizar seu totem e gerar um resumo.</p>
+                        <a href="index.html#customizar" class="btn">
+                            <i class="fas fa-arrow-right"></i>
+                            Ir para o Personalizador
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Set default values if not provided
+            colors.body = colors.body || '#1a1a2e';
+            colors.accent = colors.accent || '#3b82f6';
+            colors.led = colors.led || '#3b82f6';
+            colors.emblem = colors.emblem || '#ffffff';
+            
+            // Format date
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('pt-BR', { 
+                day: '2-digit', 
+                month: '2-digit', 
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            // Generate darker version of body color for brand area
+            const darkerBody = adjustBrightness(colors.body, -20);
+            
+            // Build the card content
+            projectCard.innerHTML = `
+                <div class="card-header">
+                    <h1><i class="fas fa-palette"></i> Personalização do Cliente</h1>
+                    <p>Visualização das cores selecionadas</p>
+                </div>
+                <div class="card-body">
+                    <div class="preview-section">
+                        <div class="totem-preview" style="--accent-color: ${colors.accent}">
+                            <svg viewBox="0 0 200 500" class="totem-svg">
+                                <!-- Base/Pedestal -->
+                                <path d="M60,480 L140,480 L150,500 L50,500 Z" fill="${colors.body}"/>
+                                
+                                <!-- Corpo Principal -->
+                                <rect x="75" y="80" width="50" height="400" fill="${colors.body}" rx="3"/>
+                                
+                                <!-- Faixas Laterais -->
+                                <rect x="75" y="80" width="8" height="400" fill="${colors.accent}"/>
+                                <rect x="117" y="80" width="8" height="400" fill="${colors.accent}"/>
+                                
+                                <!-- Área de Logo/Texto -->
+                                <rect x="83" y="150" width="34" height="150" fill="${darkerBody}" rx="2"/>
+                                
+                                <!-- Emblema -->
+                                <circle cx="100" cy="380" r="18" fill="${colors.emblem}"/>
+                                
+                                <!-- Decoração Inferior -->
+                                <path d="M83,420 Q100,450 117,420" stroke="${colors.accent}" stroke-width="3" fill="none"/>
+                                <path d="M83,430 Q100,460 117,430" stroke="${colors.accent}" stroke-width="2" fill="none"/>
+                                
+                                <!-- Cabeça -->
+                                <rect x="55" y="50" width="90" height="35" fill="${colors.body}" rx="3"/>
+                                
+                                <!-- Painel LED -->
+                                <rect x="60" y="55" width="80" height="25" fill="#0a0a15" rx="2"/>
+                                <rect x="65" y="58" width="70" height="19" fill="${colors.led}" opacity="0.5" rx="1"/>
+                                
+                                <!-- Câmeras -->
+                                <g>
+                                    <rect x="25" y="58" width="30" height="15" fill="#f8f8f8" rx="2"/>
+                                    <circle cx="32" cy="65" r="5" fill="#1a1a2e"/>
+                                    <circle cx="32" cy="65" r="3" fill="${colors.led}"/>
+                                </g>
+                                <g>
+                                    <rect x="145" y="58" width="30" height="15" fill="#f8f8f8" rx="2"/>
+                                    <circle cx="168" cy="65" r="5" fill="#1a1a2e"/>
+                                    <circle cx="168" cy="65" r="3" fill="${colors.led}"/>
+                                </g>
+                                
+                                <!-- Suportes -->
+                                <rect x="50" y="60" width="8" height="8" fill="#2a2a3e"/>
+                                <rect x="142" y="60" width="8" height="8" fill="#2a2a3e"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="colors-list">
+                            <div class="color-item">
+                                <div class="color-swatch" style="background: ${colors.body}"></div>
+                                <div class="color-info">
+                                    <h3><i class="fas fa-fill-drip"></i> Cor do Corpo</h3>
+                                    <span class="hex-code">${colors.body.toUpperCase()}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="color-item">
+                                <div class="color-swatch" style="background: ${colors.accent}"></div>
+                                <div class="color-info">
+                                    <h3><i class="fas fa-brush"></i> Cor de Destaque</h3>
+                                    <span class="hex-code">${colors.accent.toUpperCase()}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="color-item">
+                                <div class="color-swatch" style="background: ${colors.led}"></div>
+                                <div class="color-info">
+                                    <h3><i class="fas fa-lightbulb"></i> Cor do LED</h3>
+                                    <span class="hex-code">${colors.led.toUpperCase()}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="color-item">
+                                <div class="color-swatch" style="background: ${colors.emblem}; border-color: rgba(0,0,0,0.2)"></div>
+                                <div class="color-info">
+                                    <h3><i class="fas fa-circle"></i> Cor do Emblema</h3>
+                                    <span class="hex-code">${colors.emblem.toUpperCase()}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timestamp">
+                        <i class="fas fa-clock"></i>
+                        Gerado em: ${dateStr}
+                    </div>
+                </div>
+            `;
+        });
+        
+        function adjustBrightness(hex, percent) {
+            const num = parseInt(hex.replace('#', ''), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = Math.max(0, Math.min(255, (num >> 16) + amt));
+            const G = Math.max(0, Math.min(255, ((num >> 8) & 0x00FF) + amt));
+            const B = Math.max(0, Math.min(255, (num & 0x0000FF) + amt));
+            return `#${(1 << 24 | R << 16 | G << 8 | B).toString(16).slice(1)}`;
+        }
+    </script>
+</body>
+</html>

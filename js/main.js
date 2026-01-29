@@ -244,15 +244,16 @@ function openProjectModal(colors) {
         `;
     }
     
-    // Update WhatsApp link with customization info
+    // Update WhatsApp link with visual summary page
     if (whatsappLink && colors) {
+        // Generate the visual summary page URL
+        const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+        const summaryUrl = `${baseUrl}resumo-projeto.html?body=${encodeURIComponent(colors.body)}&accent=${encodeURIComponent(colors.accent)}&led=${encodeURIComponent(colors.led)}&emblem=${encodeURIComponent(colors.emblem)}`;
+        
         const message = encodeURIComponent(
             `Olá! Acabei de personalizar um totem no site e gostaria de dar início ao projeto.\n\n` +
-            `🎨 Minhas escolhas de cores:\n` +
-            `• Corpo: ${colors.body}\n` +
-            `• Destaque: ${colors.accent}\n` +
-            `• LED: ${colors.led}\n` +
-            `• Emblema: ${colors.emblem}\n\n` +
+            `🎨 Veja minha personalização completa:\n` +
+            `${summaryUrl}\n\n` +
             `Aguardo contato para discutirmos os próximos passos!`
         );
         whatsappLink.href = `https://wa.me/5511969218791?text=${message}`;
