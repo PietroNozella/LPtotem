@@ -265,7 +265,7 @@
                 <div class="solution-card">
                     <div class="solution-image">
                         <div class="solution-icon-large">
-                            <i class="fas fa-face-viewfinder"></i>
+                            <i class="fas fa-fingerprint"></i>
                         </div>
                     </div>
                     <div class="solution-content">
@@ -578,81 +578,164 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-badge"><i class="fas fa-wand-magic-sparkles"></i> Personalize</span>
-                <h2 class="section-title">Monte Seu <span class="gradient-text">Totem</span></h2>
+                <h2 class="section-title">Monte Seu <span class="gradient-text">Totem SP Security</span></h2>
                 <p class="section-description">
-                    Use nosso editor interativo para visualizar como ficará seu totem personalizado. Escolha as cores e veja o resultado em tempo real.
+                    Personalize as cores do seu totem e visualize em tempo real.
                 </p>
             </div>
             
             <div class="customizer-container">
                 <div class="customizer-preview">
                     <div class="preview-wrapper">
-                        <div class="totem-3d" id="totemPreview">
-                            <!-- SVG do Totem -->
-                            <svg viewBox="0 0 200 500" class="totem-svg" id="totemSvg">
-                                <!-- Base/Pedestal -->
-                                <path class="totem-base" d="M60,480 L140,480 L150,500 L50,500 Z" fill="#1a1a2e"/>
+                        <!-- SVG Totem SP Security - Design Fiel -->
+                        <svg class="totem-svg" viewBox="0 0 160 520" id="totemSvg">
+                            <defs>
+                                <!-- Gradiente do corpo -->
+                                <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" class="body-grad-1" style="stop-color:#12121a"/>
+                                    <stop offset="50%" class="body-grad-2" style="stop-color:#0a0a0f"/>
+                                    <stop offset="100%" class="body-grad-3" style="stop-color:#12121a"/>
+                                </linearGradient>
                                 
-                                <!-- Corpo Principal -->
-                                <rect class="totem-body" x="75" y="80" width="50" height="400" fill="#1a1a2e" rx="3"/>
+                                <!-- Gradiente LED -->
+                                <linearGradient id="ledGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" class="led-grad" style="stop-color:#3b82f6;stop-opacity:0"/>
+                                    <stop offset="5%" class="led-grad" style="stop-color:#3b82f6;stop-opacity:1"/>
+                                    <stop offset="95%" class="led-grad" style="stop-color:#3b82f6;stop-opacity:1"/>
+                                    <stop offset="100%" class="led-grad" style="stop-color:#3b82f6;stop-opacity:0"/>
+                                </linearGradient>
                                 
-                                <!-- Faixas Laterais Personalizáveis -->
-                                <rect class="totem-stripe-left" x="75" y="80" width="8" height="400" fill="#3b82f6"/>
-                                <rect class="totem-stripe-right" x="117" y="80" width="8" height="400" fill="#3b82f6"/>
+                                <!-- Gradiente fachada -->
+                                <linearGradient id="facadeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" class="facade-grad" style="stop-color:#1e3a8a;stop-opacity:0"/>
+                                    <stop offset="10%" class="facade-grad" style="stop-color:#1e3a8a;stop-opacity:0.5"/>
+                                    <stop offset="90%" class="facade-grad" style="stop-color:#1e3a8a;stop-opacity:0.5"/>
+                                    <stop offset="100%" class="facade-grad" style="stop-color:#1e3a8a;stop-opacity:0"/>
+                                </linearGradient>
                                 
-                                <!-- Área de Logo/Texto Superior -->
-                                <rect class="totem-brand-area" x="83" y="150" width="34" height="150" fill="#0f0f1a" rx="2"/>
-                                
-                                <!-- Área de Emblema -->
-                                <circle class="totem-emblem" cx="100" cy="380" r="18" fill="#ffffff"/>
-                                
-                                <!-- Elementos Decorativos Inferiores -->
-                                <path class="totem-decor-bottom" d="M83,420 Q100,450 117,420" stroke="#3b82f6" stroke-width="3" fill="none"/>
-                                <path class="totem-decor-bottom2" d="M83,430 Q100,460 117,430" stroke="#3b82f6" stroke-width="2" fill="none"/>
-                                
-                                <!-- Cabeça do Totem -->
-                                <rect class="totem-head" x="55" y="50" width="90" height="35" fill="#1a1a2e" rx="3"/>
-                                
-                                <!-- Painel LED -->
-                                <rect class="totem-led" x="60" y="55" width="80" height="25" fill="#0a0a15" rx="2"/>
-                                <rect class="totem-led-glow" x="65" y="58" width="70" height="19" fill="#3b82f6" opacity="0.3" rx="1"/>
-                                
-                                <!-- Câmeras -->
-                                <g class="camera-left">
-                                    <rect x="25" y="58" width="30" height="15" fill="#f8f8f8" rx="2"/>
-                                    <circle cx="32" cy="65" r="5" fill="#1a1a2e"/>
-                                    <circle cx="32" cy="65" r="3" fill="#3b82f6"/>
-                                </g>
-                                <g class="camera-right">
-                                    <rect x="145" y="58" width="30" height="15" fill="#f8f8f8" rx="2"/>
-                                    <circle cx="168" cy="65" r="5" fill="#1a1a2e"/>
-                                    <circle cx="168" cy="65" r="3" fill="#3b82f6"/>
-                                </g>
-                                
-                                <!-- Suportes das Câmeras -->
-                                <rect x="50" y="60" width="8" height="8" fill="#2a2a3e"/>
-                                <rect x="142" y="60" width="8" height="8" fill="#2a2a3e"/>
-                            </svg>
-                        </div>
-                        <div class="preview-floor"></div>
+                                <!-- Filtros de glow -->
+                                <filter id="ledGlow" x="-100%" y="-10%" width="300%" height="120%">
+                                    <feGaussianBlur stdDeviation="4" result="blur"/>
+                                    <feMerge>
+                                        <feMergeNode in="blur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                                <filter id="cameraGlow" x="-100%" y="-100%" width="300%" height="300%">
+                                    <feGaussianBlur stdDeviation="2" result="blur"/>
+                                    <feMerge>
+                                        <feMergeNode in="blur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                                <filter id="textGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur stdDeviation="1" result="blur"/>
+                                    <feMerge>
+                                        <feMergeNode in="blur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Sombra no chão -->
+                            <ellipse cx="80" cy="505" rx="28" ry="6" fill="rgba(0,0,0,0.5)"/>
+                            
+                            <!-- ========== TOPO COM DUAS CÂMERAS ========== -->
+                            <!-- Ponta triangular -->
+                            <polygon class="top-peak body-part" points="80,12 55,42 105,42" fill="#0a0a0f"/>
+                            
+                            <!-- Barra do topo -->
+                            <rect class="top-bar body-part" x="50" y="42" width="60" height="10" fill="#0d0d14"/>
+                            
+                            <!-- ====== CÂMERA ESQUERDA (apontando para esquerda) ====== -->
+                            <!-- Suporte/braço -->
+                            <rect class="camera-arm-left body-part" x="38" y="44" width="14" height="8" fill="#08080c"/>
+                            <!-- Corpo da câmera (cilíndrico deitado) -->
+                            <ellipse class="camera-body-left body-part" cx="28" cy="48" rx="12" ry="7" fill="#0d0d14"/>
+                            <!-- Detalhe traseiro -->
+                            <ellipse class="camera-back-left body-part" cx="38" cy="48" rx="4" ry="6" fill="#08080c"/>
+                            <!-- Frente da câmera (lente) -->
+                            <ellipse class="camera-front-left body-part" cx="18" cy="48" rx="6" ry="6" fill="#0a0a0f"/>
+                            <ellipse class="camera-lens-left body-part" cx="17" cy="48" rx="4" ry="4" fill="#050508"/>
+                            <!-- LED da câmera -->
+                            <circle class="camera-glow-left led-part" cx="16" cy="48" r="2.5" fill="#3b82f6" filter="url(#cameraGlow)"/>
+                            <!-- Detalhe superior (viseira) -->
+                            <path class="camera-visor-left body-part" d="M16,41 L22,43 L22,46 L14,46 Z" fill="#08080c"/>
+                            
+                            <!-- ====== CÂMERA DIREITA (apontando para direita) ====== -->
+                            <!-- Suporte/braço -->
+                            <rect class="camera-arm-right body-part" x="108" y="44" width="14" height="8" fill="#08080c"/>
+                            <!-- Corpo da câmera (cilíndrico deitado) -->
+                            <ellipse class="camera-body-right body-part" cx="132" cy="48" rx="12" ry="7" fill="#0d0d14"/>
+                            <!-- Detalhe traseiro -->
+                            <ellipse class="camera-back-right body-part" cx="122" cy="48" rx="4" ry="6" fill="#08080c"/>
+                            <!-- Frente da câmera (lente) -->
+                            <ellipse class="camera-front-right body-part" cx="142" cy="48" rx="6" ry="6" fill="#0a0a0f"/>
+                            <ellipse class="camera-lens-right body-part" cx="143" cy="48" rx="4" ry="4" fill="#050508"/>
+                            <!-- LED da câmera -->
+                            <circle class="camera-glow-right led-part" cx="144" cy="48" r="2.5" fill="#3b82f6" filter="url(#cameraGlow)"/>
+                            <!-- Detalhe superior (viseira) -->
+                            <path class="camera-visor-right body-part" d="M144,41 L138,43 L138,46 L146,46 Z" fill="#08080c"/>
+                            
+                            <!-- ========== CORPO PRINCIPAL ========== -->
+                            <!-- Face frontal -->
+                            <rect class="body-front body-part" x="52" y="50" width="56" height="420" fill="url(#bodyGradient)"/>
+                            
+                            <!-- Laterais para profundidade 3D -->
+                            <polygon class="body-side-left body-part" points="52,50 48,55 48,465 52,470" fill="#050508"/>
+                            <polygon class="body-side-right body-part" points="108,50 112,55 112,465 108,470" fill="#050508"/>
+                            
+                            <!-- ========== FAIXAS LED LATERAIS ========== -->
+                            <rect class="led-strip led-left led-part" x="53" y="58" width="4" height="405" fill="url(#ledGradient)" filter="url(#ledGlow)"/>
+                            <rect class="led-strip led-right led-part" x="103" y="58" width="4" height="405" fill="url(#ledGradient)" filter="url(#ledGlow)"/>
+                            
+                            <!-- ========== ÁREA DA FACHADA ========== -->
+                            <rect class="facade-area facade-part" x="59" y="65" width="42" height="395" fill="url(#facadeGradient)"/>
+                            
+                            <!-- ========== TEXTO "SP SECURITY" VERTICAL CENTRALIZADO ========== -->
+                            <!-- Texto centralizado no meio do totem -->
+                            
+                            <!-- "SECURITY" na cor do LED (em cima) -->
+                            <text class="brand-security led-text" 
+                                  x="90" y="270"
+                                  transform="rotate(-90, 90, 270)" 
+                                  font-family="Arial Black, sans-serif" 
+                                  font-size="32" 
+                                  font-weight="900" 
+                                  fill="#3b82f6"
+                                  letter-spacing="1"
+                                  text-anchor="middle"
+                                  filter="url(#textGlow)">SECURITY</text>
+                            
+                            <!-- "SP" em BRANCO (embaixo do SECURITY) -->
+                            <text class="brand-sp" 
+                                  x="90" y="115"
+                                  transform="rotate(-90, 90, 115)" 
+                                  font-family="Arial Black, sans-serif" 
+                                  font-size="32" 
+                                  font-weight="900" 
+                                  fill="white"
+                                  letter-spacing="2"
+                                  text-anchor="middle">SP</text>
+                            
+                            <!-- ========== BASE ========== -->
+                            <polygon class="base-top body-part" points="48,465 112,465 116,475 44,475" fill="#0a0a0f"/>
+                            <rect class="base-main body-part" x="42" y="475" width="76" height="16" fill="#08080c"/>
+                            <rect class="base-led led-part" x="55" y="479" width="50" height="2" fill="#3b82f6" opacity="0.5" filter="url(#cameraGlow)"/>
+                            <rect class="base-bottom body-part" x="40" y="489" width="80" height="6" rx="2" fill="#050508"/>
+                            
+                            <!-- Glow no chão -->
+                            <ellipse class="floor-glow led-part" cx="80" cy="502" rx="45" ry="8" fill="#3b82f6" opacity="0.08" filter="url(#ledGlow)"/>
+                        </svg>
+                        
+                        <!-- Reflexo de luz no chão -->
                         <div class="preview-glow" id="previewGlow"></div>
-                    </div>
-                    <div class="preview-actions">
-                        <button class="preview-btn" id="rotateLeft" title="Girar Esquerda">
-                            <i class="fas fa-rotate-left"></i>
-                        </button>
-                        <button class="preview-btn" id="resetView" title="Resetar Vista">
-                            <i class="fas fa-expand"></i>
-                        </button>
-                        <button class="preview-btn" id="rotateRight" title="Girar Direita">
-                            <i class="fas fa-rotate-right"></i>
-                        </button>
                     </div>
                 </div>
                 
                 <div class="customizer-controls">
                     <div class="controls-header">
-                        <h3><i class="fas fa-sliders"></i> Opções de Personalização</h3>
+                        <h3><i class="fas fa-palette"></i> Personalize as Cores</h3>
                         <button class="reset-btn" id="resetColors">
                             <i class="fas fa-undo"></i> Resetar
                         </button>
@@ -660,106 +743,105 @@
                     
                     <div class="control-group">
                         <label class="control-label">
-                            <span class="label-icon"><i class="fas fa-fill-drip"></i></span>
-                            Cor Principal do Corpo
+                            <span class="label-icon"><i class="fas fa-cube"></i></span>
+                            Cor do Corpo
                         </label>
                         <div class="color-picker-wrapper">
-                            <input type="color" id="bodyColor" value="#1a1a2e" class="color-input">
-                            <span class="color-value" id="bodyColorValue">#1a1a2e</span>
+                            <input type="color" id="bodyColor" value="#0a0a0f" class="color-input">
+                            <span class="color-value" id="bodyColorValue">#0a0a0f</span>
                         </div>
                         <div class="color-presets" data-target="bodyColor">
-                            <button class="preset" style="background: #1a1a2e" data-color="#1a1a2e"></button>
-                            <button class="preset" style="background: #0d1b2a" data-color="#0d1b2a"></button>
-                            <button class="preset" style="background: #1b263b" data-color="#1b263b"></button>
-                            <button class="preset" style="background: #2d3436" data-color="#2d3436"></button>
-                            <button class="preset" style="background: #1e3a5f" data-color="#1e3a5f"></button>
-                        </div>
-                    </div>
-                    
-                    <div class="control-group">
-                        <label class="control-label">
-                            <span class="label-icon"><i class="fas fa-brush"></i></span>
-                            Cor de Destaque (Faixas)
-                        </label>
-                        <div class="color-picker-wrapper">
-                            <input type="color" id="accentColor" value="#3b82f6" class="color-input">
-                            <span class="color-value" id="accentColorValue">#3b82f6</span>
-                        </div>
-                        <div class="color-presets" data-target="accentColor">
-                            <button class="preset" style="background: #3b82f6" data-color="#3b82f6"></button>
-                            <button class="preset" style="background: #ef4444" data-color="#ef4444"></button>
-                            <button class="preset" style="background: #22c55e" data-color="#22c55e"></button>
-                            <button class="preset" style="background: #f59e0b" data-color="#f59e0b"></button>
-                            <button class="preset" style="background: #8b5cf6" data-color="#8b5cf6"></button>
-                            <button class="preset" style="background: #06b6d4" data-color="#06b6d4"></button>
+                            <button class="preset active" style="background: #0a0a0f" data-color="#0a0a0f" title="Preto"></button>
+                            <button class="preset" style="background: #1a1a2e" data-color="#1a1a2e" title="Azul Noite"></button>
+                            <button class="preset" style="background: #1c1c27" data-color="#1c1c27" title="Cinza Escuro"></button>
+                            <button class="preset" style="background: #0c1929" data-color="#0c1929" title="Azul Petróleo"></button>
+                            <button class="preset" style="background: #0d1f0d" data-color="#0d1f0d" title="Verde Escuro"></button>
+                            <button class="preset" style="background: #1f0d0d" data-color="#1f0d0d" title="Vinho"></button>
+                            <button class="preset" style="background: #2d2d2d" data-color="#2d2d2d" title="Grafite"></button>
+                            <button class="preset" style="background: #1a1a1a" data-color="#1a1a1a" title="Carvão"></button>
+                            <button class="preset" style="background: #0f172a" data-color="#0f172a" title="Slate"></button>
+                            <button class="preset" style="background: #18181b" data-color="#18181b" title="Zinc"></button>
+                            <button class="preset" style="background: #1e1b4b" data-color="#1e1b4b" title="Índigo"></button>
+                            <button class="preset" style="background: #172554" data-color="#172554" title="Azul Marinho"></button>
                         </div>
                     </div>
                     
                     <div class="control-group">
                         <label class="control-label">
                             <span class="label-icon"><i class="fas fa-lightbulb"></i></span>
-                            Cor do LED
+                            Cor dos LEDs
                         </label>
                         <div class="color-picker-wrapper">
                             <input type="color" id="ledColor" value="#3b82f6" class="color-input">
                             <span class="color-value" id="ledColorValue">#3b82f6</span>
                         </div>
                         <div class="color-presets" data-target="ledColor">
-                            <button class="preset" style="background: #3b82f6" data-color="#3b82f6"></button>
-                            <button class="preset" style="background: #22c55e" data-color="#22c55e"></button>
-                            <button class="preset" style="background: #ef4444" data-color="#ef4444"></button>
-                            <button class="preset" style="background: #ffffff" data-color="#ffffff"></button>
-                            <button class="preset" style="background: #f59e0b" data-color="#f59e0b"></button>
+                            <button class="preset active" style="background: #3b82f6" data-color="#3b82f6" title="Azul"></button>
+                            <button class="preset" style="background: #22c55e" data-color="#22c55e" title="Verde"></button>
+                            <button class="preset" style="background: #ef4444" data-color="#ef4444" title="Vermelho"></button>
+                            <button class="preset" style="background: #eab308" data-color="#eab308" title="Amarelo"></button>
+                            <button class="preset" style="background: #a855f7" data-color="#a855f7" title="Roxo"></button>
+                            <button class="preset" style="background: #06b6d4" data-color="#06b6d4" title="Ciano"></button>
+                            <button class="preset" style="background: #f97316" data-color="#f97316" title="Laranja"></button>
+                            <button class="preset" style="background: #ec4899" data-color="#ec4899" title="Rosa"></button>
+                            <button class="preset" style="background: #14b8a6" data-color="#14b8a6" title="Teal"></button>
+                            <button class="preset" style="background: #84cc16" data-color="#84cc16" title="Lima"></button>
+                            <button class="preset" style="background: #f43f5e" data-color="#f43f5e" title="Rosa Vermelho"></button>
+                            <button class="preset" style="background: #ffffff" data-color="#ffffff" title="Branco"></button>
                         </div>
                     </div>
                     
                     <div class="control-group">
                         <label class="control-label">
-                            <span class="label-icon"><i class="fas fa-circle"></i></span>
-                            Cor do Emblema
+                            <span class="label-icon"><i class="fas fa-tag"></i></span>
+                            Cor da Fachada
                         </label>
                         <div class="color-picker-wrapper">
-                            <input type="color" id="emblemColor" value="#ffffff" class="color-input">
-                            <span class="color-value" id="emblemColorValue">#ffffff</span>
+                            <input type="color" id="facadeColor" value="#1e3a8a" class="color-input">
+                            <span class="color-value" id="facadeColorValue">#1e3a8a</span>
                         </div>
-                        <div class="color-presets" data-target="emblemColor">
-                            <button class="preset" style="background: #ffffff" data-color="#ffffff"></button>
-                            <button class="preset" style="background: #f8f8f8" data-color="#f8f8f8"></button>
-                            <button class="preset" style="background: #e5e7eb" data-color="#e5e7eb"></button>
-                            <button class="preset" style="background: #fef3c7" data-color="#fef3c7"></button>
+                        <div class="color-presets" data-target="facadeColor">
+                            <button class="preset active" style="background: #1e3a8a" data-color="#1e3a8a" title="Azul"></button>
+                            <button class="preset" style="background: #166534" data-color="#166534" title="Verde"></button>
+                            <button class="preset" style="background: #991b1b" data-color="#991b1b" title="Vermelho"></button>
+                            <button class="preset" style="background: #6b21a8" data-color="#6b21a8" title="Roxo"></button>
+                            <button class="preset" style="background: #c2410c" data-color="#c2410c" title="Laranja"></button>
+                            <button class="preset" style="background: #155e75" data-color="#155e75" title="Teal"></button>
+                            <button class="preset" style="background: #0f766e" data-color="#0f766e" title="Verde Água"></button>
+                            <button class="preset" style="background: #7c2d12" data-color="#7c2d12" title="Marrom"></button>
+                            <button class="preset" style="background: #4c1d95" data-color="#4c1d95" title="Violeta"></button>
+                            <button class="preset" style="background: #0c4a6e" data-color="#0c4a6e" title="Azul Escuro"></button>
+                            <button class="preset" style="background: #831843" data-color="#831843" title="Pink"></button>
+                            <button class="preset" style="background: #365314" data-color="#365314" title="Verde Oliva"></button>
                         </div>
                     </div>
                     
                     <div class="customizer-summary">
-                        <h4>Resumo da Personalização</h4>
+                        <h4><i class="fas fa-check-circle"></i> Sua Configuração</h4>
                         <div class="summary-colors">
                             <div class="summary-item">
                                 <span class="summary-swatch" id="summaryBody"></span>
                                 <span>Corpo</span>
                             </div>
                             <div class="summary-item">
-                                <span class="summary-swatch" id="summaryAccent"></span>
-                                <span>Destaque</span>
-                            </div>
-                            <div class="summary-item">
                                 <span class="summary-swatch" id="summaryLed"></span>
-                                <span>LED</span>
+                                <span>LEDs</span>
                             </div>
                             <div class="summary-item">
-                                <span class="summary-swatch" id="summaryEmblem"></span>
-                                <span>Emblema</span>
+                                <span class="summary-swatch" id="summaryFacade"></span>
+                                <span>Fachada</span>
                             </div>
                         </div>
                     </div>
                     
                     <div class="customizer-cta">
                         <button class="btn btn-primary btn-lg btn-block" id="startProject">
-                            <i class="fas fa-comments"></i>
-                            Solicitar Orçamento do Totem
+                            <i class="fab fa-whatsapp"></i>
+                            Solicitar Orçamento
                         </button>
                         <p class="cta-note">
                             <i class="fas fa-info-circle"></i>
-                            Ao clicar, você será direcionado para conversar com nosso especialista.
+                            As cores serão enviadas para nosso especialista.
                         </p>
                     </div>
                 </div>
