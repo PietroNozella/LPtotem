@@ -2,7 +2,7 @@
 
 .customizer-premium {
     padding: 100px 0;
-    background: linear-gradient(180deg, #0a0a0f 0%, #12121a 50%, #0a0a0f 100%);
+    background: linear-gradient(180deg, #1a1a24 0%, #1e1e2e 50%, #1a1a24 100%);
     position: relative;
     overflow: hidden;
 }
@@ -40,7 +40,7 @@
 .preview-stage {
     background: 
         radial-gradient(ellipse at center, rgba(59, 130, 246, 0.08) 0%, transparent 70%),
-        linear-gradient(135deg, #0a0a0f 0%, #1e293b 50%, #0a0a0f 100%);
+        linear-gradient(135deg, #1a1a24 0%, #1e293b 50%, #1a1a24 100%);
     border-radius: 24px;
     padding: 60px 40px;
     border: 1px solid rgba(59, 130, 246, 0.2);
@@ -259,7 +259,7 @@
     position: relative;
     display: inline-block;
     padding: 0 1rem;
-    background: #0a0a0f;
+    background: #1a1a24;
     color: rgba(255, 255, 255, 0.4);
     font-size: 0.875rem;
     font-weight: 500;
