@@ -39,43 +39,63 @@ document.addEventListener('DOMContentLoaded', function() {
         '#fbbf24': 'Dourado'
     };
     
-    // Aplicar cores com filtros CSS
+    // Aplicar cores com filtros CSS diretamente na imagem
     function applyBodyColor(color) {
-        if (!bodyOverlay || !totemBase) return;
+        if (!totemBase) return;
         
-        // Aplicar filtro de cor na imagem base
-        const hue = getHueFromColor(color);
-        const saturation = getSaturationFromColor(color);
-        const brightness = getBrightnessFromColor(color);
+        // Aplicar filtro de cor na imagem base mantendo visibilidade total
+        let filterString = 'drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5))';
         
-        totemBase.style.filter = `
-            brightness(${brightness}%)
-            saturate(${saturation}%)
-            hue-rotate(${hue}deg)
-            drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5))
-        `;
+        // Ajustar filtros baseado na cor escolhida
+        if (color === '#0a0a0f') {
+            // Preto Fosco - padrão
+            filterString = 'brightness(1) contrast(1.1) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5))';
+        } else if (color === '#1e293b') {
+            // Cinza Escuro
+            filterString = 'brightness(0.9) contrast(1.05) saturate(0.8) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5))';
+        } else if (color === '#ffffff') {
+            // Branco
+            filterString = 'brightness(1.8) contrast(0.9) saturate(0.5) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.3))';
+        } else if (color === '#1e3a8a') {
+            // Azul Marinho
+            filterString = 'brightness(0.8) contrast(1.2) saturate(1.5) hue-rotate(200deg) drop-shadow(0 30px 60px rgba(30, 58, 138, 0.5))';
+        } else if (color === '#7c2d12') {
+            // Vermelho Escuro
+            filterString = 'brightness(0.7) contrast(1.3) saturate(1.6) hue-rotate(340deg) drop-shadow(0 30px 60px rgba(124, 45, 18, 0.5))';
+        } else if (color === '#064e3b') {
+            // Verde Escuro
+            filterString = 'brightness(0.75) contrast(1.25) saturate(1.4) hue-rotate(100deg) drop-shadow(0 30px 60px rgba(6, 78, 59, 0.5))';
+        }
         
-        bodyOverlay.style.background = color;
+        totemBase.style.filter = filterString;
         
         currentConfig.body = { color, name: colorNames[color] || color };
         updateSummary();
     }
     
     function applyLedColor(color) {
-        if (!ledOverlay) return;
+        if (!totemBase) return;
         
-        ledOverlay.style.background = `radial-gradient(ellipse at center, ${color} 0%, transparent 70%)`;
-        ledOverlay.style.opacity = '0.8';
+        // Aplicar brilho LED como overlay sutil
+        if (ledOverlay) {
+            ledOverlay.style.background = `radial-gradient(ellipse 40% 30% at 50% 45%, ${color} 0%, transparent 60%)`;
+            ledOverlay.style.opacity = '0.4';
+            ledOverlay.style.mixBlendMode = 'screen';
+        }
         
         currentConfig.led = { color, name: colorNames[color] || color };
         updateSummary();
     }
     
     function applyTextColor(color) {
-        if (!textOverlay) return;
+        if (!totemBase) return;
         
-        textOverlay.style.background = color;
-        textOverlay.style.opacity = '0.6';
+        // Aplicar cor de texto como overlay muito sutil na área do texto
+        if (textOverlay) {
+            textOverlay.style.background = `linear-gradient(to bottom, transparent 0%, transparent 35%, ${color} 40%, ${color} 45%, transparent 50%, transparent 100%)`;
+            textOverlay.style.opacity = '0.25';
+            textOverlay.style.mixBlendMode = 'overlay';
+        }
         
         currentConfig.text = { color, name: colorNames[color] || color };
         updateSummary();
@@ -260,10 +280,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Garantir que a imagem base esteja sempre visível
+    if (totemBase) {
+        totemBase.style.opacity = '1';
+        totemBase.style.zIndex = '10';
+        totemBase.style.position = 'relative';
+    }
+    
+    // Inicializar overlays como invisíveis
+    if (bodyOverlay) {
+        bodyOverlay.style.opacity = '0';
+        bodyOverlay.style.pointerEvents = 'none';
+    }
+    if (ledOverlay) {
+        ledOverlay.style.opacity = '0';
+        ledOverlay.style.pointerEvents = 'none';
+    }
+    if (textOverlay) {
+        textOverlay.style.opacity = '0';
+        textOverlay.style.pointerEvents = 'none';
+    }
+    
     // Inicializar com cores padrão
     applyBodyColor('#0a0a0f');
     applyLedColor('#3b82f6');
     applyTextColor('#ffffff');
     
     console.log('Customizer Premium carregado com sucesso!');
+    console.log('Imagem do totem visível:', totemBase ? 'SIM' : 'NÃO');
 });
