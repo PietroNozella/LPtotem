@@ -616,36 +616,75 @@
             <div class="customizer-container">
                 <div class="customizer-preview">
                     <div class="preview-wrapper">
-                        <!-- SVG Totem SP Security - Design Fiel -->
-                        <svg class="totem-svg" viewBox="0 0 160 520" id="totemSvg">
+                        <!-- SVG Totem SP Security - Design Realista 3D -->
+                        <svg class="totem-svg" viewBox="-10 0 220 540" id="totemSvg">
                             <defs>
-                                <!-- Gradiente do corpo -->
+                                <!-- Gradiente do corpo frontal (simula superfície metálica) -->
                                 <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" class="body-grad-1" style="stop-color:#12121a"/>
-                                    <stop offset="50%" class="body-grad-2" style="stop-color:#0a0a0f"/>
-                                    <stop offset="100%" class="body-grad-3" style="stop-color:#12121a"/>
+                                    <stop offset="0%" class="body-grad-1" style="stop-color:#1a1a22"/>
+                                    <stop offset="15%" class="body-grad-2" style="stop-color:#0d0d12"/>
+                                    <stop offset="40%" class="body-grad-3" style="stop-color:#0a0a0f"/>
+                                    <stop offset="60%" class="body-grad-4" style="stop-color:#0a0a0f"/>
+                                    <stop offset="85%" class="body-grad-5" style="stop-color:#0d0d12"/>
+                                    <stop offset="100%" class="body-grad-6" style="stop-color:#151518"/>
                                 </linearGradient>
                                 
-                                <!-- Gradiente LED -->
+                                <!-- Gradiente lateral direito (perspectiva) -->
+                                <linearGradient id="sideGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" class="side-grad-1" style="stop-color:#0a0a0f"/>
+                                    <stop offset="100%" class="side-grad-2" style="stop-color:#050507"/>
+                                </linearGradient>
+                                
+                                <!-- Gradiente do topo (perspectiva 3D) -->
+                                <linearGradient id="topGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                                    <stop offset="0%" class="top-grad-1" style="stop-color:#0a0a0f"/>
+                                    <stop offset="100%" class="top-grad-2" style="stop-color:#18181f"/>
+                                </linearGradient>
+                                
+                                <!-- Padrão de pixels para LED -->
+                                <pattern id="ledPixelPattern" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+                                    <rect width="2" height="2" fill="currentColor" opacity="0.9"/>
+                                    <rect x="2" width="1" height="3" fill="currentColor" opacity="0.3"/>
+                                    <rect y="2" width="3" height="1" fill="currentColor" opacity="0.3"/>
+                                </pattern>
+                                
+                                <!-- Gradiente LED com brilho -->
                                 <linearGradient id="ledGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" class="led-grad" style="stop-color:#3b82f6;stop-opacity:0"/>
-                                    <stop offset="5%" class="led-grad" style="stop-color:#3b82f6;stop-opacity:1"/>
-                                    <stop offset="95%" class="led-grad" style="stop-color:#3b82f6;stop-opacity:1"/>
-                                    <stop offset="100%" class="led-grad" style="stop-color:#3b82f6;stop-opacity:0"/>
+                                    <stop offset="0%" class="led-grad" style="stop-color:#3b82f6;stop-opacity:0.2"/>
+                                    <stop offset="3%" class="led-grad" style="stop-color:#3b82f6;stop-opacity:1"/>
+                                    <stop offset="50%" class="led-grad" style="stop-color:#60a5fa;stop-opacity:1"/>
+                                    <stop offset="97%" class="led-grad" style="stop-color:#3b82f6;stop-opacity:1"/>
+                                    <stop offset="100%" class="led-grad" style="stop-color:#3b82f6;stop-opacity:0.2"/>
+                                </linearGradient>
+                                
+                                <!-- Gradiente LED lateral (mais escuro) -->
+                                <linearGradient id="ledSideGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" class="led-side-grad" style="stop-color:#3b82f6;stop-opacity:0"/>
+                                    <stop offset="5%" class="led-side-grad" style="stop-color:#3b82f6;stop-opacity:0.6"/>
+                                    <stop offset="95%" class="led-side-grad" style="stop-color:#3b82f6;stop-opacity:0.6"/>
+                                    <stop offset="100%" class="led-side-grad" style="stop-color:#3b82f6;stop-opacity:0"/>
                                 </linearGradient>
                                 
                                 <!-- Gradiente fachada -->
                                 <linearGradient id="facadeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                                     <stop offset="0%" class="facade-grad" style="stop-color:#1e3a8a;stop-opacity:0"/>
-                                    <stop offset="10%" class="facade-grad" style="stop-color:#1e3a8a;stop-opacity:0.5"/>
-                                    <stop offset="90%" class="facade-grad" style="stop-color:#1e3a8a;stop-opacity:0.5"/>
+                                    <stop offset="8%" class="facade-grad" style="stop-color:#1e3a8a;stop-opacity:0.4"/>
+                                    <stop offset="92%" class="facade-grad" style="stop-color:#1e3a8a;stop-opacity:0.4"/>
                                     <stop offset="100%" class="facade-grad" style="stop-color:#1e3a8a;stop-opacity:0"/>
                                 </linearGradient>
                                 
-                                <!-- Filtros de glow -->
-                                <filter id="ledGlow" x="-100%" y="-10%" width="300%" height="120%">
-                                    <feGaussianBlur stdDeviation="4" result="blur"/>
+                                <!-- Filtros -->
+                                <filter id="ledGlow" x="-50%" y="-5%" width="200%" height="110%">
+                                    <feGaussianBlur stdDeviation="3" result="blur"/>
                                     <feMerge>
+                                        <feMergeNode in="blur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                                <filter id="strongGlow" x="-100%" y="-10%" width="300%" height="120%">
+                                    <feGaussianBlur stdDeviation="6" result="blur"/>
+                                    <feMerge>
+                                        <feMergeNode in="blur"/>
                                         <feMergeNode in="blur"/>
                                         <feMergeNode in="SourceGraphic"/>
                                     </feMerge>
@@ -657,104 +696,320 @@
                                         <feMergeNode in="SourceGraphic"/>
                                     </feMerge>
                                 </filter>
-                                <filter id="textGlow" x="-20%" y="-20%" width="140%" height="140%">
-                                    <feGaussianBlur stdDeviation="1" result="blur"/>
+                                <filter id="textGlow" x="-30%" y="-30%" width="160%" height="160%">
+                                    <feGaussianBlur stdDeviation="2" result="blur"/>
                                     <feMerge>
+                                        <feMergeNode in="blur"/>
                                         <feMergeNode in="blur"/>
                                         <feMergeNode in="SourceGraphic"/>
                                     </feMerge>
                                 </filter>
+                                <filter id="innerShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feOffset dx="1" dy="1"/>
+                                    <feGaussianBlur stdDeviation="1" result="shadow"/>
+                                    <feComposite in="SourceGraphic" in2="shadow" operator="over"/>
+                                </filter>
+                                
+                                <!-- Reflexo metálico -->
+                                <linearGradient id="metalReflect" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/>
+                                    <stop offset="50%" style="stop-color:rgba(255,255,255,0)"/>
+                                    <stop offset="100%" style="stop-color:rgba(255,255,255,0.05)"/>
+                                </linearGradient>
                             </defs>
                             
                             <!-- Sombra no chão -->
-                            <ellipse cx="80" cy="505" rx="28" ry="6" fill="rgba(0,0,0,0.5)"/>
+                            <ellipse cx="95" cy="525" rx="35" ry="8" fill="rgba(0,0,0,0.6)"/>
+                            <ellipse cx="95" cy="525" rx="25" ry="5" fill="rgba(0,0,0,0.3)"/>
                             
-                            <!-- ========== TOPO COM DUAS CÂMERAS ========== -->
-                            <!-- Ponta triangular -->
-                            <polygon class="top-peak body-part" points="80,12 55,42 105,42" fill="#0a0a0f"/>
+                            <!-- ========== TOPO 3D COM PERSPECTIVA ========== -->
+                            <!-- Face superior do topo (perspectiva) -->
+                            <polygon class="top-face body-part" points="85,15 60,40 120,40 110,15" fill="url(#topGradient)"/>
+                            <!-- Face frontal do topo -->
+                            <polygon class="top-front body-part" points="60,40 60,52 120,52 120,40" fill="url(#bodyGradient)"/>
+                            <!-- Face lateral direita do topo -->
+                            <polygon class="top-side body-part" points="120,40 135,48 135,58 120,52" fill="url(#sideGradient)"/>
+                            <!-- Ponta piramidal -->
+                            <polygon class="top-peak body-part" points="85,15 110,15 97,5" fill="#0d0d12"/>
                             
-                            <!-- Barra do topo -->
-                            <rect class="top-bar body-part" x="50" y="42" width="60" height="10" fill="#0d0d14"/>
+                            <!-- ====== CÂMERA ESQUERDA (estilo bullet branca) ====== -->
+                            <g class="camera-left" transform="translate(-5, -8)">
+                                <!-- Suporte/base de fixação (preto) -->
+                                <ellipse class="camera-mount body-part" cx="55" cy="52" rx="8" ry="5" fill="#1a1a1a"/>
+                                <rect class="camera-bracket body-part" x="48" y="48" width="14" height="8" fill="#222"/>
+                                
+                                <!-- Braço articulado (cinza escuro) -->
+                                <rect class="camera-arm" x="32" y="50" width="20" height="6" rx="3" fill="#e8e8e8"/>
+                                <circle cx="52" cy="53" r="4" fill="#d0d0d0"/>
+                                <circle cx="52" cy="53" r="2.5" fill="#888"/>
+                                
+                                <!-- Corpo da câmera (branco/cinza claro - bullet style) -->
+                                <defs>
+                                    <linearGradient id="cameraBodyGradLeft" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ffffff"/>
+                                        <stop offset="30%" style="stop-color:#f5f5f5"/>
+                                        <stop offset="70%" style="stop-color:#e0e0e0"/>
+                                        <stop offset="100%" style="stop-color:#c8c8c8"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Corpo cilíndrico principal -->
+                                <ellipse cx="32" cy="53" rx="4" ry="6" fill="#d8d8d8"/>
+                                <rect x="8" y="47" width="26" height="12" rx="2" fill="url(#cameraBodyGradLeft)"/>
+                                <!-- Parte frontal (onde fica a lente) -->
+                                <ellipse cx="8" cy="53" rx="6" ry="7" fill="#e8e8e8"/>
+                                
+                                <!-- Anel da lente (preto) -->
+                                <ellipse cx="5" cy="53" rx="5.5" ry="6.5" fill="#1a1a1a"/>
+                                <!-- Lente externa -->
+                                <ellipse cx="4" cy="53" rx="4.5" ry="5.5" fill="#0a0a0a"/>
+                                <!-- Lente interna (vidro) -->
+                                <ellipse cx="3" cy="53" rx="3" ry="4" fill="#151520"/>
+                                <!-- Reflexo na lente -->
+                                <ellipse cx="2" cy="51" rx="1.5" ry="2" fill="rgba(255,255,255,0.2)"/>
+                                <!-- LED IR (pequeno ponto azul) -->
+                                <circle class="camera-led led-part" cx="1" cy="53" r="1.5" fill="#3b82f6" filter="url(#cameraGlow)"/>
+                                
+                                <!-- Viseira/sun shield superior -->
+                                <path d="M-2,45 L12,47 L12,49 L-2,48 Z" fill="#2a2a2a"/>
+                            </g>
                             
-                            <!-- ====== CÂMERA ESQUERDA (apontando para esquerda) ====== -->
-                            <!-- Suporte/braço -->
-                            <rect class="camera-arm-left body-part" x="38" y="44" width="14" height="8" fill="#08080c"/>
-                            <!-- Corpo da câmera (cilíndrico deitado) -->
-                            <ellipse class="camera-body-left body-part" cx="28" cy="48" rx="12" ry="7" fill="#0d0d14"/>
-                            <!-- Detalhe traseiro -->
-                            <ellipse class="camera-back-left body-part" cx="38" cy="48" rx="4" ry="6" fill="#08080c"/>
-                            <!-- Frente da câmera (lente) -->
-                            <ellipse class="camera-front-left body-part" cx="18" cy="48" rx="6" ry="6" fill="#0a0a0f"/>
-                            <ellipse class="camera-lens-left body-part" cx="17" cy="48" rx="4" ry="4" fill="#050508"/>
-                            <!-- LED da câmera -->
-                            <circle class="camera-glow-left led-part" cx="16" cy="48" r="2.5" fill="#3b82f6" filter="url(#cameraGlow)"/>
-                            <!-- Detalhe superior (viseira) -->
-                            <path class="camera-visor-left body-part" d="M16,41 L22,43 L22,46 L14,46 Z" fill="#08080c"/>
+                            <!-- ====== CÂMERA DIREITA (estilo bullet branca) ====== -->
+                            <g class="camera-right" transform="translate(5, -8)">
+                                <!-- Suporte/base de fixação (preto) -->
+                                <ellipse class="camera-mount body-part" cx="125" cy="52" rx="8" ry="5" fill="#1a1a1a"/>
+                                <rect class="camera-bracket body-part" x="118" y="48" width="14" height="8" fill="#222"/>
+                                
+                                <!-- Braço articulado (cinza escuro) -->
+                                <rect class="camera-arm" x="128" y="50" width="20" height="6" rx="3" fill="#e8e8e8"/>
+                                <circle cx="128" cy="53" r="4" fill="#d0d0d0"/>
+                                <circle cx="128" cy="53" r="2.5" fill="#888"/>
+                                
+                                <!-- Corpo da câmera (branco/cinza claro - bullet style) -->
+                                <defs>
+                                    <linearGradient id="cameraBodyGradRight" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ffffff"/>
+                                        <stop offset="30%" style="stop-color:#f5f5f5"/>
+                                        <stop offset="70%" style="stop-color:#e0e0e0"/>
+                                        <stop offset="100%" style="stop-color:#c8c8c8"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Corpo cilíndrico principal -->
+                                <ellipse cx="148" cy="53" rx="4" ry="6" fill="#d8d8d8"/>
+                                <rect x="146" y="47" width="26" height="12" rx="2" fill="url(#cameraBodyGradRight)"/>
+                                <!-- Parte frontal (onde fica a lente) -->
+                                <ellipse cx="172" cy="53" rx="6" ry="7" fill="#e8e8e8"/>
+                                
+                                <!-- Anel da lente (preto) -->
+                                <ellipse cx="175" cy="53" rx="5.5" ry="6.5" fill="#1a1a1a"/>
+                                <!-- Lente externa -->
+                                <ellipse cx="176" cy="53" rx="4.5" ry="5.5" fill="#0a0a0a"/>
+                                <!-- Lente interna (vidro) -->
+                                <ellipse cx="177" cy="53" rx="3" ry="4" fill="#151520"/>
+                                <!-- Reflexo na lente -->
+                                <ellipse cx="178" cy="51" rx="1.5" ry="2" fill="rgba(255,255,255,0.2)"/>
+                                <!-- LED IR (pequeno ponto azul) -->
+                                <circle class="camera-led led-part" cx="179" cy="53" r="1.5" fill="#3b82f6" filter="url(#cameraGlow)"/>
+                                
+                                <!-- Viseira/sun shield superior -->
+                                <path d="M182,45 L168,47 L168,49 L182,48 Z" fill="#2a2a2a"/>
+                            </g>
                             
-                            <!-- ====== CÂMERA DIREITA (apontando para direita) ====== -->
-                            <!-- Suporte/braço -->
-                            <rect class="camera-arm-right body-part" x="108" y="44" width="14" height="8" fill="#08080c"/>
-                            <!-- Corpo da câmera (cilíndrico deitado) -->
-                            <ellipse class="camera-body-right body-part" cx="132" cy="48" rx="12" ry="7" fill="#0d0d14"/>
-                            <!-- Detalhe traseiro -->
-                            <ellipse class="camera-back-right body-part" cx="122" cy="48" rx="4" ry="6" fill="#08080c"/>
-                            <!-- Frente da câmera (lente) -->
-                            <ellipse class="camera-front-right body-part" cx="142" cy="48" rx="6" ry="6" fill="#0a0a0f"/>
-                            <ellipse class="camera-lens-right body-part" cx="143" cy="48" rx="4" ry="4" fill="#050508"/>
-                            <!-- LED da câmera -->
-                            <circle class="camera-glow-right led-part" cx="144" cy="48" r="2.5" fill="#3b82f6" filter="url(#cameraGlow)"/>
-                            <!-- Detalhe superior (viseira) -->
-                            <path class="camera-visor-right body-part" d="M144,41 L138,43 L138,46 L146,46 Z" fill="#08080c"/>
+                            <!-- ========== CORPO PRINCIPAL 3D ========== -->
+                            <!-- Face frontal principal -->
+                            <rect class="body-front body-part" x="60" y="52" width="60" height="435" fill="url(#bodyGradient)"/>
                             
-                            <!-- ========== CORPO PRINCIPAL ========== -->
-                            <!-- Face frontal -->
-                            <rect class="body-front body-part" x="52" y="50" width="56" height="420" fill="url(#bodyGradient)"/>
+                            <!-- Face lateral direita (perspectiva) -->
+                            <polygon class="body-side body-part" points="120,52 135,58 135,480 120,487" fill="url(#sideGradient)"/>
                             
-                            <!-- Laterais para profundidade 3D -->
-                            <polygon class="body-side-left body-part" points="52,50 48,55 48,465 52,470" fill="#050508"/>
-                            <polygon class="body-side-right body-part" points="108,50 112,55 112,465 108,470" fill="#050508"/>
+                            <!-- Reflexo metálico sutil na frente -->
+                            <rect x="62" y="55" width="56" height="430" fill="url(#metalReflect)" opacity="0.3"/>
                             
-                            <!-- ========== FAIXAS LED LATERAIS ========== -->
-                            <rect class="led-strip led-left led-part" x="53" y="58" width="4" height="405" fill="url(#ledGradient)" filter="url(#ledGlow)"/>
-                            <rect class="led-strip led-right led-part" x="103" y="58" width="4" height="405" fill="url(#ledGradient)" filter="url(#ledGlow)"/>
+                            <!-- Linha de borda iluminada (esquerda) -->
+                            <line x1="60" y1="52" x2="60" y2="487" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                            
+                            <!-- ========== FAIXAS LED COM PIXELS ========== -->
+                            <!-- Glow externo esquerdo -->
+                            <rect class="led-glow-outer led-part" x="58" y="60" width="8" height="420" fill="#3b82f6" opacity="0.15" filter="url(#strongGlow)"/>
+                            <!-- Glow externo direito -->
+                            <rect class="led-glow-outer led-part" x="114" y="60" width="8" height="420" fill="#3b82f6" opacity="0.15" filter="url(#strongGlow)"/>
+                            
+                            <!-- LED esquerdo com padrão de pixels -->
+                            <g class="led-strip-left led-part">
+                                <rect x="61" y="60" width="6" height="420" fill="url(#ledGradient)"/>
+                                <!-- Pixels simulados -->
+                                <rect x="61" y="60" width="6" height="420" fill="#3b82f6" mask="url(#pixelMask)" opacity="0.3"/>
+                                <!-- Pontos de luz individuais -->
+                                <g class="led-pixels" fill="#60a5fa">
+                                    <circle cx="64" cy="70" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="80" r="1.5" opacity="0.7"/>
+                                    <circle cx="64" cy="90" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="100" r="1.5" opacity="0.8"/>
+                                    <circle cx="64" cy="110" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="120" r="1.5" opacity="0.7"/>
+                                    <circle cx="64" cy="130" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="140" r="1.5" opacity="0.8"/>
+                                    <circle cx="64" cy="150" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="160" r="1.5" opacity="0.7"/>
+                                    <circle cx="64" cy="170" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="180" r="1.5" opacity="0.8"/>
+                                    <circle cx="64" cy="190" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="200" r="1.5" opacity="0.7"/>
+                                    <circle cx="64" cy="210" r="1.5" opacity="0.8"/>
+                                    <circle cx="64" cy="220" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="230" r="1.5" opacity="0.7"/>
+                                    <circle cx="64" cy="240" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="250" r="1.5" opacity="0.8"/>
+                                    <circle cx="64" cy="260" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="270" r="1.5" opacity="0.7"/>
+                                    <circle cx="64" cy="280" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="290" r="1.5" opacity="0.8"/>
+                                    <circle cx="64" cy="300" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="310" r="1.5" opacity="0.7"/>
+                                    <circle cx="64" cy="320" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="330" r="1.5" opacity="0.8"/>
+                                    <circle cx="64" cy="340" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="350" r="1.5" opacity="0.7"/>
+                                    <circle cx="64" cy="360" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="370" r="1.5" opacity="0.8"/>
+                                    <circle cx="64" cy="380" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="390" r="1.5" opacity="0.7"/>
+                                    <circle cx="64" cy="400" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="410" r="1.5" opacity="0.8"/>
+                                    <circle cx="64" cy="420" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="430" r="1.5" opacity="0.7"/>
+                                    <circle cx="64" cy="440" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="450" r="1.5" opacity="0.8"/>
+                                    <circle cx="64" cy="460" r="1.5" opacity="0.9"/>
+                                    <circle cx="64" cy="470" r="1.5" opacity="0.7"/>
+                                </g>
+                            </g>
+                            
+                            <!-- LED direito frontal com padrão de pixels -->
+                            <g class="led-strip-right led-part">
+                                <rect x="113" y="60" width="6" height="420" fill="url(#ledGradient)"/>
+                                <!-- Pontos de luz individuais -->
+                                <g class="led-pixels" fill="#60a5fa">
+                                    <circle cx="116" cy="70" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="80" r="1.5" opacity="0.8"/>
+                                    <circle cx="116" cy="90" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="100" r="1.5" opacity="0.7"/>
+                                    <circle cx="116" cy="110" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="120" r="1.5" opacity="0.8"/>
+                                    <circle cx="116" cy="130" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="140" r="1.5" opacity="0.7"/>
+                                    <circle cx="116" cy="150" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="160" r="1.5" opacity="0.8"/>
+                                    <circle cx="116" cy="170" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="180" r="1.5" opacity="0.7"/>
+                                    <circle cx="116" cy="190" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="200" r="1.5" opacity="0.8"/>
+                                    <circle cx="116" cy="210" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="220" r="1.5" opacity="0.7"/>
+                                    <circle cx="116" cy="230" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="240" r="1.5" opacity="0.8"/>
+                                    <circle cx="116" cy="250" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="260" r="1.5" opacity="0.7"/>
+                                    <circle cx="116" cy="270" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="280" r="1.5" opacity="0.8"/>
+                                    <circle cx="116" cy="290" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="300" r="1.5" opacity="0.7"/>
+                                    <circle cx="116" cy="310" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="320" r="1.5" opacity="0.8"/>
+                                    <circle cx="116" cy="330" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="340" r="1.5" opacity="0.7"/>
+                                    <circle cx="116" cy="350" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="360" r="1.5" opacity="0.8"/>
+                                    <circle cx="116" cy="370" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="380" r="1.5" opacity="0.7"/>
+                                    <circle cx="116" cy="390" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="400" r="1.5" opacity="0.8"/>
+                                    <circle cx="116" cy="410" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="420" r="1.5" opacity="0.7"/>
+                                    <circle cx="116" cy="430" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="440" r="1.5" opacity="0.8"/>
+                                    <circle cx="116" cy="450" r="1.5" opacity="0.9"/>
+                                    <circle cx="116" cy="460" r="1.5" opacity="0.7"/>
+                                    <circle cx="116" cy="470" r="1.5" opacity="0.9"/>
+                                </g>
+                            </g>
+                            
+                            <!-- LED na lateral direita (perspectiva) -->
+                            <polygon class="led-side led-part" points="119,60 125,63 125,475 119,480" fill="url(#ledSideGradient)" filter="url(#ledGlow)"/>
                             
                             <!-- ========== ÁREA DA FACHADA ========== -->
-                            <rect class="facade-area facade-part" x="59" y="65" width="42" height="395" fill="url(#facadeGradient)"/>
+                            <rect class="facade-area facade-part" x="69" y="70" width="50" height="405" fill="url(#facadeGradient)" rx="2"/>
                             
-                            <!-- ========== TEXTO "SP SECURITY" VERTICAL CENTRALIZADO ========== -->
-                            <!-- Texto centralizado no meio do totem -->
-                            
-                            <!-- "SECURITY" na cor do LED (em cima) -->
+                            <!-- ========== TEXTO "SP SECURITY" ========== -->
+                            <!-- "SECURITY" na cor do LED -->
                             <text class="brand-security led-text" 
-                                  x="90" y="270"
-                                  transform="rotate(-90, 90, 270)" 
+                                  x="94" y="280"
+                                  transform="rotate(-90, 94, 280)" 
                                   font-family="Arial Black, sans-serif" 
-                                  font-size="32" 
+                                  font-size="28" 
                                   font-weight="900" 
                                   fill="#3b82f6"
-                                  letter-spacing="1"
+                                  letter-spacing="2"
                                   text-anchor="middle"
                                   filter="url(#textGlow)">SECURITY</text>
                             
-                            <!-- "SP" em BRANCO (embaixo do SECURITY) -->
+                            <!-- "SP" em BRANCO -->
                             <text class="brand-sp" 
-                                  x="90" y="115"
-                                  transform="rotate(-90, 90, 115)" 
+                                  x="94" y="130"
+                                  transform="rotate(-90, 94, 130)" 
                                   font-family="Arial Black, sans-serif" 
-                                  font-size="32" 
+                                  font-size="28" 
                                   font-weight="900" 
                                   fill="white"
-                                  letter-spacing="2"
-                                  text-anchor="middle">SP</text>
+                                  letter-spacing="3"
+                                  text-anchor="middle"
+                                  filter="url(#innerShadow)">SP</text>
                             
-                            <!-- ========== BASE ========== -->
-                            <polygon class="base-top body-part" points="48,465 112,465 116,475 44,475" fill="#0a0a0f"/>
-                            <rect class="base-main body-part" x="42" y="475" width="76" height="16" fill="#08080c"/>
-                            <rect class="base-led led-part" x="55" y="479" width="50" height="2" fill="#3b82f6" opacity="0.5" filter="url(#cameraGlow)"/>
-                            <rect class="base-bottom body-part" x="40" y="489" width="80" height="6" rx="2" fill="#050508"/>
+                            <!-- ========== DETALHES DECORATIVOS (pixels no topo e base) ========== -->
+                            <!-- Pixels decorativos no topo -->
+                            <g class="deco-pixels-top led-part" fill="#3b82f6" opacity="0.7">
+                                <rect x="72" y="75" width="3" height="3"/>
+                                <rect x="77" y="75" width="3" height="3"/>
+                                <rect x="82" y="75" width="3" height="3"/>
+                                <rect x="95" y="75" width="3" height="3"/>
+                                <rect x="100" y="75" width="3" height="3"/>
+                                <rect x="105" y="75" width="3" height="3"/>
+                                <rect x="74" y="80" width="3" height="3"/>
+                                <rect x="79" y="80" width="3" height="3"/>
+                                <rect x="97" y="80" width="3" height="3"/>
+                                <rect x="102" y="80" width="3" height="3"/>
+                            </g>
+                            
+                            <!-- Pixels decorativos na base -->
+                            <g class="deco-pixels-bottom led-part" fill="#3b82f6" opacity="0.7">
+                                <rect x="72" y="455" width="3" height="3"/>
+                                <rect x="77" y="455" width="3" height="3"/>
+                                <rect x="82" y="455" width="3" height="3"/>
+                                <rect x="95" y="455" width="3" height="3"/>
+                                <rect x="100" y="455" width="3" height="3"/>
+                                <rect x="105" y="455" width="3" height="3"/>
+                                <rect x="74" y="460" width="3" height="3"/>
+                                <rect x="79" y="460" width="3" height="3"/>
+                                <rect x="97" y="460" width="3" height="3"/>
+                                <rect x="102" y="460" width="3" height="3"/>
+                                <rect x="76" y="465" width="3" height="3"/>
+                                <rect x="99" y="465" width="3" height="3"/>
+                            </g>
+                            
+                            <!-- ========== BASE 3D ========== -->
+                            <!-- Topo da base -->
+                            <polygon class="base-top body-part" points="56,487 124,487 135,492 50,492" fill="#0d0d12"/>
+                            <!-- Frente da base -->
+                            <rect class="base-front body-part" x="50" y="492" width="85" height="18" fill="url(#bodyGradient)"/>
+                            <!-- Lateral da base -->
+                            <polygon class="base-side body-part" points="135,492 145,496 145,512 135,510" fill="url(#sideGradient)"/>
+                            <!-- LED na base -->
+                            <rect class="base-led led-part" x="65" y="497" width="55" height="3" fill="#3b82f6" opacity="0.6" filter="url(#cameraGlow)" rx="1"/>
+                            <!-- Pé da base -->
+                            <rect class="base-bottom body-part" x="48" y="508" width="90" height="8" rx="2" fill="#06060a"/>
+                            <polygon class="base-bottom-side body-part" points="138,508 148,512 148,518 138,516" fill="#030305"/>
                             
                             <!-- Glow no chão -->
-                            <ellipse class="floor-glow led-part" cx="80" cy="502" rx="45" ry="8" fill="#3b82f6" opacity="0.08" filter="url(#ledGlow)"/>
+                            <ellipse class="floor-glow led-part" cx="95" cy="524" rx="55" ry="10" fill="#3b82f6" opacity="0.12" filter="url(#strongGlow)"/>
                         </svg>
                         
                         <!-- Reflexo de luz no chão -->

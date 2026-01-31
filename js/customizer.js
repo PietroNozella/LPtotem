@@ -55,37 +55,69 @@ function initCustomizer() {
         if (!svg) return;
         
         const base = colors.body;
-        const dark = adjustBrightness(base, -15);
-        const darker = adjustBrightness(base, -25);
-        const light = adjustBrightness(base, 10);
+        const dark = adjustBrightness(base, -10);
+        const darker = adjustBrightness(base, -20);
+        const darkest = adjustBrightness(base, -30);
+        const light = adjustBrightness(base, 8);
+        const lighter = adjustBrightness(base, 15);
         
-        // Atualizar gradiente do corpo
+        // Atualizar gradiente do corpo frontal (6 stops para efeito cilíndrico)
         const bodyGrad1 = svg.querySelector('.body-grad-1');
         const bodyGrad2 = svg.querySelector('.body-grad-2');
         const bodyGrad3 = svg.querySelector('.body-grad-3');
-        if (bodyGrad1) bodyGrad1.style.stopColor = light;
-        if (bodyGrad2) bodyGrad2.style.stopColor = base;
-        if (bodyGrad3) bodyGrad3.style.stopColor = light;
+        const bodyGrad4 = svg.querySelector('.body-grad-4');
+        const bodyGrad5 = svg.querySelector('.body-grad-5');
+        const bodyGrad6 = svg.querySelector('.body-grad-6');
+        if (bodyGrad1) bodyGrad1.style.stopColor = lighter;
+        if (bodyGrad2) bodyGrad2.style.stopColor = dark;
+        if (bodyGrad3) bodyGrad3.style.stopColor = base;
+        if (bodyGrad4) bodyGrad4.style.stopColor = base;
+        if (bodyGrad5) bodyGrad5.style.stopColor = dark;
+        if (bodyGrad6) bodyGrad6.style.stopColor = light;
+        
+        // Atualizar gradiente lateral
+        const sideGrad1 = svg.querySelector('.side-grad-1');
+        const sideGrad2 = svg.querySelector('.side-grad-2');
+        if (sideGrad1) sideGrad1.style.stopColor = base;
+        if (sideGrad2) sideGrad2.style.stopColor = darkest;
+        
+        // Atualizar gradiente do topo
+        const topGrad1 = svg.querySelector('.top-grad-1');
+        const topGrad2 = svg.querySelector('.top-grad-2');
+        if (topGrad1) topGrad1.style.stopColor = base;
+        if (topGrad2) topGrad2.style.stopColor = lighter;
         
         // Topo
-        svg.querySelectorAll('.top-peak').forEach(el => el.setAttribute('fill', base));
-        svg.querySelectorAll('.top-bar').forEach(el => el.setAttribute('fill', dark));
+        svg.querySelectorAll('.top-peak').forEach(el => el.setAttribute('fill', dark));
+        svg.querySelectorAll('.top-face').forEach(el => el.setAttribute('fill', 'url(#topGradient)'));
+        svg.querySelectorAll('.top-front').forEach(el => el.setAttribute('fill', 'url(#bodyGradient)'));
+        svg.querySelectorAll('.top-side').forEach(el => el.setAttribute('fill', 'url(#sideGradient)'));
         
-        // Câmeras
-        svg.querySelectorAll('.camera-arm-left, .camera-arm-right').forEach(el => el.setAttribute('fill', darker));
-        svg.querySelectorAll('.camera-body-left, .camera-body-right').forEach(el => el.setAttribute('fill', dark));
-        svg.querySelectorAll('.camera-back-left, .camera-back-right').forEach(el => el.setAttribute('fill', darker));
-        svg.querySelectorAll('.camera-front-left, .camera-front-right').forEach(el => el.setAttribute('fill', base));
-        svg.querySelectorAll('.camera-lens-left, .camera-lens-right').forEach(el => el.setAttribute('fill', darker));
-        svg.querySelectorAll('.camera-visor-left, .camera-visor-right').forEach(el => el.setAttribute('fill', darker));
+        // Câmeras - apenas as partes de montagem mudam de cor, o corpo permanece branco
+        svg.querySelectorAll('.camera-mount').forEach(el => el.setAttribute('fill', dark));
+        svg.querySelectorAll('.camera-bracket').forEach(el => el.setAttribute('fill', darker));
         
-        // Laterais do corpo
-        svg.querySelectorAll('.body-side-left, .body-side-right').forEach(el => el.setAttribute('fill', darker));
+        // Corpo principal
+        svg.querySelectorAll('.body-front').forEach(el => el.setAttribute('fill', 'url(#bodyGradient)'));
+        svg.querySelectorAll('.body-side').forEach(el => el.setAttribute('fill', 'url(#sideGradient)'));
         
         // Base
-        svg.querySelectorAll('.base-top').forEach(el => el.setAttribute('fill', base));
-        svg.querySelectorAll('.base-main').forEach(el => el.setAttribute('fill', dark));
-        svg.querySelectorAll('.base-bottom').forEach(el => el.setAttribute('fill', darker));
+        svg.querySelectorAll('.base-top').forEach(el => el.setAttribute('fill', dark));
+        svg.querySelectorAll('.base-front').forEach(el => el.setAttribute('fill', 'url(#bodyGradient)'));
+        svg.querySelectorAll('.base-side').forEach(el => el.setAttribute('fill', 'url(#sideGradient)'));
+        svg.querySelectorAll('.base-bottom').forEach(el => el.setAttribute('fill', darkest));
+        svg.querySelectorAll('.base-bottom-side').forEach(el => el.setAttribute('fill', adjustBrightness(base, -35)));
+    }
+    
+    /**
+     * Ajustar luminosidade (para criar variante mais clara do LED)
+     */
+    function lightenColor(hex, percent) {
+        const num = parseInt(hex.replace('#', ''), 16);
+        const r = Math.min(255, (num >> 16) + Math.round(255 * percent / 100));
+        const g = Math.min(255, ((num >> 8) & 0x00FF) + Math.round(255 * percent / 100));
+        const b = Math.min(255, (num & 0x0000FF) + Math.round(255 * percent / 100));
+        return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
     }
     
     /**
@@ -95,14 +127,47 @@ function initCustomizer() {
         if (!svg) return;
         
         const led = colors.led;
+        const ledLight = lightenColor(led, 20);
         
-        // Atualizar gradiente do LED
+        // Atualizar gradiente do LED principal
         svg.querySelectorAll('.led-grad').forEach(stop => {
             stop.style.stopColor = led;
         });
         
-        // Glow das câmeras
-        svg.querySelectorAll('.camera-glow-left, .camera-glow-right').forEach(el => {
+        // Atualizar gradiente do LED lateral
+        svg.querySelectorAll('.led-side-grad').forEach(stop => {
+            stop.style.stopColor = led;
+        });
+        
+        // LEDs das câmeras
+        svg.querySelectorAll('.camera-led').forEach(el => {
+            el.setAttribute('fill', led);
+        });
+        
+        // Strips de LED
+        svg.querySelectorAll('.led-strip-left rect, .led-strip-right rect').forEach(el => {
+            if (!el.classList.contains('led-pixels')) {
+                el.setAttribute('fill', 'url(#ledGradient)');
+            }
+        });
+        
+        // Pixels de LED (pontos individuais)
+        svg.querySelectorAll('.led-pixels circle').forEach(el => {
+            el.setAttribute('fill', ledLight);
+        });
+        
+        // Glow externo
+        svg.querySelectorAll('.led-glow-outer').forEach(el => {
+            el.setAttribute('fill', led);
+        });
+        
+        // LED lateral (perspectiva)
+        svg.querySelectorAll('.led-side').forEach(el => {
+            el.setAttribute('fill', 'url(#ledSideGradient)');
+        });
+        
+        // Pixels decorativos
+        svg.querySelectorAll('.deco-pixels-top rect, .deco-pixels-bottom rect').forEach(el => {
             el.setAttribute('fill', led);
         });
         
@@ -112,7 +177,7 @@ function initCustomizer() {
         // Glow no chão
         svg.querySelectorAll('.floor-glow').forEach(el => el.setAttribute('fill', led));
         
-        // Texto "SECURITY" grande
+        // Texto "SECURITY"
         svg.querySelectorAll('.brand-security').forEach(el => el.setAttribute('fill', led));
         
         // Glow do preview

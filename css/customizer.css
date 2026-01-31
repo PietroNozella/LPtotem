@@ -33,9 +33,9 @@
 /* ===== SVG Totem ===== */
 .totem-svg {
     width: 100%;
-    max-width: 240px;
+    max-width: 280px;
     height: auto;
-    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.7));
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.8));
     transition: filter 0.3s ease;
 }
 
@@ -51,10 +51,13 @@
 }
 
 /* Animação de pulso no LED */
-.led-strip,
-.camera-glow,
+.led-strip-left,
+.led-strip-right,
+.led-side,
+.camera-led,
 .base-led,
-.floor-glow {
+.floor-glow,
+.led-glow-outer {
     animation: ledPulse 2.5s ease-in-out infinite;
 }
 
@@ -63,13 +66,54 @@
     50% { opacity: 1; }
 }
 
-/* Efeito hover sutil */
-.totem-svg:hover {
-    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.7));
+/* Animação dos pixels de LED individuais */
+.led-pixels circle {
+    animation: pixelFlicker 3s ease-in-out infinite;
 }
 
-.totem-svg:hover .led-strip,
-.totem-svg:hover .camera-glow {
+.led-pixels circle:nth-child(odd) {
+    animation-delay: 0.1s;
+}
+
+.led-pixels circle:nth-child(3n) {
+    animation-delay: 0.3s;
+}
+
+.led-pixels circle:nth-child(5n) {
+    animation-delay: 0.5s;
+}
+
+@keyframes pixelFlicker {
+    0%, 100% { opacity: 0.7; }
+    25% { opacity: 0.9; }
+    50% { opacity: 1; }
+    75% { opacity: 0.8; }
+}
+
+/* Animação dos pixels decorativos */
+.deco-pixels-top rect,
+.deco-pixels-bottom rect {
+    animation: decoPixelPulse 2s ease-in-out infinite;
+}
+
+.deco-pixels-top rect:nth-child(odd),
+.deco-pixels-bottom rect:nth-child(odd) {
+    animation-delay: 0.2s;
+}
+
+@keyframes decoPixelPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.9; }
+}
+
+/* Efeito hover */
+.totem-svg:hover {
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 30px rgba(59, 130, 246, 0.2));
+}
+
+.totem-svg:hover .led-strip-left,
+.totem-svg:hover .led-strip-right,
+.totem-svg:hover .camera-led {
     animation: ledPulseIntense 1.5s ease-in-out infinite;
 }
 
@@ -362,7 +406,7 @@
     }
     
     .totem-svg {
-        max-width: 220px;
+        max-width: 260px;
     }
     
     .customizer-controls {
@@ -394,7 +438,7 @@
     }
     
     .totem-svg {
-        max-width: 180px;
+        max-width: 220px;
     }
     
     .customizer-controls {
