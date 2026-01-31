@@ -1,12 +1,11 @@
 // ===== CUSTOMIZER PREMIUM - Configurador Estilo Carros de Luxo =====
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos das Camadas (Layer Composition)
-    const layerBase = document.getElementById('layerBase');
-    const layerColorBody = document.getElementById('layerColorBody');
-    const layerDetails = document.getElementById('layerDetails');
-    const layerText = document.getElementById('layerText');
-    const layerLedGlow = document.getElementById('layerLedGlow');
+    // Elementos das Camadas (Técnica Profissional - Audi/Mercedes Style)
+    const totemBaseImg = document.getElementById('totemBaseImg');
+    const totemBodyColor = document.getElementById('totemBodyColor');
+    const totemLedColor = document.getElementById('totemLedColor');
+    const totemTextColor = document.getElementById('totemTextColor');
     
     const summaryBody = document.getElementById('summaryBody');
     const summaryLed = document.getElementById('summaryLed');
@@ -40,88 +39,75 @@ document.addEventListener('DOMContentLoaded', function() {
         '#fbbf24': 'Dourado'
     };
     
-    // Aplicar cores usando filtros CSS diretamente na imagem
+    // Técnica Profissional: Overlay com Mix Blend Modes (como Audi/Mercedes)
     function applyBodyColor(color) {
-        if (!layerBase) return;
+        if (!totemBodyColor) return;
         
-        const rgb = hexToRgb(color);
-        if (!rgb) return;
-        
-        // Criar filtros CSS para mudar a cor do totem inteiro
-        let filterString = '';
-        
-        // Calcular hue, saturação e brilho
-        const hue = getHueFromColor(color);
-        const saturation = getSaturationFromColor(color);
         const brightness = getBrightnessFromColor(color);
         
-        // Aplicar filtros baseados na cor
-        if (color === '#ffffff') {
-            // Branco - inverter e aumentar brilho
-            filterString = 'brightness(2.5) saturate(0) contrast(0.8) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.3))';
-        } else if (color === '#0a0a0f') {
-            // Preto Fosco - padrão
-            filterString = 'brightness(1) contrast(1.1) saturate(1) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5))';
-        } else if (color === '#1e293b') {
-            // Cinza Escuro
-            filterString = 'brightness(1.3) saturate(0.3) contrast(1.05) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.4))';
-        } else {
-            // Outras cores - usar hue-rotate e ajustes
-            const brightnessPercent = Math.max(80, Math.min(150, (brightness / 255) * 200));
-            const saturationPercent = Math.max(100, Math.min(200, (saturation / 100) * 150));
-            
-            filterString = `
-                hue-rotate(${hue}deg)
-                saturate(${saturationPercent}%)
-                brightness(${brightnessPercent}%)
-                contrast(1.1)
-                drop-shadow(0 30px 60px rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4))
-            `;
-        }
+        // Aplicar cor como overlay
+        totemBodyColor.style.backgroundColor = color;
         
-        layerBase.style.filter = filterString;
+        // Ajustar blend mode e opacidade baseado na luminosidade
+        if (brightness > 200) {
+            // Cores muito claras (branco)
+            totemBodyColor.style.mixBlendMode = 'lighten';
+            totemBodyColor.style.opacity = '0.6';
+        } else if (brightness > 150) {
+            // Cores claras
+            totemBodyColor.style.mixBlendMode = 'overlay';
+            totemBodyColor.style.opacity = '0.5';
+        } else if (brightness > 80) {
+            // Cores médias
+            totemBodyColor.style.mixBlendMode = 'multiply';
+            totemBodyColor.style.opacity = '0.7';
+        } else {
+            // Cores escuras
+            totemBodyColor.style.mixBlendMode = 'multiply';
+            totemBodyColor.style.opacity = '0.8';
+        }
         
         currentConfig.body = { color, name: colorNames[color] || color };
         updateSummary();
     }
     
     function applyLedColor(color) {
-        if (!layerBase || !layerLedGlow) return;
+        if (!totemLedColor) return;
         
-        // Criar overlay de LED com a cor selecionada
-        layerLedGlow.style.background = `
+        // Criar gradiente radial para o LED (área do topo)
+        totemLedColor.style.background = `
             radial-gradient(
-                ellipse 30% 8% at 50% 8%,
+                ellipse 25% 6% at 50% 7%,
                 ${color} 0%,
-                ${color}88 30%,
+                ${color}dd 20%,
+                ${color}88 40%,
                 transparent 70%
             )
         `;
-        layerLedGlow.style.opacity = '0.85';
-        layerLedGlow.style.mixBlendMode = 'screen';
-        layerLedGlow.style.filter = 'blur(4px)';
+        totemLedColor.style.opacity = '0.9';
+        totemLedColor.style.mixBlendMode = 'screen';
         
         currentConfig.led = { color, name: colorNames[color] || color };
         updateSummary();
     }
     
     function applyTextColor(color) {
-        if (!layerBase || !layerText) return;
+        if (!totemTextColor) return;
         
-        // Criar overlay de texto com a cor selecionada
-        layerText.style.background = `
+        // Criar gradiente linear para área do texto/marca
+        totemTextColor.style.background = `
             linear-gradient(
                 to bottom,
                 transparent 0%,
-                transparent 39%,
+                transparent 38%,
                 ${color} 40%,
                 ${color} 45%,
-                transparent 46%,
+                transparent 47%,
                 transparent 100%
             )
         `;
-        layerText.style.opacity = '0.7';
-        layerText.style.mixBlendMode = 'overlay';
+        totemTextColor.style.opacity = '0.8';
+        totemTextColor.style.mixBlendMode = 'overlay';
         
         currentConfig.text = { color, name: colorNames[color] || color };
         updateSummary();
@@ -306,39 +292,38 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Garantir que a imagem base esteja sempre visível
-    console.log('=== Customizer Premium ===');
-    console.log('Layer Base:', layerBase ? 'OK' : 'ERRO');
-    console.log('Layer LED Glow:', layerLedGlow ? 'OK' : 'ERRO');
-    console.log('Layer Text:', layerText ? 'OK' : 'ERRO');
+    // Inicialização do Sistema de Camadas Profissional
+    console.log('=== Customizer Profissional (Técnica Audi/Mercedes) ===');
+    console.log('Imagem Base:', totemBaseImg ? 'OK' : 'ERRO');
+    console.log('Overlay Corpo:', totemBodyColor ? 'OK' : 'ERRO');
+    console.log('Overlay LED:', totemLedColor ? 'OK' : 'ERRO');
+    console.log('Overlay Texto:', totemTextColor ? 'OK' : 'ERRO');
     
-    if (layerBase) {
-        layerBase.style.opacity = '1';
-        layerBase.style.display = 'block';
-    }
-    
-    // Ocultar camadas não utilizadas
-    if (layerColorBody) {
-        layerColorBody.style.display = 'none';
-    }
-    if (layerDetails) {
-        layerDetails.style.display = 'none';
+    // Garantir que a imagem base esteja visível
+    if (totemBaseImg) {
+        totemBaseImg.style.opacity = '1';
     }
     
-    // Inicializar overlays
-    if (layerLedGlow) {
-        layerLedGlow.style.opacity = '0';
+    // Inicializar overlays como transparentes
+    if (totemBodyColor) {
+        totemBodyColor.style.opacity = '0';
+        totemBodyColor.style.backgroundColor = 'transparent';
     }
-    if (layerText) {
-        layerText.style.opacity = '0';
+    if (totemLedColor) {
+        totemLedColor.style.opacity = '0';
+        totemLedColor.style.background = 'transparent';
+    }
+    if (totemTextColor) {
+        totemTextColor.style.opacity = '0';
+        totemTextColor.style.background = 'transparent';
     }
     
-    // Inicializar com cores padrão
+    // Aplicar cores padrão após pequeno delay
     setTimeout(() => {
         applyBodyColor('#0a0a0f');
         applyLedColor('#3b82f6');
         applyTextColor('#ffffff');
-    }, 100);
+    }, 150);
     
-    console.log('Customizer Premium carregado!');
+    console.log('Sistema de camadas inicializado com sucesso!');
 });

@@ -615,22 +615,19 @@
                 <!-- Preview do Totem -->
                 <div class="totem-preview-area">
                     <div class="preview-stage">
-                        <!-- Sistema de Camadas Sobrepostas (Layer Composition) -->
+                        <!-- Sistema de Camadas Profissional (como Audi/Mercedes) -->
                         <div class="totem-layers" id="totemLayers">
-                            <!-- Layer 0: Base em Escala de Cinza (sombras e estrutura) -->
-                            <img src="assets/totem-hero.png" alt="Totem Base" class="totem-layer layer-base" id="layerBase">
+                            <!-- Camada 1: Imagem base do totem -->
+                            <img src="assets/totem-hero.png" alt="Totem" class="totem-layer totem-base-img" id="totemBaseImg">
                             
-                            <!-- Layer 10: Cor do Corpo (com máscara) -->
-                            <div class="totem-layer layer-color-body" id="layerColorBody"></div>
+                            <!-- Camada 2: Overlay de cor do corpo -->
+                            <div class="totem-layer totem-body-color" id="totemBodyColor"></div>
                             
-                            <!-- Layer 20: Detalhes que não mudam (câmeras, parafusos) -->
-                            <img src="assets/totem-hero.png" alt="Totem Detalhes" class="totem-layer layer-details" id="layerDetails">
+                            <!-- Camada 3: Overlay de cor do LED -->
+                            <div class="totem-layer totem-led-color" id="totemLedColor"></div>
                             
-                            <!-- Layer 30: Logo/Texto (customizável) -->
-                            <div class="totem-layer layer-text" id="layerText"></div>
-                            
-                            <!-- Layer 40: LED Glow (brilho do LED) -->
-                            <div class="totem-layer layer-led-glow" id="layerLedGlow"></div>
+                            <!-- Camada 4: Overlay de cor do texto -->
+                            <div class="totem-layer totem-text-color" id="totemTextColor"></div>
                         </div>
                         
                         <!-- Indicador de rotação (futuro) -->
