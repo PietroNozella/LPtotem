@@ -75,7 +75,7 @@
     justify-content: center;
 }
 
-/* ===== SISTEMA DE CAMADAS SOBREPOSTAS (Layer Composition) ===== */
+/* ===== SISTEMA SIMPLIFICADO DE CUSTOMIZAÇÃO ===== */
 
 .totem-layer {
     position: absolute;
@@ -84,92 +84,48 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
 }
 
-/* Layer 0: Base em Escala de Cinza */
+/* Layer 0: Imagem Base do Totem */
 .layer-base {
-    z-index: 0;
-    filter: grayscale(1) brightness(0.9) contrast(1.1) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5));
+    z-index: 1;
     opacity: 1;
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5));
 }
 
-/* Layer 10: Cor do Corpo (com máscara para não vazar) */
+/* Layer 10: Overlay de Cor do Corpo (cobre tudo) */
 .layer-color-body {
-    z-index: 10;
+    z-index: 2;
     background-color: #0a0a0f;
     mix-blend-mode: multiply;
-    opacity: 0.85;
-    /* Máscara usando a própria imagem do totem */
-    -webkit-mask-image: url('../assets/totem-hero.png');
-    -webkit-mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-image: url('../assets/totem-hero.png');
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
+    opacity: 0;
+    transition: all 0.6s ease;
 }
 
-/* Layer 20: Detalhes fixos (câmeras, parafusos, base) */
+/* Layer 20: Imagem de Detalhes (câmeras sempre visíveis) */
 .layer-details {
-    z-index: 20;
-    opacity: 1;
-    /* Manter apenas as partes que não mudam de cor */
-    filter: brightness(1) contrast(1.05);
-    /* Usar clip-path ou mask para mostrar apenas câmeras e detalhes */
-    mix-blend-mode: normal;
+    z-index: 3;
+    opacity: 0;
+    filter: brightness(1.1) contrast(1.05);
 }
 
-/* Layer 30: Logo/Texto (customizável) */
+/* Layer 30: Overlay de Cor do Texto */
 .layer-text {
-    z-index: 30;
-    background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        transparent 38%,
-        currentColor 40%,
-        currentColor 46%,
-        transparent 48%,
-        transparent 100%
-    );
-    color: #ffffff;
-    mix-blend-mode: normal;
-    opacity: 0.9;
-    /* Máscara para área do texto */
-    -webkit-mask-image: linear-gradient(
-        to bottom,
-        transparent 0%,
-        transparent 38%,
-        black 40%,
-        black 46%,
-        transparent 48%,
-        transparent 100%
-    );
-    mask-image: linear-gradient(
-        to bottom,
-        transparent 0%,
-        transparent 38%,
-        black 40%,
-        black 46%,
-        transparent 48%,
-        transparent 100%
-    );
+    z-index: 4;
+    background: transparent;
+    opacity: 0;
+    transition: all 0.6s ease;
 }
 
-/* Layer 40: LED Glow (brilho do LED no topo) */
+/* Layer 40: Overlay de Brilho do LED */
 .layer-led-glow {
-    z-index: 40;
-    background: radial-gradient(
-        ellipse 35% 15% at 50% 12%,
-        currentColor 0%,
-        transparent 60%
-    );
-    color: #3b82f6;
+    z-index: 5;
+    background: transparent;
     mix-blend-mode: screen;
-    opacity: 0.7;
-    filter: blur(2px);
+    opacity: 0;
+    transition: all 0.6s ease;
 }
 
 /* Controles de visualização */

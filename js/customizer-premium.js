@@ -40,90 +40,88 @@ document.addEventListener('DOMContentLoaded', function() {
         '#fbbf24': 'Dourado'
     };
     
-    // Aplicar cores usando Sistema de Camadas (Layer Composition)
+    // Aplicar cores usando filtros CSS diretamente na imagem
     function applyBodyColor(color) {
-        if (!layerColorBody) return;
+        if (!layerBase) return;
         
-        // Aplicar cor diretamente na camada de cor
-        layerColorBody.style.backgroundColor = color;
+        const rgb = hexToRgb(color);
+        if (!rgb) return;
         
-        // Ajustar mix-blend-mode baseado na luminosidade da cor
+        // Criar filtros CSS para mudar a cor do totem inteiro
+        let filterString = '';
+        
+        // Calcular hue, saturação e brilho
+        const hue = getHueFromColor(color);
+        const saturation = getSaturationFromColor(color);
         const brightness = getBrightnessFromColor(color);
         
-        if (brightness > 180) {
-            // Cores claras (branco, cinza claro)
-            layerColorBody.style.mixBlendMode = 'lighten';
-            layerColorBody.style.opacity = '0.75';
-            
-            // Ajustar base para cores claras
-            if (layerBase) {
-                layerBase.style.filter = 'grayscale(1) brightness(1.1) contrast(1.05) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.3))';
-            }
-        } else if (brightness > 100) {
-            // Cores médias
-            layerColorBody.style.mixBlendMode = 'multiply';
-            layerColorBody.style.opacity = '0.85';
-            
-            if (layerBase) {
-                layerBase.style.filter = 'grayscale(1) brightness(0.95) contrast(1.1) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.4))';
-            }
+        // Aplicar filtros baseados na cor
+        if (color === '#ffffff') {
+            // Branco - inverter e aumentar brilho
+            filterString = 'brightness(2.5) saturate(0) contrast(0.8) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.3))';
+        } else if (color === '#0a0a0f') {
+            // Preto Fosco - padrão
+            filterString = 'brightness(1) contrast(1.1) saturate(1) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5))';
+        } else if (color === '#1e293b') {
+            // Cinza Escuro
+            filterString = 'brightness(1.3) saturate(0.3) contrast(1.05) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.4))';
         } else {
-            // Cores escuras
-            layerColorBody.style.mixBlendMode = 'multiply';
-            layerColorBody.style.opacity = '0.9';
+            // Outras cores - usar hue-rotate e ajustes
+            const brightnessPercent = Math.max(80, Math.min(150, (brightness / 255) * 200));
+            const saturationPercent = Math.max(100, Math.min(200, (saturation / 100) * 150));
             
-            if (layerBase) {
-                layerBase.style.filter = 'grayscale(1) brightness(0.9) contrast(1.15) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5))';
-            }
+            filterString = `
+                hue-rotate(${hue}deg)
+                saturate(${saturationPercent}%)
+                brightness(${brightnessPercent}%)
+                contrast(1.1)
+                drop-shadow(0 30px 60px rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4))
+            `;
         }
+        
+        layerBase.style.filter = filterString;
         
         currentConfig.body = { color, name: colorNames[color] || color };
         updateSummary();
     }
     
     function applyLedColor(color) {
-        if (!layerLedGlow) return;
+        if (!layerBase || !layerLedGlow) return;
         
-        // Aplicar cor do LED na camada de brilho
-        layerLedGlow.style.color = color;
-        layerLedGlow.style.opacity = '0.7';
-        
-        // Intensificar brilho para cores mais vibrantes
-        const saturation = getSaturationFromColor(color);
-        if (saturation > 70) {
-            layerLedGlow.style.opacity = '0.85';
-            layerLedGlow.style.filter = 'blur(3px)';
-        } else {
-            layerLedGlow.style.opacity = '0.6';
-            layerLedGlow.style.filter = 'blur(2px)';
-        }
+        // Criar overlay de LED com a cor selecionada
+        layerLedGlow.style.background = `
+            radial-gradient(
+                ellipse 30% 8% at 50% 8%,
+                ${color} 0%,
+                ${color}88 30%,
+                transparent 70%
+            )
+        `;
+        layerLedGlow.style.opacity = '0.85';
+        layerLedGlow.style.mixBlendMode = 'screen';
+        layerLedGlow.style.filter = 'blur(4px)';
         
         currentConfig.led = { color, name: colorNames[color] || color };
         updateSummary();
     }
     
     function applyTextColor(color) {
-        if (!layerText) return;
+        if (!layerBase || !layerText) return;
         
-        // Aplicar cor do texto na camada de texto
-        layerText.style.color = color;
-        layerText.style.opacity = '0.9';
-        
-        // Ajustar visibilidade baseado no contraste
-        const brightness = getBrightnessFromColor(color);
-        if (brightness > 200) {
-            // Texto claro
-            layerText.style.opacity = '1';
-            layerText.style.filter = 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5))';
-        } else if (brightness < 50) {
-            // Texto escuro
-            layerText.style.opacity = '0.95';
-            layerText.style.filter = 'drop-shadow(0 2px 4px rgba(255, 255, 255, 0.3))';
-        } else {
-            // Texto médio
-            layerText.style.opacity = '0.9';
-            layerText.style.filter = 'none';
-        }
+        // Criar overlay de texto com a cor selecionada
+        layerText.style.background = `
+            linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 39%,
+                ${color} 40%,
+                ${color} 45%,
+                transparent 46%,
+                transparent 100%
+            )
+        `;
+        layerText.style.opacity = '0.7';
+        layerText.style.mixBlendMode = 'overlay';
         
         currentConfig.text = { color, name: colorNames[color] || color };
         updateSummary();
@@ -308,27 +306,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Garantir que todas as camadas estejam configuradas corretamente
-    console.log('=== Sistema de Camadas (Layer Composition) ===');
-    console.log('Layer Base (z-0):', layerBase ? 'OK' : 'ERRO');
-    console.log('Layer Color Body (z-10):', layerColorBody ? 'OK' : 'ERRO');
-    console.log('Layer Details (z-20):', layerDetails ? 'OK' : 'ERRO');
-    console.log('Layer Text (z-30):', layerText ? 'OK' : 'ERRO');
-    console.log('Layer LED Glow (z-40):', layerLedGlow ? 'OK' : 'ERRO');
+    // Garantir que a imagem base esteja sempre visível
+    console.log('=== Customizer Premium ===');
+    console.log('Layer Base:', layerBase ? 'OK' : 'ERRO');
+    console.log('Layer LED Glow:', layerLedGlow ? 'OK' : 'ERRO');
+    console.log('Layer Text:', layerText ? 'OK' : 'ERRO');
     
-    // Garantir visibilidade das camadas principais
     if (layerBase) {
         layerBase.style.opacity = '1';
+        layerBase.style.display = 'block';
+    }
+    
+    // Ocultar camadas não utilizadas
+    if (layerColorBody) {
+        layerColorBody.style.display = 'none';
     }
     if (layerDetails) {
-        layerDetails.style.opacity = '1';
+        layerDetails.style.display = 'none';
+    }
+    
+    // Inicializar overlays
+    if (layerLedGlow) {
+        layerLedGlow.style.opacity = '0';
+    }
+    if (layerText) {
+        layerText.style.opacity = '0';
     }
     
     // Inicializar com cores padrão
-    applyBodyColor('#0a0a0f');
-    applyLedColor('#3b82f6');
-    applyTextColor('#ffffff');
+    setTimeout(() => {
+        applyBodyColor('#0a0a0f');
+        applyLedColor('#3b82f6');
+        applyTextColor('#ffffff');
+    }, 100);
     
-    console.log('Customizer Premium carregado com sucesso!');
-    console.log('Sistema de camadas inicializado!');
+    console.log('Customizer Premium carregado!');
 });
