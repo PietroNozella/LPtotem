@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1000">
+  <!-- Fundo -->
+  <rect width="1200" height="1000" fill="#1a1a2e"/>
+  
+  <!-- Contorno detalhado do Estado de São Paulo -->
+  <path d="M 150,250 L 180,220 L 220,200 L 270,185 L 330,175 L 390,170 L 450,168 L 510,170 L 570,175 L 630,185 L 690,200 L 750,220 L 800,245 L 850,280 L 890,320 L 920,365 L 945,415 L 960,470 L 968,525 L 970,580 L 965,635 L 950,685 L 925,730 L 890,770 L 845,805 L 790,835 L 730,858 L 665,875 L 595,888 L 525,895 L 455,895 L 385,888 L 320,875 L 260,858 L 205,835 L 160,805 L 125,770 L 100,730 L 80,685 L 68,635 L 62,580 L 65,525 L 75,470 L 92,415 L 115,365 L 145,320 L 150,250 Z" 
+        fill="#16213e" 
+        stroke="#2563eb" 
+        stroke-width="2" 
+        opacity="0.8"/>
+  
+  <!-- Divisões regionais internas -->
+  <g opacity="0.3" stroke="#334155" stroke-width="1" fill="none">
+    <path d="M 200,300 Q 400,350 600,320"/>
+    <path d="M 250,400 Q 450,450 650,420"/>
+    <path d="M 300,500 Q 500,550 700,520"/>
+    <path d="M 350,600 Q 550,650 750,620"/>
+    <path d="M 300,250 L 500,450 L 700,250"/>
+    <path d="M 200,350 L 400,550 L 600,350"/>
+  </g>
+  
+  <!-- Regiões administrativas com cores sutis -->
+  <g opacity="0.15">
+    <!-- Região Metropolitana -->
+    <ellipse cx="500" cy="520" rx="150" ry="110" fill="#06b6d4"/>
+    <!-- Vale do Paraíba -->
+    <ellipse cx="750" cy="380" rx="100" ry="80" fill="#3b82f6"/>
+    <!-- Campinas -->
+    <ellipse cx="350" cy="420" rx="90" ry="70" fill="#8b5cf6"/>
+    <!-- Baixada Santista -->
+    <ellipse cx="520" cy="680" rx="80" ry="50" fill="#10b981"/>
+  </g>
+  
+  <!-- Principais rodovias -->
+  <g opacity="0.2" stroke="#64748b" stroke-width="2" fill="none" stroke-dasharray="5,5">
+    <line x1="500" y1="520" x2="750" y2="380"/>
+    <line x1="500" y1="520" x2="350" y2="420"/>
+    <line x1="500" y1="520" x2="520" y2="680"/>
+    <line x1="500" y1="520" x2="300" y2="300"/>
+  </g>
+</svg>
