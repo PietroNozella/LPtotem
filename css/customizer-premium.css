@@ -38,7 +38,9 @@
 }
 
 .preview-stage {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background: 
+        radial-gradient(ellipse at center, rgba(59, 130, 246, 0.08) 0%, transparent 70%),
+        linear-gradient(135deg, #0a0a0f 0%, #1e293b 50%, #0a0a0f 100%);
     border-radius: 24px;
     padding: 60px 40px;
     border: 1px solid rgba(59, 130, 246, 0.2);
@@ -289,6 +291,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* Fundo escuro para harmonizar com a LP */
+    background: 
+        radial-gradient(ellipse at center, rgba(59, 130, 246, 0.1) 0%, transparent 60%),
+        #0a0a0f;
+    border-radius: 20px;
+    padding: 2rem;
 }
 
 .totem-real-image {
@@ -296,9 +304,15 @@
     height: auto;
     max-height: 600px;
     object-fit: contain;
-    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5));
+    filter: 
+        drop-shadow(0 30px 60px rgba(0, 0, 0, 0.8))
+        contrast(1.05)
+        brightness(1.02);
     transition: opacity 0.4s ease, transform 0.4s ease;
     opacity: 1;
+    /* Técnica para harmonizar fundos claros com LP escura */
+    mix-blend-mode: screen;
+    isolation: isolate;
 }
 
 /* Animação de troca de imagem */
