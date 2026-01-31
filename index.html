@@ -615,19 +615,15 @@
                 <!-- Preview do Totem -->
                 <div class="totem-preview-area">
                     <div class="preview-stage">
-                        <!-- Sistema de Camadas Profissional (como Audi/Mercedes) -->
-                        <div class="totem-layers" id="totemLayers">
-                            <!-- Camada 1: Imagem base do totem -->
-                            <img src="assets/totem-hero.png" alt="Totem" class="totem-layer totem-base-img" id="totemBaseImg">
+                        <!-- Sistema de Imagens Reais (como Audi/Mercedes/BMW) -->
+                        <div class="totem-image-container">
+                            <img src="assets/totem-azul-classico.png" alt="Totem SP Security" class="totem-real-image" id="totemRealImage">
                             
-                            <!-- Camada 2: Overlay de cor do corpo -->
-                            <div class="totem-layer totem-body-color" id="totemBodyColor"></div>
-                            
-                            <!-- Camada 3: Overlay de cor do LED -->
-                            <div class="totem-layer totem-led-color" id="totemLedColor"></div>
-                            
-                            <!-- Camada 4: Overlay de cor do texto -->
-                            <div class="totem-layer totem-text-color" id="totemTextColor"></div>
+                            <!-- Loader para transição suave -->
+                            <div class="image-loader" id="imageLoader">
+                                <div class="loader-spinner"></div>
+                                <p>Carregando...</p>
+                            </div>
                         </div>
                         
                         <!-- Indicador de rotação (futuro) -->

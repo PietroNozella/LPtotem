@@ -1,11 +1,9 @@
 // ===== CUSTOMIZER PREMIUM - Configurador Estilo Carros de Luxo =====
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos das Camadas (Técnica Profissional - Audi/Mercedes Style)
-    const totemBaseImg = document.getElementById('totemBaseImg');
-    const totemBodyColor = document.getElementById('totemBodyColor');
-    const totemLedColor = document.getElementById('totemLedColor');
-    const totemTextColor = document.getElementById('totemTextColor');
+    // Elementos do Sistema de Imagens Reais (Técnica Profissional - Audi/Mercedes/BMW)
+    const totemRealImage = document.getElementById('totemRealImage');
+    const imageLoader = document.getElementById('imageLoader');
     
     const summaryBody = document.getElementById('summaryBody');
     const summaryLed = document.getElementById('summaryLed');
@@ -39,118 +37,141 @@ document.addEventListener('DOMContentLoaded', function() {
         '#fbbf24': 'Dourado'
     };
     
-    // Configurações Pré-Definidas (Presets)
+    // Configurações Pré-Definidas com Imagens Reais (Presets)
     const presetConfigurations = {
         'classic-blue': {
             body: '#0a0a0f',
             led: '#3b82f6',
             text: '#ffffff',
-            name: 'Azul Clássico'
+            name: 'Azul Clássico',
+            image: 'assets/totem-azul-classico.png'
         },
         'modern-white': {
             body: '#ffffff',
             led: '#10b981',
             text: '#0a0a0f',
-            name: 'Branco Moderno'
+            name: 'Branco Moderno',
+            image: 'assets/totem-branco-verde.png'
         },
         'premium-black': {
             body: '#0a0a0f',
             led: '#3b82f6',
             text: '#06b6d4',
-            name: 'Preto Premium'
+            name: 'Preto Premium',
+            image: 'assets/totem-preto-premium.png'
         },
         'minimal-white': {
             body: '#ffffff',
             led: '#3b82f6',
             text: '#0a0a0f',
-            name: 'Branco Minimalista'
+            name: 'Branco Minimalista',
+            image: 'assets/totem-branco-minimalista.png'
         },
         'sp-red': {
             body: '#0a0a0f',
             led: '#ef4444',
             text: '#ef4444',
-            name: 'SP Security Vermelho'
+            name: 'SP Security Vermelho',
+            image: 'assets/totem-vermelho.png'
         },
         'elegant-white': {
             body: '#ffffff',
             led: '#10b981',
             text: '#10b981',
-            name: 'Branco Elegante'
+            name: 'Branco Elegante',
+            image: 'assets/totem-branco-verde.png'
         }
     };
     
-    // Técnica Profissional: Overlay com Mix Blend Modes (como Audi/Mercedes)
+    // Mapeamento de combinações de cores para imagens
+    const colorToImageMap = {
+        // Azul Clássico: Preto + Azul + Branco
+        '#0a0a0f-#3b82f6-#ffffff': 'assets/totem-azul-classico.png',
+        // Branco com Verde
+        '#ffffff-#10b981-#0a0a0f': 'assets/totem-branco-verde.png',
+        '#ffffff-#10b981-#10b981': 'assets/totem-branco-verde.png',
+        // Preto Premium: Preto + Azul + Ciano
+        '#0a0a0f-#3b82f6-#06b6d4': 'assets/totem-preto-premium.png',
+        // Branco Minimalista: Branco + Azul + Preto
+        '#ffffff-#3b82f6-#0a0a0f': 'assets/totem-branco-minimalista.png',
+        // Vermelho
+        '#0a0a0f-#ef4444-#ef4444': 'assets/totem-vermelho.png',
+        // Fallback para imagem padrão
+        'default': 'assets/totem-azul-classico.png'
+    };
+    
+    // Função para trocar imagem do totem (Técnica Real - Audi/Mercedes/BMW)
+    function changeTotemImage(imagePath) {
+        if (!totemRealImage || !imageLoader) return;
+        
+        console.log(`Trocando imagem para: ${imagePath}`);
+        
+        // Adicionar classe de transição
+        totemRealImage.classList.add('changing');
+        
+        // Mostrar loader
+        imageLoader.classList.add('active');
+        
+        // Pré-carregar nova imagem
+        const newImage = new Image();
+        newImage.src = imagePath;
+        
+        newImage.onload = function() {
+            // Aguardar animação de fade out
+            setTimeout(() => {
+                // Trocar imagem
+                totemRealImage.src = imagePath;
+                
+                // Remover loader
+                imageLoader.classList.remove('active');
+                
+                // Remover classe de transição (fade in)
+                totemRealImage.classList.remove('changing');
+            }, 200);
+        };
+        
+        newImage.onerror = function() {
+            console.error(`Erro ao carregar imagem: ${imagePath}`);
+            imageLoader.classList.remove('active');
+            totemRealImage.classList.remove('changing');
+        };
+    }
+    
+    // Função para obter imagem baseada na combinação de cores
+    function getImageForColors(bodyColor, ledColor, textColor) {
+        const key = `${bodyColor}-${ledColor}-${textColor}`;
+        const image = colorToImageMap[key] || colorToImageMap['default'];
+        console.log(`Combinação: ${key} -> Imagem: ${image}`);
+        return image;
+    }
+    
+    // Aplicar cores (agora apenas atualiza config e troca imagem)
     function applyBodyColor(color) {
-        if (!totemBodyColor) return;
-        
-        const brightness = getBrightnessFromColor(color);
-        
-        // Aplicar cor como overlay
-        totemBodyColor.style.backgroundColor = color;
-        
-        // Ajustar blend mode e opacidade baseado na luminosidade
-        if (brightness > 200) {
-            // Cores muito claras (branco)
-            totemBodyColor.style.mixBlendMode = 'lighten';
-            totemBodyColor.style.opacity = '0.6';
-        } else if (brightness > 150) {
-            // Cores claras
-            totemBodyColor.style.mixBlendMode = 'overlay';
-            totemBodyColor.style.opacity = '0.5';
-        } else if (brightness > 80) {
-            // Cores médias
-            totemBodyColor.style.mixBlendMode = 'multiply';
-            totemBodyColor.style.opacity = '0.7';
-        } else {
-            // Cores escuras
-            totemBodyColor.style.mixBlendMode = 'multiply';
-            totemBodyColor.style.opacity = '0.8';
-        }
-        
         currentConfig.body = { color, name: colorNames[color] || color };
+        updateTotemImage();
         updateSummary();
     }
     
     function applyLedColor(color) {
-        if (!totemLedColor) return;
-        
-        // Criar gradiente radial para o LED (área do topo)
-        totemLedColor.style.background = `
-            radial-gradient(
-                ellipse 25% 6% at 50% 7%,
-                ${color} 0%,
-                ${color}dd 20%,
-                ${color}88 40%,
-                transparent 70%
-            )
-        `;
-        totemLedColor.style.opacity = '0.9';
-        totemLedColor.style.mixBlendMode = 'screen';
-        
         currentConfig.led = { color, name: colorNames[color] || color };
+        updateTotemImage();
         updateSummary();
     }
     
     function applyTextColor(color) {
-        if (!totemTextColor) return;
-        
-        // Criar gradiente linear para área do texto/marca
-        totemTextColor.style.background = `
-            linear-gradient(
-                to bottom,
-                transparent 0%,
-                transparent 38%,
-                ${color} 40%,
-                ${color} 45%,
-                transparent 47%,
-                transparent 100%
-            )
-        `;
-        totemTextColor.style.opacity = '0.8';
-        totemTextColor.style.mixBlendMode = 'overlay';
-        
         currentConfig.text = { color, name: colorNames[color] || color };
+        updateTotemImage();
         updateSummary();
+    }
+    
+    // Atualizar imagem do totem baseado na configuração atual
+    function updateTotemImage() {
+        const imagePath = getImageForColors(
+            currentConfig.body.color,
+            currentConfig.led.color,
+            currentConfig.text.color
+        );
+        changeTotemImage(imagePath);
     }
     
     // Funções auxiliares para conversão de cores
@@ -225,17 +246,24 @@ document.addEventListener('DOMContentLoaded', function() {
         if (summaryText) summaryText.textContent = currentConfig.text.name;
     }
     
-    // Função para aplicar preset completo
+    // Função para aplicar preset completo com imagem real
     function applyPreset(presetKey) {
         const preset = presetConfigurations[presetKey];
         if (!preset) return;
         
         console.log(`Aplicando preset: ${preset.name}`);
         
-        // Aplicar todas as cores do preset
-        applyBodyColor(preset.body);
-        applyLedColor(preset.led);
-        applyTextColor(preset.text);
+        // Atualizar configuração atual
+        currentConfig.body = { color: preset.body, name: colorNames[preset.body] || preset.body };
+        currentConfig.led = { color: preset.led, name: colorNames[preset.led] || preset.led };
+        currentConfig.text = { color: preset.text, name: colorNames[preset.text] || preset.text };
+        currentConfig.preset = preset.name;
+        
+        // Trocar para a imagem do preset
+        changeTotemImage(preset.image);
+        
+        // Atualizar resumo
+        updateSummary();
         
         // Atualizar botões individuais para refletir o preset
         document.querySelectorAll('.color-option').forEach(btn => {
@@ -250,9 +278,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (bodyBtn) bodyBtn.classList.add('active');
         if (ledBtn) ledBtn.classList.add('active');
         if (textBtn) textBtn.classList.add('active');
-        
-        // Atualizar configuração atual
-        currentConfig.preset = preset.name;
     }
     
     // Event listeners para presets
@@ -394,38 +419,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Inicialização do Sistema de Camadas Profissional
-    console.log('=== Customizer Profissional (Técnica Audi/Mercedes) ===');
-    console.log('Imagem Base:', totemBaseImg ? 'OK' : 'ERRO');
-    console.log('Overlay Corpo:', totemBodyColor ? 'OK' : 'ERRO');
-    console.log('Overlay LED:', totemLedColor ? 'OK' : 'ERRO');
-    console.log('Overlay Texto:', totemTextColor ? 'OK' : 'ERRO');
+    // Inicialização do Sistema de Imagens Reais
+    console.log('=== Customizer Profissional (Técnica Real - Audi/Mercedes/BMW) ===');
+    console.log('Imagem Real:', totemRealImage ? 'OK' : 'ERRO');
+    console.log('Loader:', imageLoader ? 'OK' : 'ERRO');
     
-    // Garantir que a imagem base esteja visível
-    if (totemBaseImg) {
-        totemBaseImg.style.opacity = '1';
+    // Garantir que a imagem esteja visível
+    if (totemRealImage) {
+        totemRealImage.style.opacity = '1';
     }
     
-    // Inicializar overlays como transparentes
-    if (totemBodyColor) {
-        totemBodyColor.style.opacity = '0';
-        totemBodyColor.style.backgroundColor = 'transparent';
-    }
-    if (totemLedColor) {
-        totemLedColor.style.opacity = '0';
-        totemLedColor.style.background = 'transparent';
-    }
-    if (totemTextColor) {
-        totemTextColor.style.opacity = '0';
-        totemTextColor.style.background = 'transparent';
-    }
-    
-    // Aplicar cores padrão após pequeno delay
+    // Aplicar configuração padrão (Azul Clássico)
     setTimeout(() => {
-        applyBodyColor('#0a0a0f');
-        applyLedColor('#3b82f6');
-        applyTextColor('#ffffff');
-    }, 150);
+        currentConfig.body = { color: '#0a0a0f', name: 'Preto Fosco' };
+        currentConfig.led = { color: '#3b82f6', name: 'Azul' };
+        currentConfig.text = { color: '#ffffff', name: 'Branco' };
+        updateSummary();
+        
+        // Marcar preset padrão como ativo
+        const defaultPreset = document.querySelector('[data-preset="classic-blue"]');
+        if (defaultPreset) {
+            defaultPreset.classList.add('active');
+        }
+    }, 100);
     
-    console.log('Sistema de camadas inicializado com sucesso!');
+    console.log('Sistema de imagens reais inicializado com sucesso!');
 });
