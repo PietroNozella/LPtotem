@@ -1,21 +1,49 @@
 // ===== Mapa Interativo SP Security =====
 
+// #region agent log
+var debugRetryCount = 0;
+// #endregion
+
 function initMap() {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f3ea786d-e4c6-4dd9-9b5f-f1b5a5b4f893',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'map.js:initMap',message:'initMap called',data:{retryCount:debugRetryCount},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'A'})}).catch(function(){});
+    // #endregion
+
     // Verificar se o elemento do mapa existe
     const mapElement = document.getElementById('spMap');
+    
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f3ea786d-e4c6-4dd9-9b5f-f1b5a5b4f893',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'map.js:spMap-check',message:'spMap element check',data:{found:!!mapElement,elementId:mapElement?mapElement.id:null},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'C'})}).catch(function(){});
+    // #endregion
+
     if (!mapElement) {
         console.log('Elemento spMap não encontrado');
         return;
     }
     
     // Verificar se Leaflet está disponível
-    if (typeof L === 'undefined') {
-        console.error('Leaflet não está carregado, tentando novamente em 500ms...');
-        setTimeout(initMap, 500);
+    var leafletAvailable = typeof L !== 'undefined';
+    
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f3ea786d-e4c6-4dd9-9b5f-f1b5a5b4f893',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'map.js:leaflet-check',message:'Leaflet availability',data:{available:leafletAvailable,retryCount:debugRetryCount},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'B'})}).catch(function(){});
+    // #endregion
+
+    if (!leafletAvailable) {
+        debugRetryCount++;
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/f3ea786d-e4c6-4dd9-9b5f-f1b5a5b4f893',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'map.js:retry',message:'Leaflet not ready, scheduling retry',data:{retryCount:debugRetryCount},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'E'})}).catch(function(){});
+        // #endregion
+        if (debugRetryCount < 10) {
+            setTimeout(initMap, 500);
+        }
         return;
     }
 
     try {
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/f3ea786d-e4c6-4dd9-9b5f-f1b5a5b4f893',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'map.js:try-start',message:'Starting map initialization',data:{},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'D'})}).catch(function(){});
+        // #endregion
+
         // Coordenadas centrais de São Paulo
         const spCenter = [-23.5505, -46.6333];
         
@@ -125,13 +153,25 @@ function initMap() {
             map.invalidateSize();
         }, 100);
         
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/f3ea786d-e4c6-4dd9-9b5f-f1b5a5b4f893',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'map.js:success',message:'Map initialized successfully',data:{},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'D'})}).catch(function(){});
+        // #endregion
+        
         console.log('Mapa SP Security inicializado com sucesso');
         
     } catch (error) {
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/f3ea786d-e4c6-4dd9-9b5f-f1b5a5b4f893',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'map.js:catch',message:'Error in map init',data:{error:error.toString(),stack:error.stack},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'D'})}).catch(function(){});
+        // #endregion
+        
         console.error('Erro ao inicializar o mapa:', error);
         mapElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#a1a1aa;flex-direction:column;gap:10px;padding:40px;text-align:center;"><i class="fas fa-map-marker-alt" style="font-size:48px;color:#3b82f6;margin-bottom:10px;"></i><h3 style="color:#fff;margin:0;">Atendemos todo o Estado de São Paulo</h3><p style="margin:10px 0 0 0;">Grande SP, Campinas, Sorocaba, Santos e mais de 50 cidades</p></div>';
     }
 }
+
+// #region agent log
+fetch('http://127.0.0.1:7242/ingest/f3ea786d-e4c6-4dd9-9b5f-f1b5a5b4f893',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'map.js:script-loaded',message:'map.js script loaded',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'A'})}).catch(function(){});
+// #endregion
 
 // Iniciar quando o DOM estiver pronto
 if (document.readyState === 'loading') {
