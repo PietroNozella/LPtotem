@@ -1,4 +1,4 @@
-// ===== Mapa SP Security - Leaflet com OpenStreetMap =====
+// ===== Mapa SP Security - SVG Estático (Sem Dependências Externas) =====
 
 document.addEventListener('DOMContentLoaded', function() {
     var mapElement = document.getElementById('spMap');
@@ -7,339 +7,275 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // Mostrar loading
-    mapElement.innerHTML = '<div style="color:#3b82f6;padding:40px;text-align:center;"><i class="fas fa-spinner fa-spin" style="font-size:32px;margin-bottom:16px;"></i><br>Carregando mapa...</div>';
-
-    // Função para tentar carregar o mapa
-    function initMap() {
-        // Verificar se Leaflet está carregado
-        if (typeof L === 'undefined') {
-            console.error('Leaflet não está carregado');
-            mapElement.innerHTML = '<div style="color:#ef4444;padding:40px;text-align:center;"><i class="fas fa-exclamation-triangle" style="font-size:32px;margin-bottom:16px;"></i><br><strong>Erro ao carregar biblioteca do mapa</strong><br><small>Por favor, recarregue a página ou verifique sua conexão.</small></div>';
-            return;
+    // Criar mapa SVG estático com formato real de São Paulo
+    mapElement.innerHTML = `
+    <div class="static-map-container">
+        <svg viewBox="0 0 1000 800" class="sp-map-svg" xmlns="http://www.w3.org/2000/svg">
+            <!-- Definições -->
+            <defs>
+                <!-- Gradiente para o estado -->
+                <linearGradient id="stateGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#0f172a;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#020617;stop-opacity:1" />
+                </linearGradient>
+                
+                <!-- Gradiente para região metropolitana -->
+                <radialGradient id="metroGradient" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.2" />
+                    <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0" />
+                </radialGradient>
+                
+                <!-- Filtro de brilho para marcadores -->
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            
+            <!-- Fundo -->
+            <rect width="1000" height="800" fill="#0a0a0f"/>
+            
+            <!-- Grid de referência -->
+            <g opacity="0.05">
+                <line x1="0" y1="200" x2="1000" y2="200" stroke="#475569" stroke-width="1"/>
+                <line x1="0" y1="400" x2="1000" y2="400" stroke="#475569" stroke-width="1"/>
+                <line x1="0" y1="600" x2="1000" y2="600" stroke="#475569" stroke-width="1"/>
+                <line x1="250" y1="0" x2="250" y2="800" stroke="#475569" stroke-width="1"/>
+                <line x1="500" y1="0" x2="500" y2="800" stroke="#475569" stroke-width="1"/>
+                <line x1="750" y1="0" x2="750" y2="800" stroke="#475569" stroke-width="1"/>
+            </g>
+            
+            <!-- Contorno do Estado de São Paulo (formato realista) -->
+            <path d="M 200,150 L 250,120 L 320,110 L 400,105 L 480,110 L 560,125 L 630,145 L 690,175 L 740,215 L 770,265 L 785,320 L 790,380 L 785,440 L 765,495 L 730,540 L 680,575 L 620,600 L 550,615 L 480,620 L 410,615 L 340,600 L 280,575 L 230,540 L 195,495 L 175,440 L 165,380 L 165,320 L 175,265 L 190,210 L 200,150 Z" 
+                  fill="url(#stateGradient)" 
+                  stroke="#2563eb" 
+                  stroke-width="3" 
+                  opacity="0.6"/>
+            
+            <!-- Região Metropolitana de São Paulo -->
+            <ellipse cx="500" cy="420" rx="120" ry="90" 
+                     fill="url(#metroGradient)" 
+                     stroke="#06b6d4" 
+                     stroke-width="2" 
+                     stroke-dasharray="8,4" 
+                     opacity="0.7"/>
+            
+            <!-- Linhas conectando cidades (rotas) -->
+            <g opacity="0.2" stroke="#3b82f6" stroke-width="1.5" fill="none">
+                <line x1="500" y1="420" x2="540" y2="380"/>
+                <line x1="500" y1="420" x2="560" y2="440"/>
+                <line x1="500" y1="420" x2="460" y2="420"/>
+                <line x1="500" y1="420" x2="520" y2="500"/>
+                <line x1="500" y1="420" x2="350" y2="340"/>
+                <line x1="500" y1="420" x2="380" y2="420"/>
+                <line x1="500" y1="420" x2="400" y2="500"/>
+                <line x1="500" y1="420" x2="700" y2="340"/>
+            </g>
+            
+            <!-- Marcadores das Cidades -->
+            
+            <!-- São Paulo (Sede) -->
+            <g class="city-marker sede" data-city="São Paulo">
+                <circle cx="500" cy="420" r="35" fill="#06b6d4" opacity="0.2" class="pulse-ring">
+                    <animate attributeName="r" from="20" to="45" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.4" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="500" cy="420" r="12" fill="#06b6d4" stroke="#fff" stroke-width="3" filter="url(#glow)"/>
+                <text x="500" y="455" text-anchor="middle" fill="#06b6d4" font-size="16" font-weight="700" font-family="Inter, sans-serif">São Paulo</text>
+                <text x="500" y="472" text-anchor="middle" fill="#64748b" font-size="11" font-family="Inter, sans-serif">(Sede Principal)</text>
+            </g>
+            
+            <!-- Guarulhos -->
+            <g class="city-marker" data-city="Guarulhos">
+                <circle cx="540" cy="380" r="25" fill="#3b82f6" opacity="0.2" class="pulse-ring">
+                    <animate attributeName="r" from="15" to="35" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="540" cy="380" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+                <text x="540" y="368" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Inter, sans-serif" class="city-label">Guarulhos</text>
+            </g>
+            
+            <!-- ABC Paulista -->
+            <g class="city-marker" data-city="ABC">
+                <circle cx="560" cy="440" r="25" fill="#3b82f6" opacity="0.2" class="pulse-ring">
+                    <animate attributeName="r" from="15" to="35" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="560" cy="440" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+                <text x="560" y="460" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Inter, sans-serif" class="city-label">ABC Paulista</text>
+            </g>
+            
+            <!-- Osasco -->
+            <g class="city-marker" data-city="Osasco">
+                <circle cx="460" cy="420" r="25" fill="#3b82f6" opacity="0.2" class="pulse-ring">
+                    <animate attributeName="r" from="15" to="35" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="460" cy="420" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+                <text x="460" y="408" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Inter, sans-serif" class="city-label">Osasco</text>
+            </g>
+            
+            <!-- Suzano -->
+            <g class="city-marker" data-city="Suzano">
+                <circle cx="580" cy="410" r="25" fill="#3b82f6" opacity="0.2" class="pulse-ring">
+                    <animate attributeName="r" from="15" to="35" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="580" cy="410" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+                <text x="580" y="398" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Inter, sans-serif" class="city-label">Suzano</text>
+            </g>
+            
+            <!-- Santos -->
+            <g class="city-marker" data-city="Santos">
+                <circle cx="520" cy="500" r="25" fill="#3b82f6" opacity="0.2" class="pulse-ring">
+                    <animate attributeName="r" from="15" to="35" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="520" cy="500" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+                <text x="520" y="520" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Inter, sans-serif" class="city-label">Santos</text>
+            </g>
+            
+            <!-- Campinas -->
+            <g class="city-marker" data-city="Campinas">
+                <circle cx="350" cy="340" r="25" fill="#3b82f6" opacity="0.2" class="pulse-ring">
+                    <animate attributeName="r" from="15" to="35" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="350" cy="340" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+                <text x="350" y="328" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Inter, sans-serif" class="city-label">Campinas</text>
+            </g>
+            
+            <!-- Jundiaí -->
+            <g class="city-marker" data-city="Jundiaí">
+                <circle cx="400" cy="360" r="25" fill="#3b82f6" opacity="0.2" class="pulse-ring">
+                    <animate attributeName="r" from="15" to="35" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="400" cy="360" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+                <text x="400" y="348" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Inter, sans-serif" class="city-label">Jundiaí</text>
+            </g>
+            
+            <!-- Sorocaba -->
+            <g class="city-marker" data-city="Sorocaba">
+                <circle cx="380" cy="500" r="25" fill="#3b82f6" opacity="0.2" class="pulse-ring">
+                    <animate attributeName="r" from="15" to="35" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="380" cy="500" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+                <text x="380" y="520" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Inter, sans-serif" class="city-label">Sorocaba</text>
+            </g>
+            
+            <!-- São José dos Campos -->
+            <g class="city-marker" data-city="SJC">
+                <circle cx="700" cy="340" r="25" fill="#3b82f6" opacity="0.2" class="pulse-ring">
+                    <animate attributeName="r" from="15" to="35" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="700" cy="340" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+                <text x="700" y="328" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Inter, sans-serif" class="city-label">S.J. Campos</text>
+            </g>
+            
+            <!-- Ribeirão Preto -->
+            <g class="city-marker" data-city="Ribeirão">
+                <circle cx="300" cy="220" r="25" fill="#3b82f6" opacity="0.2" class="pulse-ring">
+                    <animate attributeName="r" from="15" to="35" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="300" cy="220" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+                <text x="300" y="208" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Inter, sans-serif" class="city-label">Ribeirão Preto</text>
+            </g>
+            
+            <!-- Catanduva -->
+            <g class="city-marker" data-city="Catanduva">
+                <circle cx="280" cy="200" r="25" fill="#3b82f6" opacity="0.2" class="pulse-ring">
+                    <animate attributeName="r" from="15" to="35" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="280" cy="200" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+                <text x="280" y="188" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Inter, sans-serif" class="city-label">Catanduva</text>
+            </g>
+            
+            <!-- Legenda -->
+            <g class="map-legend" transform="translate(780, 50)">
+                <rect x="0" y="0" width="200" height="140" fill="rgba(10,10,15,0.9)" stroke="#334155" stroke-width="2" rx="12"/>
+                <text x="100" y="30" text-anchor="middle" fill="#e5e7eb" font-size="14" font-weight="600" font-family="Inter, sans-serif">Cobertura SP Security</text>
+                
+                <circle cx="25" cy="60" r="8" fill="#06b6d4" stroke="#fff" stroke-width="2"/>
+                <text x="45" y="65" fill="#a1a1aa" font-size="11" font-family="Inter, sans-serif">Sede Principal</text>
+                
+                <circle cx="25" cy="90" r="6" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+                <text x="45" y="95" fill="#a1a1aa" font-size="11" font-family="Inter, sans-serif">Áreas Atendidas</text>
+                
+                <ellipse cx="100" cy="120" rx="20" ry="12" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="4,2"/>
+                <text x="130" y="125" fill="#a1a1aa" font-size="10" font-family="Inter, sans-serif">Região Metro</text>
+            </g>
+        </svg>
+    </div>
+    
+    <style>
+        .static-map-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0a0f 0%, #12121a 100%);
+            padding: 20px;
+            box-sizing: border-box;
         }
-        loadMap();
-    }
-
-    // Tentar carregar após um pequeno delay
-    setTimeout(initMap, 500);
-
-    function loadMap() {
-
-    try {
-        // Coordenadas das cidades de São Paulo
-        const cities = [
-            // Sede
-            { name: 'São Paulo', coords: [-23.5505, -46.6333], isSede: true },
-            
-            // Grande São Paulo
-            { name: 'Guarulhos', coords: [-23.4538, -46.5333], isSede: false },
-            { name: 'ABC Paulista', coords: [-23.6821, -46.5650], isSede: false },
-            { name: 'Osasco', coords: [-23.5329, -46.7919], isSede: false },
-            { name: 'Suzano', coords: [-23.5425, -46.3108], isSede: false },
-            
-            // Interior - Região Campinas
-            { name: 'Campinas', coords: [-22.9099, -47.0626], isSede: false },
-            { name: 'Jundiaí', coords: [-23.1864, -46.8842], isSede: false },
-            
-            // Interior - Outras regiões
-            { name: 'Sorocaba', coords: [-23.5015, -47.4526], isSede: false },
-            { name: 'Santos', coords: [-23.9608, -46.3335], isSede: false },
-            { name: 'São José dos Campos', coords: [-23.1791, -45.8872], isSede: false },
-            { name: 'Ribeirão Preto', coords: [-21.1704, -47.8103], isSede: false },
-            { name: 'Catanduva', coords: [-21.1378, -48.9728], isSede: false },
-        ];
-
-        // Centro do mapa (São Paulo)
-        const spCenter = [-23.5505, -46.6333];
-
-        // Inicializar mapa
-        const map = L.map('spMap', {
-            center: spCenter,
-            zoom: 8,
-            zoomControl: true,
-            scrollWheelZoom: false, // Desabilitar zoom com scroll inicialmente
-            dragging: true,
-            touchZoom: true,
-            doubleClickZoom: true,
-            boxZoom: true,
-            keyboard: true,
-            attributionControl: true
-        });
-
-        // Habilitar zoom com scroll ao clicar no mapa
-        map.on('click', function() {
-            map.scrollWheelZoom.enable();
-        });
-
-        // Desabilitar zoom com scroll ao sair do mapa
-        map.on('mouseout', function() {
-            map.scrollWheelZoom.disable();
-        });
-
-        // Adicionar tiles do OpenStreetMap (sem necessidade de API key)
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-            maxZoom: 19,
-            className: 'map-tiles'
-        }).addTo(map);
-
-        // Estilo customizado para os marcadores
-        const sedeIcon = L.divIcon({
-            className: 'custom-marker sede-marker',
-            html: `
-                <div class="marker-container">
-                    <div class="marker-pulse"></div>
-                    <div class="marker-pin sede">
-                        <i class="fas fa-building"></i>
-                    </div>
-                </div>
-            `,
-            iconSize: [40, 40],
-            iconAnchor: [20, 40],
-            popupAnchor: [0, -40]
-        });
-
-        const cityIcon = L.divIcon({
-            className: 'custom-marker city-marker',
-            html: `
-                <div class="marker-container">
-                    <div class="marker-pulse"></div>
-                    <div class="marker-pin">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                </div>
-            `,
-            iconSize: [30, 30],
-            iconAnchor: [15, 30],
-            popupAnchor: [0, -30]
-        });
-
-        // Adicionar marcadores
-        cities.forEach(city => {
-            const marker = L.marker(city.coords, {
-                icon: city.isSede ? sedeIcon : cityIcon,
-                title: city.name
-            }).addTo(map);
-
-            // Popup personalizado
-            const popupContent = `
-                <div class="custom-popup ${city.isSede ? 'sede-popup' : ''}">
-                    <h3>${city.name}</h3>
-                    ${city.isSede ? '<p><strong>Sede Principal</strong></p>' : '<p>Área Atendida</p>'}
-                    <p><i class="fas fa-phone"></i> Atendimento 24/7</p>
-                </div>
-            `;
-
-            marker.bindPopup(popupContent, {
-                className: 'leaflet-custom-popup',
-                closeButton: true,
-                offset: [0, -10]
-            });
-
-            // Abrir popup da sede automaticamente
-            if (city.isSede) {
-                marker.openPopup();
-            }
-        });
-
-        // Adicionar círculo destacando a região metropolitana
-        L.circle(spCenter, {
-            color: '#06b6d4',
-            fillColor: '#06b6d4',
-            fillOpacity: 0.1,
-            radius: 50000, // 50km
-            weight: 2,
-            dashArray: '10, 10'
-        }).addTo(map);
-
-        // Ajustar o mapa após carregar
-        setTimeout(() => {
-            map.invalidateSize();
-        }, 100);
-
-        console.log('Mapa Leaflet carregado com sucesso!');
-
-    } catch (error) {
-        console.error('Erro ao inicializar o mapa:', error);
-        mapElement.innerHTML = '<div style="color:#ef4444;padding:40px;text-align:center;"><i class="fas fa-exclamation-triangle" style="font-size:32px;margin-bottom:16px;"></i><br><strong>Erro ao carregar o mapa</strong><br><small>' + error.message + '</small><br><button onclick="location.reload()" style="margin-top:16px;padding:8px 16px;background:#3b82f6;color:white;border:none;border-radius:8px;cursor:pointer;">Recarregar Página</button></div>';
-    }
-    }
-});
-
-// Estilos CSS para os marcadores customizados
-const style = document.createElement('style');
-style.textContent = `
-    /* Tiles do mapa com tema escuro */
-    .map-tiles {
-        filter: brightness(0.6) invert(1) contrast(1.2) hue-rotate(200deg) saturate(0.3) brightness(0.7);
-    }
-
-    /* Container do marcador */
-    .marker-container {
-        position: relative;
-        width: 100%;
-        height: 100%;
-    }
-
-    /* Animação de pulso */
-    .marker-pulse {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 40px;
-        height: 40px;
-        background: rgba(59, 130, 246, 0.4);
-        border-radius: 50%;
-        animation: marker-pulse 2s ease-out infinite;
-    }
-
-    .sede-marker .marker-pulse {
-        background: rgba(6, 182, 212, 0.5);
-        width: 50px;
-        height: 50px;
-    }
-
-    @keyframes marker-pulse {
-        0% {
-            transform: translate(-50%, -50%) scale(0.5);
+        
+        .sp-map-svg {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+        }
+        
+        .city-marker {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .city-marker:hover {
+            transform: scale(1.15);
+        }
+        
+        .city-marker:hover circle:not(.pulse-ring) {
+            filter: drop-shadow(0 0 12px currentColor);
+        }
+        
+        .city-label {
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .city-marker:hover .city-label {
+            opacity: 1;
+            fill: #e5e7eb;
+        }
+        
+        .city-marker.sede .city-label {
             opacity: 1;
         }
-        100% {
-            transform: translate(-50%, -50%) scale(2);
-            opacity: 0;
+        
+        @media (max-width: 768px) {
+            .sp-map-svg {
+                max-width: 100%;
+            }
+            
+            .map-legend {
+                transform: translate(20, 600) scale(0.8);
+            }
+            
+            .city-label {
+                font-size: 10px !important;
+            }
         }
-    }
-
-    /* Pin do marcador */
-    .marker-pin {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 30px;
-        height: 30px;
-        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-        border-radius: 50% 50% 50% 0;
-        transform: translate(-50%, -50%) rotate(-45deg);
-        border: 3px solid white;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-    }
-
-    .marker-pin i {
-        transform: rotate(45deg);
-        color: white;
-        font-size: 14px;
-    }
-
-    .marker-pin.sede {
-        width: 40px;
-        height: 40px;
-        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-        box-shadow: 0 6px 16px rgba(6, 182, 212, 0.6);
-    }
-
-    .marker-pin.sede i {
-        font-size: 16px;
-    }
-
-    /* Hover effect */
-    .custom-marker:hover .marker-pin {
-        transform: translate(-50%, -50%) rotate(-45deg) scale(1.2);
-        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.8);
-    }
-
-    .sede-marker:hover .marker-pin {
-        box-shadow: 0 8px 24px rgba(6, 182, 212, 0.9);
-    }
-
-    /* Popup customizado */
-    .leaflet-custom-popup .leaflet-popup-content-wrapper {
-        background: rgba(10, 10, 15, 0.95);
-        color: #e5e7eb;
-        border-radius: 12px;
-        padding: 0;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(59, 130, 246, 0.3);
-    }
-
-    .leaflet-custom-popup .leaflet-popup-content {
-        margin: 0;
-        min-width: 200px;
-    }
-
-    .custom-popup {
-        padding: 16px;
-    }
-
-    .custom-popup h3 {
-        margin: 0 0 8px 0;
-        font-size: 16px;
-        font-weight: 600;
-        color: #3b82f6;
-    }
-
-    .custom-popup.sede-popup h3 {
-        color: #06b6d4;
-    }
-
-    .custom-popup p {
-        margin: 4px 0;
-        font-size: 13px;
-        color: #a1a1aa;
-    }
-
-    .custom-popup p strong {
-        color: #06b6d4;
-    }
-
-    .custom-popup i {
-        margin-right: 6px;
-        color: #3b82f6;
-    }
-
-    .leaflet-custom-popup .leaflet-popup-tip {
-        background: rgba(10, 10, 15, 0.95);
-        border: 1px solid rgba(59, 130, 246, 0.3);
-    }
-
-    .leaflet-custom-popup .leaflet-popup-close-button {
-        color: #a1a1aa !important;
-        font-size: 20px !important;
-        padding: 8px !important;
-    }
-
-    .leaflet-custom-popup .leaflet-popup-close-button:hover {
-        color: #3b82f6 !important;
-    }
-
-    /* Controles do zoom */
-    .leaflet-control-zoom a {
-        background: rgba(10, 10, 15, 0.9) !important;
-        color: #3b82f6 !important;
-        border: 1px solid rgba(59, 130, 246, 0.3) !important;
-    }
-
-    .leaflet-control-zoom a:hover {
-        background: rgba(59, 130, 246, 0.2) !important;
-        color: #06b6d4 !important;
-    }
-
-    /* Attribution */
-    .leaflet-control-attribution {
-        background: rgba(10, 10, 15, 0.8) !important;
-        color: #71717a !important;
-        font-size: 10px !important;
-    }
-
-    .leaflet-control-attribution a {
-        color: #3b82f6 !important;
-    }
-`;
-
-document.head.appendChild(style);
+    </style>
+    `;
+    
+    console.log('Mapa SVG estático carregado com sucesso!');
+});
