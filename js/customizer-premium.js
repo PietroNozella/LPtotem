@@ -54,11 +54,11 @@ document.addEventListener('DOMContentLoaded', function() {
             image: 'assets/totem-branco-verde.png'
         },
         'premium-black': {
-            body: '#ffffff',
+            body: '#0a0a0f',
             led: '#10b981',
-            text: '#0a0a0f',
+            text: '#ffffff',
             name: 'Preto Premium',
-            image: 'assets/totem-branco-verde.png'
+            image: 'assets/totem-preto-premium.png'
         },
         'minimal-white': {
             body: '#1e3a8a',
