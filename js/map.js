@@ -1,6 +1,6 @@
 // ===== Mapa Interativo SP Security =====
 
-document.addEventListener('DOMContentLoaded', function() {
+function initMap() {
     // Verificar se o elemento do mapa existe
     const mapElement = document.getElementById('spMap');
     if (!mapElement) {
@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Verificar se Leaflet está disponível
     if (typeof L === 'undefined') {
-        console.error('Leaflet não está carregado');
-        mapElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#a1a1aa;flex-direction:column;gap:10px;"><i class="fas fa-map-marker-alt" style="font-size:48px;color:#3b82f6;"></i><p>Carregando mapa...</p></div>';
+        console.error('Leaflet não está carregado, tentando novamente em 500ms...');
+        setTimeout(initMap, 500);
         return;
     }
 
@@ -132,4 +132,12 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Erro ao inicializar o mapa:', error);
         mapElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#a1a1aa;flex-direction:column;gap:10px;padding:40px;text-align:center;"><i class="fas fa-map-marker-alt" style="font-size:48px;color:#3b82f6;margin-bottom:10px;"></i><h3 style="color:#fff;margin:0;">Atendemos todo o Estado de São Paulo</h3><p style="margin:10px 0 0 0;">Grande SP, Campinas, Sorocaba, Santos e mais de 50 cidades</p></div>';
     }
-});
+}
+
+// Iniciar quando o DOM estiver pronto
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMap);
+} else {
+    // DOM já está pronto, esperar um pouco para o Leaflet carregar
+    setTimeout(initMap, 100);
+}
