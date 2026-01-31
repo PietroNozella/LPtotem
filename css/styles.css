@@ -976,6 +976,15 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(1.08);
 }
 
+/* Blur para proteger privacidade (rostos de pessoas) */
+.blur-faces {
+    filter: blur(8px);
+}
+
+.project-card:hover .blur-faces {
+    filter: blur(8px);
+}
+
 .project-overlay {
     position: absolute;
     top: 16px;
