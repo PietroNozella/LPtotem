@@ -199,6 +199,9 @@ document.addEventListener('DOMContentLoaded', function() {
             object-fit: contain;
             border-radius: 16px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: block;
+            opacity: 1;
+            background: #0a0a0f;
         }
         
         /* Marcadores de câmera */
