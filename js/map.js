@@ -7,12 +7,24 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // Verificar se Leaflet está carregado
-    if (typeof L === 'undefined') {
-        console.error('Leaflet não está carregado');
-        mapElement.innerHTML = '<div style="color:#ef4444;padding:40px;text-align:center;">Erro ao carregar biblioteca do mapa. Por favor, recarregue a página.</div>';
-        return;
+    // Mostrar loading
+    mapElement.innerHTML = '<div style="color:#3b82f6;padding:40px;text-align:center;"><i class="fas fa-spinner fa-spin" style="font-size:32px;margin-bottom:16px;"></i><br>Carregando mapa...</div>';
+
+    // Função para tentar carregar o mapa
+    function initMap() {
+        // Verificar se Leaflet está carregado
+        if (typeof L === 'undefined') {
+            console.error('Leaflet não está carregado');
+            mapElement.innerHTML = '<div style="color:#ef4444;padding:40px;text-align:center;"><i class="fas fa-exclamation-triangle" style="font-size:32px;margin-bottom:16px;"></i><br><strong>Erro ao carregar biblioteca do mapa</strong><br><small>Por favor, recarregue a página ou verifique sua conexão.</small></div>';
+            return;
+        }
+        loadMap();
     }
+
+    // Tentar carregar após um pequeno delay
+    setTimeout(initMap, 500);
+
+    function loadMap() {
 
     try {
         // Coordenadas das cidades de São Paulo
@@ -150,7 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     } catch (error) {
         console.error('Erro ao inicializar o mapa:', error);
-        mapElement.innerHTML = '<div style="color:#ef4444;padding:40px;text-align:center;">Erro ao carregar o mapa. Por favor, recarregue a página.</div>';
+        mapElement.innerHTML = '<div style="color:#ef4444;padding:40px;text-align:center;"><i class="fas fa-exclamation-triangle" style="font-size:32px;margin-bottom:16px;"></i><br><strong>Erro ao carregar o mapa</strong><br><small>' + error.message + '</small><br><button onclick="location.reload()" style="margin-top:16px;padding:8px 16px;background:#3b82f6;color:white;border:none;border-radius:8px;cursor:pointer;">Recarregar Página</button></div>';
+    }
     }
 });
 
