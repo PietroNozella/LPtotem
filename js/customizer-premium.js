@@ -39,6 +39,46 @@ document.addEventListener('DOMContentLoaded', function() {
         '#fbbf24': 'Dourado'
     };
     
+    // Configurações Pré-Definidas (Presets)
+    const presetConfigurations = {
+        'classic-blue': {
+            body: '#0a0a0f',
+            led: '#3b82f6',
+            text: '#ffffff',
+            name: 'Azul Clássico'
+        },
+        'modern-white': {
+            body: '#ffffff',
+            led: '#10b981',
+            text: '#0a0a0f',
+            name: 'Branco Moderno'
+        },
+        'premium-black': {
+            body: '#0a0a0f',
+            led: '#3b82f6',
+            text: '#06b6d4',
+            name: 'Preto Premium'
+        },
+        'minimal-white': {
+            body: '#ffffff',
+            led: '#3b82f6',
+            text: '#0a0a0f',
+            name: 'Branco Minimalista'
+        },
+        'sp-red': {
+            body: '#0a0a0f',
+            led: '#ef4444',
+            text: '#ef4444',
+            name: 'SP Security Vermelho'
+        },
+        'elegant-white': {
+            body: '#ffffff',
+            led: '#10b981',
+            text: '#10b981',
+            name: 'Branco Elegante'
+        }
+    };
+    
     // Técnica Profissional: Overlay com Mix Blend Modes (como Audi/Mercedes)
     function applyBodyColor(color) {
         if (!totemBodyColor) return;
@@ -185,7 +225,60 @@ document.addEventListener('DOMContentLoaded', function() {
         if (summaryText) summaryText.textContent = currentConfig.text.name;
     }
     
-    // Event listeners para botões de cor
+    // Função para aplicar preset completo
+    function applyPreset(presetKey) {
+        const preset = presetConfigurations[presetKey];
+        if (!preset) return;
+        
+        console.log(`Aplicando preset: ${preset.name}`);
+        
+        // Aplicar todas as cores do preset
+        applyBodyColor(preset.body);
+        applyLedColor(preset.led);
+        applyTextColor(preset.text);
+        
+        // Atualizar botões individuais para refletir o preset
+        document.querySelectorAll('.color-option').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Marcar os botões correspondentes como ativos
+        const bodyBtn = document.querySelector(`[data-type="body"][data-color="${preset.body}"]`);
+        const ledBtn = document.querySelector(`[data-type="led"][data-color="${preset.led}"]`);
+        const textBtn = document.querySelector(`[data-type="text"][data-color="${preset.text}"]`);
+        
+        if (bodyBtn) bodyBtn.classList.add('active');
+        if (ledBtn) ledBtn.classList.add('active');
+        if (textBtn) textBtn.classList.add('active');
+        
+        // Atualizar configuração atual
+        currentConfig.preset = preset.name;
+    }
+    
+    // Event listeners para presets
+    const presetCards = document.querySelectorAll('.preset-card');
+    presetCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const presetKey = this.dataset.preset;
+            
+            // Remover active de todos os presets
+            presetCards.forEach(c => c.classList.remove('active'));
+            
+            // Adicionar active no clicado
+            this.classList.add('active');
+            
+            // Aplicar preset
+            applyPreset(presetKey);
+            
+            // Animação de feedback
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+        });
+    });
+    
+    // Event listeners para botões de cor individuais
     const colorButtons = document.querySelectorAll('.color-option');
     colorButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -198,6 +291,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Adicionar active no clicado
             this.classList.add('active');
+            
+            // Remover active de todos os presets (customização manual)
+            presetCards.forEach(c => c.classList.remove('active'));
             
             // Aplicar cor
             switch(type) {
@@ -257,8 +353,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Solicitar orçamento
     if (quoteBtn) {
         quoteBtn.addEventListener('click', function() {
-            const message = `Olá! Gostaria de solicitar um orçamento para um Totem SP Security com a seguinte configuração:\n\n` +
-                `🎨 Corpo: ${currentConfig.body.name}\n` +
+            let message = `Olá! Gostaria de solicitar um orçamento para um Totem SP Security com a seguinte configuração:\n\n`;
+            
+            // Se houver um preset selecionado
+            if (currentConfig.preset) {
+                message += `⭐ Configuração: ${currentConfig.preset}\n\n`;
+            }
+            
+            message += `🎨 Corpo: ${currentConfig.body.name}\n` +
                 `💡 LED: ${currentConfig.led.name}\n` +
                 `✍️ Texto: ${currentConfig.text.name}\n\n` +
                 `Aguardo retorno!`;

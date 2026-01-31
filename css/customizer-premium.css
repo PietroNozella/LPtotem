@@ -75,6 +75,211 @@
     justify-content: center;
 }
 
+/* ===== CONFIGURAÇÕES PRÉ-DEFINIDAS (PRESETS) ===== */
+
+.preset-configurations {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.preset-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.preset-header h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.preset-header h4 i {
+    color: #fbbf24;
+}
+
+.preset-header p {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+.preset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.preset-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.preset-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.preset-card:hover::before {
+    opacity: 1;
+}
+
+.preset-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+}
+
+.preset-card.active {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.preset-card.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    animation: presetPulse 2s ease-in-out infinite;
+}
+
+@keyframes presetPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+.preset-preview {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    height: 50px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.preset-body {
+    flex: 2;
+    border-radius: 6px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.preset-led {
+    flex: 1;
+    border-radius: 6px;
+    box-shadow: 0 0 12px currentColor;
+    filter: brightness(1.2);
+}
+
+.preset-text {
+    flex: 1;
+    border-radius: 6px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.preset-info {
+    position: relative;
+    z-index: 1;
+}
+
+.preset-info h5 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.25rem;
+}
+
+.preset-info p {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+}
+
+.preset-check {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    color: #3b82f6;
+    font-size: 1.25rem;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 2;
+}
+
+.preset-card.active .preset-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.customization-divider {
+    position: relative;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.customization-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+}
+
+.customization-divider span {
+    position: relative;
+    display: inline-block;
+    padding: 0 1rem;
+    background: #0a0a0f;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Responsivo para Presets */
+@media (max-width: 768px) {
+    .preset-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .preset-card {
+        padding: 0.75rem;
+    }
+    
+    .preset-preview {
+        height: 40px;
+    }
+}
+
 /* ===== SISTEMA DE CAMADAS PROFISSIONAL (Estilo Audi/Mercedes) ===== */
 
 .totem-layer {
