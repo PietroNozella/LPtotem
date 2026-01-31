@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         '#fbbf24': 'Dourado'
     };
     
-    // Configurações Pré-Definidas com Imagens Reais (Presets)
+    // Configurações Pré-Definidas com Imagens Reais Sem Fundo (Presets)
     const presetConfigurations = {
         'classic-blue': {
             body: '#0a0a0f',
@@ -55,17 +55,17 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         'premium-black': {
             body: '#0a0a0f',
-            led: '#3b82f6',
+            led: '#10b981',
             text: '#06b6d4',
             name: 'Preto Premium',
-            image: 'assets/totem-preto-premium.png'
+            image: 'assets/totem-preto-verde.png'
         },
         'minimal-white': {
-            body: '#ffffff',
+            body: '#1e3a8a',
             led: '#3b82f6',
-            text: '#0a0a0f',
-            name: 'Branco Minimalista',
-            image: 'assets/totem-branco-minimalista.png'
+            text: '#ffffff',
+            name: 'Azul Escuro',
+            image: 'assets/totem-azul-escuro.png'
         },
         'sp-red': {
             body: '#0a0a0f',
@@ -75,28 +75,16 @@ document.addEventListener('DOMContentLoaded', function() {
             image: 'assets/totem-vermelho.png'
         },
         'elegant-white': {
-            body: '#ffffff',
-            led: '#10b981',
-            text: '#10b981',
-            name: 'Branco Elegante',
-            image: 'assets/totem-branco-verde.png'
+            body: '#1e3a8a',
+            led: '#06b6d4',
+            text: '#ffffff',
+            name: 'Azul Claro',
+            image: 'assets/totem-azul-claro.png'
         }
     };
     
-    // Mapeamento de combinações de cores para imagens
+    // Mapeamento direto para os presets (simplificado - apenas presets)
     const colorToImageMap = {
-        // Azul Clássico: Preto + Azul + Branco
-        '#0a0a0f-#3b82f6-#ffffff': 'assets/totem-azul-classico.png',
-        // Branco com Verde
-        '#ffffff-#10b981-#0a0a0f': 'assets/totem-branco-verde.png',
-        '#ffffff-#10b981-#10b981': 'assets/totem-branco-verde.png',
-        // Preto Premium: Preto + Azul + Ciano
-        '#0a0a0f-#3b82f6-#06b6d4': 'assets/totem-preto-premium.png',
-        // Branco Minimalista: Branco + Azul + Preto
-        '#ffffff-#3b82f6-#0a0a0f': 'assets/totem-branco-minimalista.png',
-        // Vermelho
-        '#0a0a0f-#ef4444-#ef4444': 'assets/totem-vermelho.png',
-        // Fallback para imagem padrão
         'default': 'assets/totem-azul-classico.png'
     };
     
@@ -264,23 +252,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Atualizar resumo
         updateSummary();
-        
-        // Atualizar botões individuais para refletir o preset
-        document.querySelectorAll('.color-option').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        
-        // Marcar os botões correspondentes como ativos
-        const bodyBtn = document.querySelector(`[data-type="body"][data-color="${preset.body}"]`);
-        const ledBtn = document.querySelector(`[data-type="led"][data-color="${preset.led}"]`);
-        const textBtn = document.querySelector(`[data-type="text"][data-color="${preset.text}"]`);
-        
-        if (bodyBtn) bodyBtn.classList.add('active');
-        if (ledBtn) ledBtn.classList.add('active');
-        if (textBtn) textBtn.classList.add('active');
     }
     
-    // Event listeners para presets
+    // Event listeners para presets (apenas presets, sem customização individual)
     const presetCards = document.querySelectorAll('.preset-card');
     presetCards.forEach(card => {
         card.addEventListener('click', function() {
@@ -300,44 +274,6 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 this.style.transform = '';
             }, 200);
-        });
-    });
-    
-    // Event listeners para botões de cor individuais
-    const colorButtons = document.querySelectorAll('.color-option');
-    colorButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const type = this.dataset.type;
-            const color = this.dataset.color;
-            
-            // Remover active dos irmãos
-            const siblings = this.parentElement.querySelectorAll('.color-option');
-            siblings.forEach(btn => btn.classList.remove('active'));
-            
-            // Adicionar active no clicado
-            this.classList.add('active');
-            
-            // Remover active de todos os presets (customização manual)
-            presetCards.forEach(c => c.classList.remove('active'));
-            
-            // Aplicar cor
-            switch(type) {
-                case 'body':
-                    applyBodyColor(color);
-                    break;
-                case 'led':
-                    applyLedColor(color);
-                    break;
-                case 'text':
-                    applyTextColor(color);
-                    break;
-            }
-            
-            // Animação de feedback
-            this.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
         });
     });
     

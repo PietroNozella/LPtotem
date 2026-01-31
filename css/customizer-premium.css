@@ -291,11 +291,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Fundo escuro para harmonizar com a LP */
-    background: 
-        radial-gradient(ellipse at center, rgba(59, 130, 246, 0.1) 0%, transparent 60%),
-        #0a0a0f;
-    border-radius: 20px;
+    /* Fundo limpo e transparente para imagens sem fundo */
+    background: transparent;
     padding: 2rem;
 }
 
@@ -304,15 +301,9 @@
     height: auto;
     max-height: 600px;
     object-fit: contain;
-    filter: 
-        drop-shadow(0 30px 60px rgba(0, 0, 0, 0.8))
-        contrast(1.05)
-        brightness(1.02);
+    filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.6));
     transition: opacity 0.4s ease, transform 0.4s ease;
     opacity: 1;
-    /* Técnica para harmonizar fundos claros com LP escura */
-    mix-blend-mode: screen;
-    isolation: isolate;
 }
 
 /* Animação de troca de imagem */
