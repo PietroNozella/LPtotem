@@ -1080,6 +1080,44 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
+/* ===== Nossa Tecnologia em Ação ===== */
+.tech-action {
+    padding: var(--section-padding);
+    background: var(--bg-darker);
+}
+
+.tech-action-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.tech-action-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tech-action-video-wrap {
+    height: 500px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.tech-action-video-wrap video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tech-action-caption {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+    text-align: center;
+}
+
 /* ===== Specifications Section ===== */
 .specifications {
     padding: var(--section-padding);
@@ -1627,6 +1665,9 @@ h1, h2, h3, h4, h5, h6 {
     .projects-showcase {
         grid-template-columns: repeat(2, 1fr);
     }
+    .tech-action-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 1024px) {
@@ -1698,6 +1739,9 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .projects-showcase {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .tech-action-grid {
         grid-template-columns: repeat(2, 1fr);
     }
     
@@ -1781,6 +1825,9 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .projects-showcase {
+        grid-template-columns: 1fr;
+    }
+    .tech-action-grid {
         grid-template-columns: 1fr;
     }
     
