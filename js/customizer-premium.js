@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
         '#ef4444': 'Vermelho',
         '#10b981': 'Verde',
         '#f59e0b': 'Âmbar',
+        '#f97316': 'Laranja',
+        '#6b21a8': 'Violeta',
         '#8b5cf6': 'Roxo',
         '#06b6d4': 'Ciano',
         '#fbbf24': 'Dourado'
@@ -80,6 +82,27 @@ document.addEventListener('DOMContentLoaded', function() {
             text: '#ffffff',
             name: 'Azul Claro',
             image: 'assets/totem-azul-claro.png'
+        },
+        'orange-gold': {
+            body: '#0a0a0f',
+            led: '#f59e0b',
+            text: '#f59e0b',
+            name: 'Laranja Dourado',
+            image: 'assets/totem-laranja-dourado.png'
+        },
+        'blue-tech': {
+            body: '#0a0a0f',
+            led: '#3b82f6',
+            text: '#3b82f6',
+            name: 'Azul Tech',
+            image: 'assets/totem-azul-tech.png'
+        },
+        'purple-orange': {
+            body: '#6b21a8',
+            led: '#f97316',
+            text: '#f97316',
+            name: 'Violeta Laranja',
+            image: 'assets/totem-violeta-laranja.png'
         }
     };
     
