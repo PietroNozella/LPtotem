@@ -1099,23 +1099,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .tech-action-video-wrap {
-    height: 500px;
-    border-radius: 24px;
+    position: relative;
+    aspect-ratio: 9/16;
     overflow: hidden;
+    border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
 }
 
 .tech-action-video-wrap video {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-.tech-action-caption {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin: 0;
-    text-align: center;
+    border-radius: inherit;
 }
 
 /* ===== Specifications Section ===== */
@@ -1813,7 +1811,7 @@ h1, h2, h3, h4, h5, h6 {
         font-size: 1.5rem;
     }
     
-    /* Projects responsive */
+    /* Projects responsive - 2 colunas e cards compactos para ver mais fotos na mesma tela */
     .projects-stats {
         flex-direction: column;
         gap: 20px;
@@ -1825,10 +1823,27 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .projects-showcase {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .project-image {
+        aspect-ratio: 1/1;
+        max-height: 160px;
+    }
+    .project-info {
+        padding: 8px 10px;
+    }
+    .project-info h3 {
+        font-size: 0.9rem;
+    }
+    .project-location {
+        font-size: 0.7rem;
     }
     .tech-action-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .tech-action-video-wrap {
+        max-height: 38vh;
     }
     
     .projects-cta {
@@ -1899,12 +1914,20 @@ h1, h2, h3, h4, h5, h6 {
         padding: 24px 20px;
     }
     
-    .project-info {
-        padding: 12px 16px;
+    .projects-showcase {
+        gap: 10px;
     }
-    
+    .project-image {
+        max-height: 140px;
+    }
+    .project-info {
+        padding: 8px 10px;
+    }
     .project-info h3 {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
+    }
+    .project-location {
+        font-size: 0.65rem;
     }
     
     .projects-stats {

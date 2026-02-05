@@ -212,6 +212,13 @@ input, button, select, textarea {
         cursor: pointer;
     }
     
+    /* Safe area horizontal para secções projetos e vídeos (notch) */
+    .projects .container,
+    .tech-action .container {
+        padding-left: max(16px, env(safe-area-inset-left));
+        padding-right: max(16px, env(safe-area-inset-right));
+    }
+    
     /* Customizer mobile improvements */
     .customizer-container {
         gap: 30px;
