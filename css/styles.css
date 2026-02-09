@@ -964,6 +964,14 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(1.05);
 }
 
+/* Ajuste: SVGs verticais devem caber dentro do card sem serem cortados */
+.project-image img[src$=".svg"] {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* garante o totem inteiro visível */
+    object-position: center center;
+}
+
 /* Blur para proteger privacidade (rostos de pessoas) */
 .blur-faces {
     filter: blur(8px);
