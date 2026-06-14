@@ -11,8 +11,8 @@
             title: 'Condomínio',
             description: 'Camadas de segurança para organizar acessos, ampliar a visibilidade das áreas comuns e apoiar respostas a eventos.',
             solution: 'CFTV + controle de acesso',
-            status: 'Material em validação',
-            image: '',
+            status: 'Projeto realizado',
+            image: 'assets/projeto-totem-condominio.jpeg',
             icon: 'building'
         },
         empresa: {
@@ -20,17 +20,17 @@
             title: 'Empresa',
             description: 'Proteção integrada para entradas, áreas restritas e rotinas internas, com gestão centralizada dos eventos de segurança.',
             solution: 'Controle de acesso + integração',
-            status: 'Case pendente de aprovação',
-            image: '',
+            status: 'Projeto realizado',
+            image: 'assets/projeto-totem-empresa.jpeg',
             icon: 'office'
         },
         comercio: {
             index: '03',
             title: 'Comércio',
-            description: 'Monitoramento visual e alertas para apoiar a prevenção, acompanhar áreas críticas e melhorar a resposta operacional.',
-            solution: 'CFTV + alarmes',
-            status: 'Material em validação',
-            image: '',
+            description: 'Totem com câmeras instalado em frente ao comércio para ampliar a presença preventiva e o acompanhamento da área externa.',
+            solution: 'Totem de monitoramento + CFTV',
+            status: 'Projeto realizado',
+            image: 'assets/projeto-totem-comercio.jpeg',
             icon: 'store'
         },
         perimetro: {
@@ -38,8 +38,8 @@
             title: 'Perímetro',
             description: 'Detecção antecipada em limites e acessos externos para ampliar o tempo de reação diante de movimentações não autorizadas.',
             solution: 'Sensores + monitoramento',
-            status: 'Material em validação',
-            image: '',
+            status: 'Projeto realizado',
+            image: 'assets/projeto-totem-perimetro.jpeg',
             icon: 'perimeter'
         },
         estacionamento: {
@@ -47,8 +47,8 @@
             title: 'Estacionamento',
             description: 'Visibilidade de entradas, saídas e circulação de veículos, combinando registro de imagens e pontos de apoio preventivo.',
             solution: 'CFTV + totem',
-            status: 'Case pendente de aprovação',
-            image: '',
+            status: 'Projeto realizado',
+            image: 'assets/projeto-totem-estacionamento.jpeg',
             icon: 'parking'
         },
         operacao: {
@@ -56,8 +56,8 @@
             title: 'Operação',
             description: 'Integração de sinais, imagens e alertas para concentrar informações e apoiar decisões em ambientes operacionais.',
             solution: 'Monitoramento + integração',
-            status: 'Material em validação',
-            image: '',
+            status: 'Projeto realizado',
+            image: 'assets/projeto-totem-operacao.jpeg',
             icon: 'operation'
         }
     };
