@@ -1,118 +1,163 @@
 /**
- * Mapa "Onde Estamos?" - Leaflet + CartoDB Dark Matter
- * Sede, raio de atuação e cidades atendidas. Compatível com Vercel (100% client-side, HTTPS).
+ * Mapa conceitual de aplicações de segurança.
+ * Para adicionar um ponto, inclua os dados abaixo e um botão correspondente no HTML.
  */
 (function () {
     'use strict';
 
-    var MAP_CONTAINER_ID = 'mapOndeEstamos';
-    var SEDE = { lat: -23.5505, lng: -46.6333, nome: 'São Paulo – Sede', popup: 'SP Security – Sede' };
-    var RAIO_KM = 100;
-    var ZOOM_INICIAL = 8;
-    var CENTRO = [SEDE.lat, SEDE.lng];
-
-    // CartoDB Dark Matter - HTTPS (obrigatório para Vercel)
-    var TILES_URL = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-    var TILES_OPTIONS = {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19,
-        maxNativeZoom: 19
+    var applications = {
+        condominio: {
+            index: '01',
+            title: 'Condomínio',
+            description: 'Camadas de segurança para organizar acessos, ampliar a visibilidade das áreas comuns e apoiar respostas a eventos.',
+            solution: 'CFTV + controle de acesso',
+            status: 'Material em validação',
+            image: '',
+            icon: 'building'
+        },
+        empresa: {
+            index: '02',
+            title: 'Empresa',
+            description: 'Proteção integrada para entradas, áreas restritas e rotinas internas, com gestão centralizada dos eventos de segurança.',
+            solution: 'Controle de acesso + integração',
+            status: 'Case pendente de aprovação',
+            image: '',
+            icon: 'office'
+        },
+        comercio: {
+            index: '03',
+            title: 'Comércio',
+            description: 'Monitoramento visual e alertas para apoiar a prevenção, acompanhar áreas críticas e melhorar a resposta operacional.',
+            solution: 'CFTV + alarmes',
+            status: 'Material em validação',
+            image: '',
+            icon: 'store'
+        },
+        perimetro: {
+            index: '04',
+            title: 'Perímetro',
+            description: 'Detecção antecipada em limites e acessos externos para ampliar o tempo de reação diante de movimentações não autorizadas.',
+            solution: 'Sensores + monitoramento',
+            status: 'Material em validação',
+            image: '',
+            icon: 'perimeter'
+        },
+        estacionamento: {
+            index: '05',
+            title: 'Estacionamento',
+            description: 'Visibilidade de entradas, saídas e circulação de veículos, combinando registro de imagens e pontos de apoio preventivo.',
+            solution: 'CFTV + totem',
+            status: 'Case pendente de aprovação',
+            image: '',
+            icon: 'parking'
+        },
+        operacao: {
+            index: '06',
+            title: 'Operação',
+            description: 'Integração de sinais, imagens e alertas para concentrar informações e apoiar decisões em ambientes operacionais.',
+            solution: 'Monitoramento + integração',
+            status: 'Material em validação',
+            image: '',
+            icon: 'operation'
+        }
     };
 
-    var CIDADES = [
-        { nome: 'Guarulhos', lat: -23.4628, lng: -46.5322 },
-        { nome: 'Campinas', lat: -22.9099, lng: -47.0626 },
-        { nome: 'Jundiaí', lat: -23.1864, lng: -46.8842 },
-        { nome: 'Sorocaba', lat: -23.5015, lng: -47.4526 },
-        { nome: 'São José dos Campos', lat: -23.1896, lng: -45.8841 },
-        { nome: 'São Bernardo do Campo', lat: -23.6815, lng: -46.5654 },
-        { nome: 'Osasco', lat: -23.5325, lng: -46.7917 },
-        { nome: 'Santo André', lat: -23.6639, lng: -46.5383 },
-        { nome: 'Santos', lat: -23.9608, lng: -46.3332 },
-        { nome: 'Ribeirão Preto', lat: -21.1699, lng: -47.8099 },
-        { nome: 'Suzano', lat: -23.5425, lng: -46.3108 },
-        { nome: 'Diadema', lat: -23.6861, lng: -46.6233 },
-        { nome: 'Mauá', lat: -23.6677, lng: -46.4613 },
-        { nome: 'Carapicuíba', lat: -23.5235, lng: -46.8406 },
-        { nome: 'São Roque', lat: -23.5292, lng: -47.1353 }
-    ];
+    var iconPaths = {
+        building: '<path d="M54 146V61l46-24 46 24v85M76 146V84h48v62M88 99h9m15 0h9m-33 20h9m15 0h9M39 146h122"/>',
+        office: '<path d="M43 146V54h72v92M115 82h42v64M64 75h12m17 0h12M64 98h12m17 0h12M64 121h12m17 0h12m35-18h9m-9 21h9M35 146h130"/>',
+        store: '<path d="M43 78h114l-12-32H55L43 78Zm8 0v68h98V78M70 146v-39h34v39m20-43h13m-76-25c0 12 18 12 18 0 0 12 18 12 18 0 0 12 18 12 18 0 0 12 18 12 18 0 0 12 18 12 18 0"/>',
+        perimeter: '<path d="M45 151V55m110 96V55M45 76h110M45 111h110M65 55v96m35-96v96m35-96v96M34 151h132"/>',
+        parking: '<path d="M47 151V48h57c34 0 52 14 52 40s-18 41-52 41H78m0-50h27c14 0 21 3 21 10s-7 10-21 10H78v52"/>',
+        operation: '<path d="M43 139h114M56 139V67h88v72M71 84h58v37H71V84Zm-20-30h98M77 54V39m46 15V39M86 151h28M94 121v18m12-18v18"/>'
+    };
 
-    function initMap() {
-        var container = document.getElementById(MAP_CONTAINER_ID);
-        if (!container || typeof L === 'undefined') return;
+    var points = Array.prototype.slice.call(document.querySelectorAll('.security-map-point'));
+    var details = document.getElementById('securityMapDetails');
+    var placeholder = document.getElementById('securityMapPlaceholder');
+    var index = document.getElementById('securityMapIndex');
+    var title = document.getElementById('securityMapTitleText');
+    var description = document.getElementById('securityMapDescriptionText');
+    var solution = document.getElementById('securityMapSolution');
+    var status = document.getElementById('securityMapStatus');
+    var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-        var map = L.map(MAP_CONTAINER_ID, {
-            center: CENTRO,
-            zoom: ZOOM_INICIAL,
-            scrollWheelZoom: true,
-            zoomControl: false
-        });
+    if (!points.length || !details || !placeholder) return;
 
-        L.tileLayer(TILES_URL, TILES_OPTIONS).addTo(map);
-
-        // Controles de zoom no canto (estilo da imagem)
-        L.control.zoom({ position: 'topleft' }).addTo(map);
-
-        // Círculo de raio (tracejado, azul)
-        L.circle(CENTRO, {
-            radius: RAIO_KM * 1000,
-            color: '#60a5fa',
-            fillColor: '#3b82f6',
-            fillOpacity: 0.08,
-            weight: 2,
-            dashArray: '10, 10'
-        }).addTo(map);
-
-        // Marcador da sede (ícone prédio)
-        var sedeIcon = L.divIcon({
-            className: 'map-marker-sede',
-            html: '<div class="map-marker-sede-inner"><i class="fas fa-building"></i></div>',
-            iconSize: [40, 40],
-            iconAnchor: [20, 40]
-        });
-        L.marker([SEDE.lat, SEDE.lng], { icon: sedeIcon })
-            .addTo(map)
-            .bindPopup('<strong>' + SEDE.nome + '</strong><br>' + (SEDE.popup || ''));
-
-        // Marcadores das cidades
-        CIDADES.forEach(function (c) {
-            L.marker([c.lat, c.lng])
-                .addTo(map)
-                .bindPopup('<strong>' + c.nome + '</strong><br>Atendimento na região');
-        });
-
-        // Garantir que o mapa redimensione após o container estar visível (ex.: ao rolar até a seção)
-        setTimeout(function () {
-            map.invalidateSize();
-        }, 300);
-    }
-
-    function whenReady() {
-        var container = document.getElementById(MAP_CONTAINER_ID);
-        if (!container) return;
-        if (typeof L === 'undefined') return;
-
-        function doInit() {
-            initMap();
+    function createMedia(application) {
+        if (application.image) {
+            return '<img src="' + application.image + '" alt="Aplicação de segurança em ' + application.title + '">';
         }
 
-        if ('IntersectionObserver' in window) {
-            var obs = new IntersectionObserver(function (entries) {
-                if (entries[0].isIntersecting) {
-                    obs.disconnect();
-                    doInit();
-                }
-            }, { rootMargin: '50px', threshold: 0 });
-            obs.observe(container);
-        } else {
-            doInit();
-        }
+        var path = iconPaths[application.icon] || iconPaths.operation;
+
+        return [
+            '<svg viewBox="0 0 200 200" role="img" aria-label="Placeholder para imagem de ', application.title, '">',
+            '<defs>',
+            '<linearGradient id="placeholderGradient" x1="0" y1="0" x2="1" y2="1">',
+            '<stop offset="0" stop-color="#2563eb" stop-opacity=".34"/>',
+            '<stop offset="1" stop-color="#06b6d4" stop-opacity=".06"/>',
+            '</linearGradient>',
+            '<pattern id="placeholderGrid" width="18" height="18" patternUnits="userSpaceOnUse">',
+            '<path d="M18 0H0V18" fill="none" stroke="#93c5fd" stroke-opacity=".08"/>',
+            '</pattern>',
+            '</defs>',
+            '<rect width="200" height="200" fill="#081321"/>',
+            '<rect width="200" height="200" fill="url(#placeholderGrid)"/>',
+            '<circle cx="100" cy="98" r="70" fill="url(#placeholderGradient)" stroke="#60a5fa" stroke-opacity=".16"/>',
+            '<g fill="none" stroke="#9ac8ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">',
+            path,
+            '</g>',
+            '</svg>'
+        ].join('');
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', whenReady);
-    } else {
-        whenReady();
+    function selectApplication(key) {
+        var application = applications[key];
+        if (!application) return;
+
+        details.classList.remove('is-updating');
+        void details.offsetWidth;
+        details.classList.add('is-updating');
+
+        points.forEach(function (point) {
+            var isSelected = point.dataset.application === key;
+            point.classList.toggle('is-active', isSelected);
+            point.setAttribute('aria-pressed', String(isSelected));
+        });
+
+        index.textContent = application.index;
+        title.textContent = application.title;
+        description.textContent = application.description;
+        solution.textContent = application.solution;
+        status.textContent = application.status;
+        placeholder.classList.toggle('has-image', Boolean(application.image));
+        placeholder.innerHTML = createMedia(application);
+
+        window.setTimeout(function () {
+            details.classList.remove('is-updating');
+        }, 360);
     }
+
+    points.forEach(function (point) {
+        var key = point.dataset.application;
+
+        point.addEventListener('click', function () {
+            selectApplication(key);
+        });
+
+        point.addEventListener('keydown', function (event) {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+
+            event.preventDefault();
+            selectApplication(key);
+        });
+
+        if (supportsHover) {
+            point.addEventListener('mouseenter', function () {
+                selectApplication(key);
+            });
+        }
+    });
+
+    selectApplication('condominio');
 })();

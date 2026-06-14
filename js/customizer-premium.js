@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const summaryBody = document.getElementById('summaryBody');
     const summaryLed = document.getElementById('summaryLed');
     const summaryText = document.getElementById('summaryText');
+    const configSummary = document.querySelector('.config-summary');
     
     const resetBtn = document.getElementById('resetConfig');
     const saveBtn = document.getElementById('saveConfig');
@@ -17,7 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentConfig = {
         body: { color: '#0a0a0f', name: 'Preto Fosco' },
         led: { color: '#3b82f6', name: 'Azul' },
-        text: { color: '#ffffff', name: 'Branco' }
+        text: { color: '#ffffff', name: 'Branco' },
+        preset: 'Azul Clássico'
     };
     
     // Nomes das cores
@@ -255,6 +257,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (summaryBody) summaryBody.textContent = currentConfig.body.name;
         if (summaryLed) summaryLed.textContent = currentConfig.led.name;
         if (summaryText) summaryText.textContent = currentConfig.text.name;
+
+        if (configSummary) {
+            configSummary.classList.remove('is-updated');
+            void configSummary.offsetWidth;
+            configSummary.classList.add('is-updated');
+        }
     }
     
     // Função para aplicar preset completo com imagem real
@@ -284,34 +292,37 @@ document.addEventListener('DOMContentLoaded', function() {
             const presetKey = this.dataset.preset;
             
             // Remover active de todos os presets
-            presetCards.forEach(c => c.classList.remove('active'));
+            presetCards.forEach(c => {
+                c.classList.remove('active');
+                c.setAttribute('aria-pressed', 'false');
+            });
             
             // Adicionar active no clicado
             this.classList.add('active');
+            this.setAttribute('aria-pressed', 'true');
             
             // Aplicar preset
             applyPreset(presetKey);
             
             // Animação de feedback
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 200);
+            this.classList.remove('is-confirmed');
+            void this.offsetWidth;
+            this.classList.add('is-confirmed');
         });
     });
     
     // Resetar configuração
     if (resetBtn) {
         resetBtn.addEventListener('click', function() {
-            // Resetar para padrão
-            document.querySelector('[data-type="body"][data-color="#0a0a0f"]').click();
-            document.querySelector('[data-type="led"][data-color="#3b82f6"]').click();
-            document.querySelector('[data-type="text"][data-color="#ffffff"]').click();
+            const defaultPreset = document.querySelector('[data-preset="classic-blue"]');
+            if (defaultPreset) defaultPreset.click();
             
             // Feedback visual
             this.innerHTML = '<i class="fas fa-check"></i> Resetado!';
+            this.classList.add('is-success');
             setTimeout(() => {
-                this.innerHTML = '<i class="fas fa-rotate-left"></i> Resetar';
+                this.innerHTML = '<i class="fas fa-rotate-left"></i> Restaurar padrão';
+                this.classList.remove('is-success');
             }, 2000);
         });
     }
@@ -325,11 +336,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Feedback visual
             const originalHTML = this.innerHTML;
             this.innerHTML = '<i class="fas fa-check"></i> Configuração Salva!';
-            this.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+            this.classList.add('is-success');
             
             setTimeout(() => {
                 this.innerHTML = originalHTML;
-                this.style.background = '';
+                this.classList.remove('is-success');
             }, 2000);
         });
     }
@@ -355,23 +366,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Carregar configuração salva (se existir)
+    let restoredSavedPreset = false;
     const savedConfig = localStorage.getItem('totemConfig');
     if (savedConfig) {
         try {
             const config = JSON.parse(savedConfig);
-            
-            // Aplicar configuração salva
-            if (config.body) {
-                const bodyBtn = document.querySelector(`[data-type="body"][data-color="${config.body.color}"]`);
-                if (bodyBtn) bodyBtn.click();
-            }
-            if (config.led) {
-                const ledBtn = document.querySelector(`[data-type="led"][data-color="${config.led.color}"]`);
-                if (ledBtn) ledBtn.click();
-            }
-            if (config.text) {
-                const textBtn = document.querySelector(`[data-type="text"][data-color="${config.text.color}"]`);
-                if (textBtn) textBtn.click();
+
+            const savedPreset = Object.entries(presetConfigurations)
+                .find(([, preset]) => preset.name === config.preset);
+            const savedPresetButton = savedPreset
+                ? document.querySelector(`[data-preset="${savedPreset[0]}"]`)
+                : null;
+
+            if (savedPresetButton) {
+                savedPresetButton.click();
+                restoredSavedPreset = true;
             }
         } catch (e) {
             console.error('Erro ao carregar configuração salva:', e);
@@ -390,9 +399,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Aplicar configuração padrão (Azul Clássico)
     setTimeout(() => {
+        if (restoredSavedPreset) return;
+
         currentConfig.body = { color: '#0a0a0f', name: 'Preto Fosco' };
         currentConfig.led = { color: '#3b82f6', name: 'Azul' };
         currentConfig.text = { color: '#ffffff', name: 'Branco' };
+        currentConfig.preset = 'Azul Clássico';
         updateSummary();
         
         // Marcar preset padrão como ativo

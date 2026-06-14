@@ -44,7 +44,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/mobile.css">
-    <link rel="stylesheet" href="css/customizer-premium.css">
+    <link rel="stylesheet" href="css/customizer-premium.css?v=2">
     <!-- Security: Prevent clickjacking -->
     <style id="antiClickjack">body{display:none !important;}</style>
     <script>
@@ -65,14 +65,14 @@
                 <span class="logo-text">SP<span class="highlight">Security</span></span>
             </a>
             <ul class="nav-links">
-                <li><a href="#segmentos">Segmentos</a></li>
+                <li><a href="#segmentos">A SpSecurity</a></li>
                 <li><a href="#solucoes">Soluções</a></li>
                 <li><a href="#projetos">Projetos</a></li>
                 <li><a href="#customizar">Totens</a></li>
                 <li><a href="#onde-estamos">Onde Estamos</a></li>
             </ul>
             <a href="#contato" class="btn btn-primary nav-cta">Solicitar Orçamento</a>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Abrir menu" aria-controls="mobileMenu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -83,7 +83,7 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <ul class="mobile-nav-links">
-            <li><a href="#segmentos">Segmentos</a></li>
+            <li><a href="#segmentos">A SpSecurity</a></li>
             <li><a href="#solucoes">Soluções</a></li>
             <li><a href="#projetos">Projetos</a></li>
             <li><a href="#customizar">Totens</a></li>
@@ -94,7 +94,11 @@
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
+        <div class="hero-grid" aria-hidden="true"></div>
         <div class="hero-bg">
+            <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/totem-hero.png" aria-hidden="true">
+                <source src="assets/hero-security.mp4" type="video/mp4">
+            </video>
             <div class="hero-gradient"></div>
             <div class="hero-particles" id="particles"></div>
         </div>
@@ -103,484 +107,608 @@
                 <div class="hero-text">
                     <span class="hero-badge">
                         <i class="fas fa-shield-halved"></i>
-                        Proteção Inteligente para Todos os Ambientes
+                        Integradora de segurança patrimonial
                     </span>
                     <h1 class="hero-title">
-                        Soluções Completas em 
-                        <span class="gradient-text">Segurança Eletrônica</span>
+                        Segurança inteligente para
+                        <span class="gradient-text">antecipar riscos</span>
+                        e proteger seu patrimônio.
                     </h1>
                     <p class="hero-description">
-                        Proteja seu condomínio, empresa, escola ou cidade com tecnologia de ponta. 
-                        Oferecemos CFTV, controle de acesso facial, fechaduras inteligentes, totens de monitoramento e muito mais.
+                        Projetamos e integramos tecnologias de segurança para empresas, condomínios e operações que precisam enxergar vulnerabilidades, responder melhor e proteger o que sustenta o negócio.
                     </p>
                     <div class="hero-cta">
-                        <a href="#solucoes" class="btn btn-primary btn-lg">
-                            <i class="fas fa-th-large"></i>
-                            Conheça Nossas Soluções
+                        <a href="#contato" class="btn btn-primary btn-lg">
+                            Solicitar análise de segurança
+                            <i class="fas fa-arrow-right"></i>
                         </a>
-                        <a href="#contato" class="btn btn-outline btn-lg">
+                        <!-- TODO: validar o número oficial de WhatsApp antes da publicação final. -->
+                        <a href="https://wa.me/5511969218791?text=Olá! Gostaria de falar com um especialista sobre uma análise de segurança." class="btn btn-outline btn-lg" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-whatsapp"></i>
-                            Fale com Especialista
+                            Falar com especialista
                         </a>
                     </div>
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <span class="stat-number">500+</span>
-                            <span class="stat-label">Projetos Realizados</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">50+</span>
-                            <span class="stat-label">Cidades Atendidas</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">24/7</span>
-                            <span class="stat-label">Suporte Técnico</span>
-                        </div>
+                    <p class="hero-trust">
+                        <i class="fas fa-circle-check"></i>
+                        Diagnóstico consultivo, projeto sob medida e integração de tecnologias.
+                    </p>
+                    <div class="hero-sectors" aria-label="Áreas protegidas">
+                        <span><i class="fas fa-building"></i> Empresas</span>
+                        <span><i class="fas fa-city"></i> Condomínios</span>
+                        <span><i class="fas fa-industry"></i> Operações</span>
+                        <span><i class="fas fa-box-archive"></i> Patrimônio</span>
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <div class="totem-showcase">
-                        <div class="totem-glow"></div>
-                        <img src="assets/totem-hero.png" alt="Totem de Segurança SP Security" class="totem-image" id="heroTotem">
+                    <div class="hero-media">
+                        <div class="hero-media-topline">
+                            <span><i class="fas fa-video"></i> Mídia institucional</span>
+                            <span class="media-status">Vídeo em operação</span>
+                        </div>
+                        <div class="hero-media-frame" role="img" aria-label="Painel institucional da SpSecurity sobre segurança em operação">
+                            <div class="media-scan" aria-hidden="true"></div>
+                            <div class="media-mark">
+                                <span class="media-mark-icon"><i class="fas fa-shield-halved"></i></span>
+                                <span>SP<span>Security</span></span>
+                            </div>
+                            <div class="media-placeholder-copy">
+                                <span class="media-kicker">Tecnologia em campo</span>
+                                <strong>Segurança em operação, tecnologia em campo.</strong>
+                                <p>Mostrar equipe, central de monitoramento, controle de acesso e ambientes protegidos.</p>
+                            </div>
+                            <span class="media-ratio">Background institucional ativo</span>
+                        </div>
+                        <p class="hero-media-note">
+                            <i class="fas fa-circle-info"></i>
+                            Vídeo aplicado com contraste otimizado para preservar a leitura da mensagem.
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="hero-scroll">
-            <a href="#segmentos" class="scroll-indicator">
-                <span>Saiba mais</span>
-                <i class="fas fa-chevron-down"></i>
-            </a>
         </div>
     </section>
 
-    <!-- Segments Section -->
-    <section class="segments" id="segmentos">
+    <!-- Authority and Positioning Section -->
+    <section class="authority" id="segmentos">
         <div class="container">
-            <div class="section-header">
-                <span class="section-badge"><i class="fas fa-building"></i> Quem Atendemos</span>
-                <h2 class="section-title">Segmentos <span class="gradient-text">Atendidos</span></h2>
-                <p class="section-description">
-                    Desenvolvemos soluções de segurança personalizadas para diferentes tipos de ambientes e necessidades.
-                </p>
+            <div class="authority-intro">
+                <div class="authority-heading">
+                    <span class="section-badge">
+                        <i class="fas fa-shield-halved"></i>
+                        Autoridade e posicionamento
+                    </span>
+                    <h2 class="authority-title">
+                        Segurança mais forte começa pela
+                        <span class="gradient-text">integração.</span>
+                    </h2>
+                </div>
+                <div class="authority-copy">
+                    <p class="authority-lead">
+                        A SpSecurity estrutura soluções integradas de segurança patrimonial para ampliar prevenção, controle, monitoramento e capacidade de resposta.
+                    </p>
+                    <p>
+                        Em vez de tratar equipamentos como iniciativas isoladas, conectamos diagnóstico, projeto e tecnologias à realidade de empresas, condomínios e operações.
+                    </p>
+                </div>
             </div>
-            
-            <div class="segments-grid">
-                <div class="segment-card">
-                    <div class="segment-icon">
+
+            <div class="authority-grid">
+                <article class="authority-card">
+                    <div class="authority-card-icon">
+                        <i class="fas fa-magnifying-glass-chart"></i>
+                    </div>
+                    <span class="authority-card-label">Entender antes de definir</span>
+                    <h3>Diagnóstico e projeto de segurança</h3>
+                    <p>Mapeamos ambiente, fluxos, ativos e pontos de exposição para orientar uma estratégia coerente com o risco e a operação.</p>
+                </article>
+
+                <article class="authority-card">
+                    <div class="authority-card-icon">
+                        <i class="fas fa-diagram-project"></i>
+                    </div>
+                    <span class="authority-card-label">Conectar para fortalecer</span>
+                    <h3>Integração de tecnologias</h3>
+                    <p>Organizamos os recursos de segurança para que controle, detecção e acompanhamento apoiem uma mesma estratégia de proteção.</p>
+                </article>
+
+                <article class="authority-card">
+                    <div class="authority-card-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <span class="authority-card-label">Ampliar a visibilidade</span>
+                    <h3>Monitoramento e prevenção</h3>
+                    <p>Estruturamos pontos de controle que ajudam a identificar situações relevantes mais cedo e apoiam respostas mais bem informadas.</p>
+                </article>
+
+                <article class="authority-card">
+                    <div class="authority-card-icon">
                         <i class="fas fa-building-shield"></i>
                     </div>
-                    <div class="segment-content">
-                        <h3>Condomínios</h3>
-                        <p>Portaria remota, controle de acesso, CFTV e monitoramento 24h para condomínios residenciais e comerciais.</p>
-                        <ul class="segment-features">
-                            <li><i class="fas fa-check"></i> Portaria Remota</li>
-                            <li><i class="fas fa-check"></i> Controle de Acesso</li>
-                            <li><i class="fas fa-check"></i> Reconhecimento Facial</li>
-                            <li><i class="fas fa-check"></i> App para Moradores</li>
-                        </ul>
-                    </div>
+                    <span class="authority-card-label">Proteger com contexto</span>
+                    <h3>Proteção patrimonial sob medida</h3>
+                    <p>Cada projeto considera rotina, estrutura e prioridades do cliente para proteger pessoas, patrimônio e continuidade operacional.</p>
+                </article>
+            </div>
+
+            <div class="authority-closing">
+                <p>
+                    Uma arquitetura integrada reduz pontos cegos e cria uma base mais consistente para prevenir, acompanhar e responder a riscos.
+                </p>
+                <a href="#riscos" class="authority-link">
+                    Entender os riscos
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Risks and Problems Section -->
+    <section class="risks" id="riscos">
+        <div class="container">
+            <div class="risks-header">
+                <div class="risks-heading">
+                    <span class="section-badge">
+                        <i class="fas fa-shield-virus"></i>
+                        Riscos que exigem atenção
+                    </span>
+                    <h2 class="risks-title">
+                        Vulnerabilidades crescem quando a segurança
+                        <span class="gradient-text">opera em partes.</span>
+                    </h2>
                 </div>
-                
-                <div class="segment-card">
-                    <div class="segment-icon">
-                        <i class="fas fa-landmark"></i>
+                <p class="risks-intro">
+                    Ambientes sem visão integrada dificultam a prevenção, reduzem o controle sobre áreas críticas e tornam a resposta menos coordenada.
+                </p>
+            </div>
+
+            <div class="risks-grid">
+                <article class="risk-card">
+                    <div class="risk-card-top">
+                        <span class="risk-icon"><i class="fas fa-user-lock"></i></span>
+                        <span class="risk-index">01</span>
                     </div>
-                    <div class="segment-content">
-                        <h3>Prefeituras</h3>
-                        <p>Videomonitoramento urbano, totens inteligentes e segurança para espaços públicos como praças, parques e vias.</p>
-                        <ul class="segment-features">
-                            <li><i class="fas fa-check"></i> Totens de Monitoramento</li>
-                            <li><i class="fas fa-check"></i> Câmeras Urbanas</li>
-                            <li><i class="fas fa-check"></i> Central de Operações</li>
-                            <li><i class="fas fa-check"></i> Integração com GCM</li>
-                        </ul>
+                    <h3>Acessos não autorizados</h3>
+                    <p>Entradas e saídas sem controle consistente aumentam a exposição de pessoas, ativos e áreas restritas.</p>
+                </article>
+
+                <article class="risk-card">
+                    <div class="risk-card-top">
+                        <span class="risk-icon"><i class="fas fa-eye-slash"></i></span>
+                        <span class="risk-index">02</span>
                     </div>
+                    <h3>Pontos cegos no monitoramento</h3>
+                    <p>Áreas sem cobertura adequada reduzem a visibilidade sobre movimentações e situações relevantes.</p>
+                </article>
+
+                <article class="risk-card">
+                    <div class="risk-card-top">
+                        <span class="risk-icon"><i class="fas fa-link-slash"></i></span>
+                        <span class="risk-index">03</span>
+                    </div>
+                    <h3>Sistemas desconectados</h3>
+                    <p>Recursos isolados fragmentam informações e dificultam uma leitura coordenada do ambiente protegido.</p>
+                </article>
+
+                <article class="risk-card">
+                    <div class="risk-card-top">
+                        <span class="risk-icon"><i class="fas fa-clock-rotate-left"></i></span>
+                        <span class="risk-index">04</span>
+                    </div>
+                    <h3>Resposta pouco coordenada</h3>
+                    <p>Sem informações organizadas, a avaliação de ocorrências pode levar mais tempo e depender de ações dispersas.</p>
+                </article>
+
+                <article class="risk-card">
+                    <div class="risk-card-top">
+                        <span class="risk-icon"><i class="fas fa-border-all"></i></span>
+                        <span class="risk-index">05</span>
+                    </div>
+                    <h3>Perímetros vulneráveis</h3>
+                    <p>Limites mal monitorados facilitam aproximações e acessos sem identificação antecipada.</p>
+                </article>
+
+                <article class="risk-card">
+                    <div class="risk-card-top">
+                        <span class="risk-icon"><i class="fas fa-building-circle-exclamation"></i></span>
+                        <span class="risk-index">06</span>
+                    </div>
+                    <h3>Baixa visibilidade operacional</h3>
+                    <p>A falta de uma visão central dificulta acompanhar áreas críticas e priorizar ações de prevenção.</p>
+                </article>
+            </div>
+
+            <div class="risks-transition">
+                <div class="risks-transition-mark" aria-hidden="true">
+                    <i class="fas fa-diagram-project"></i>
                 </div>
-                
-                <div class="segment-card">
-                    <div class="segment-icon">
-                        <i class="fas fa-school"></i>
-                    </div>
-                    <div class="segment-content">
-                        <h3>Escolas e Universidades</h3>
-                        <p>Controle de acesso de alunos e funcionários, monitoramento de áreas comuns e perímetro.</p>
-                        <ul class="segment-features">
-                            <li><i class="fas fa-check"></i> Controle de Entrada</li>
-                            <li><i class="fas fa-check"></i> Câmeras em Áreas Comuns</li>
-                            <li><i class="fas fa-check"></i> Alarme Perimetral</li>
-                            <li><i class="fas fa-check"></i> Botão de Pânico</li>
-                        </ul>
-                    </div>
-                </div>
-                
+                <p>
+                    <strong>O problema raramente está em um único ponto.</strong>
+                    Está na falta de integração entre prevenção, controle, monitoramento e resposta.
+                </p>
+                <a href="#solucoes" class="risks-link">
+                    Ver como estruturamos a proteção
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Solutions Section -->
-    <section class="solutions" id="solucoes">
+    <section class="integrated-solutions" id="solucoes">
         <div class="container">
-            <div class="section-header">
-                <span class="section-badge"><i class="fas fa-cogs"></i> O Que Oferecemos</span>
-                <h2 class="section-title">Nossas <span class="gradient-text">Soluções</span></h2>
-                <p class="section-description">
-                    Tecnologia de ponta em segurança eletrônica para proteger o que é mais importante para você.
+            <div class="integrated-solutions-header">
+                <div>
+                    <span class="section-badge">
+                        <i class="fas fa-diagram-project"></i>
+                        Ecossistema de segurança
+                    </span>
+                    <h2 class="integrated-solutions-title">
+                        Soluções que trabalham
+                        <span class="gradient-text">de forma integrada.</span>
+                    </h2>
+                </div>
+                <p class="integrated-solutions-intro">
+                    Combinamos prevenção, controle e monitoramento para estruturar uma operação de segurança mais conectada à realidade de cada ambiente.
                 </p>
             </div>
-            
-            <div class="solutions-grid">
-                <div class="solution-card">
-                    <div class="solution-image">
-                        <div class="solution-icon-large">
-                            <i class="fas fa-video"></i>
-                        </div>
-                    </div>
-                    <div class="solution-content">
-                        <h3>CFTV - Câmeras de Vigilância</h3>
-                        <p>Sistemas de câmeras com resolução 4K, visão noturna, detecção facial e leitura de placas de veículos.</p>
-                        <ul class="solution-features">
-                            <li>Resolução 4K Ultra HD</li>
-                            <li>Detecção facial inteligente</li>
-                            <li>Leitura de placas (LPR)</li>
-                            <li>Visão noturna IR 50m</li>
-                        </ul>
-                        <a href="#contato" class="btn btn-outline btn-sm">Saiba Mais</a>
-                    </div>
-                </div>
-                
-                <div class="solution-card featured">
-                    <div class="solution-image">
-                        <div class="solution-icon-large">
-                            <i class="fas fa-tower-broadcast"></i>
-                        </div>
-                    </div>
-                    <div class="solution-content">
-                        <h3>Totens de Monitoramento</h3>
-                        <p>Totens inteligentes e personalizáveis para monitoramento urbano, com câmeras, LED e conectividade.</p>
-                        <ul class="solution-features">
-                            <li>100% personalizável</li>
-                            <li>Câmeras 4K integradas</li>
-                            <li>Painel LED informativo</li>
-                            <li>Wi-Fi e conectividade 5G</li>
-                        </ul>
-                        <a href="#customizar" class="btn btn-primary btn-sm">Personalize o Seu</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Benefits Section -->
-    <section class="benefits" id="beneficios">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge"><i class="fas fa-star"></i> Por Que Nos Escolher?</span>
-                <h2 class="section-title">Nossos <span class="gradient-text">Diferenciais</span></h2>
-                <p class="section-description">
-                    Mais do que equipamentos, oferecemos soluções completas com suporte especializado.
+            <div class="solution-groups">
+                <section class="solution-group" aria-labelledby="prevencao-title">
+                    <div class="solution-group-heading">
+                        <span class="solution-group-index">01</span>
+                        <div>
+                            <span class="solution-group-kicker">Antecipar situações relevantes</span>
+                            <h3 id="prevencao-title">Prevenção e detecção</h3>
+                        </div>
+                    </div>
+
+                    <div class="solution-group-grid">
+                        <article class="integrated-solution-card">
+                            <span class="integrated-solution-icon"><i class="fas fa-brain"></i></span>
+                            <h4>CFTV inteligente com IA</h4>
+                            <p>Ajuda a filtrar eventos relevantes e amplia a percepção sobre comportamentos fora do padrão.</p>
+                            <span class="solution-application">Aplicação: áreas críticas e fluxos de movimentação.</span>
+                        </article>
+
+                        <article class="integrated-solution-card">
+                            <span class="integrated-solution-icon"><i class="fas fa-video"></i></span>
+                            <h4>Câmeras de vigilância</h4>
+                            <p>Reduz pontos cegos e fornece apoio visual para acompanhar ambientes e revisar ocorrências.</p>
+                            <span class="solution-application">Aplicação: acessos, áreas comuns e perímetros.</span>
+                        </article>
+
+                        <article class="integrated-solution-card">
+                            <span class="integrated-solution-icon"><i class="fas fa-wave-square"></i></span>
+                            <h4>Alarmes e sensores perimetrais</h4>
+                            <p>Apoiam a identificação antecipada de violações e movimentações em limites protegidos.</p>
+                            <span class="solution-application">Aplicação: muros, cercas, depósitos e áreas restritas.</span>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="solution-group" aria-labelledby="controle-title">
+                    <div class="solution-group-heading">
+                        <span class="solution-group-index">02</span>
+                        <div>
+                            <span class="solution-group-kicker">Organizar entradas e circulação</span>
+                            <h3 id="controle-title">Controle e acesso</h3>
+                        </div>
+                    </div>
+
+                    <div class="solution-group-grid">
+                        <article class="integrated-solution-card">
+                            <span class="integrated-solution-icon"><i class="fas fa-id-card"></i></span>
+                            <h4>Controle de acesso</h4>
+                            <p>Fortalece a gestão de entradas, saídas e permissões em pontos com circulação controlada.</p>
+                            <span class="solution-application">Aplicação: portarias, recepções e áreas internas.</span>
+                        </article>
+
+                        <article class="integrated-solution-card">
+                            <span class="integrated-solution-icon"><i class="fas fa-door-closed"></i></span>
+                            <h4>Fechaduras automáticas</h4>
+                            <p>Ajuda a restringir acessos indevidos e torna o controle de portas mais consistente.</p>
+                            <span class="solution-application">Aplicação: salas técnicas, estoques e acessos restritos.</span>
+                        </article>
+
+                        <article class="integrated-solution-card">
+                            <span class="integrated-solution-icon"><i class="fas fa-tower-broadcast"></i></span>
+                            <h4>Totens de segurança</h4>
+                            <p>Amplia a presença visível da segurança e concentra recursos em pontos estratégicos.</p>
+                            <span class="solution-application">Aplicação: condomínios, vias internas e espaços abertos.</span>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="solution-group" aria-labelledby="monitoramento-title">
+                    <div class="solution-group-heading">
+                        <span class="solution-group-index">03</span>
+                        <div>
+                            <span class="solution-group-kicker">Transformar informação em ação</span>
+                            <h3 id="monitoramento-title">Monitoramento e resposta</h3>
+                        </div>
+                    </div>
+
+                    <div class="solution-group-grid">
+                        <article class="integrated-solution-card">
+                            <span class="integrated-solution-icon"><i class="fas fa-shield-halved"></i></span>
+                            <h4>Monitoramento e proteção patrimonial</h4>
+                            <p>Amplia a visibilidade sobre áreas protegidas e apoia decisões diante de eventos relevantes.</p>
+                            <span class="solution-application">Aplicação: empresas, condomínios e operações.</span>
+                        </article>
+
+                        <article class="integrated-solution-card">
+                            <span class="integrated-solution-icon"><i class="fas fa-bell"></i></span>
+                            <h4>Gestão de alertas</h4>
+                            <p>Organiza sinais de diferentes pontos para apoiar uma avaliação mais rápida e contextualizada.</p>
+                            <span class="solution-application">Aplicação: ambientes com múltiplas áreas de controle.</span>
+                        </article>
+
+                        <article class="integrated-solution-card integrated-solution-card--integration">
+                            <span class="integrated-solution-icon"><i class="fas fa-network-wired"></i></span>
+                            <h4>Integração de sistemas</h4>
+                            <p>Conecta recursos de segurança para reduzir informações dispersas e fortalecer a visão operacional.</p>
+                            <span class="solution-application">Aplicação: projetos com tecnologias complementares.</span>
+                        </article>
+                    </div>
+                </section>
+            </div>
+
+            <div class="integrated-solutions-closing">
+                <p>
+                    <strong>A solução não está em acumular equipamentos.</strong>
+                    Está em definir como cada recurso contribui para prevenir, controlar, monitorar e responder.
                 </p>
-            </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <h3>Consultoria Especializada</h3>
-                    <p>Análise do seu ambiente e necessidades para propor a melhor solução de segurança.</p>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>Instalação Profissional</h3>
-                    <p>Equipe técnica certificada para instalação e configuração de todos os equipamentos.</p>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>Suporte 24/7</h3>
-                    <p>Atendimento técnico disponível 24 horas para garantir que sua segurança nunca pare.</p>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-puzzle-piece"></i>
-                    </div>
-                    <h3>Integração de Sistemas</h3>
-                    <p>Integração com Smart Sampa e Muralha Paulista para monitoramento urbano completo.</p>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-mobile-screen"></i>
-                    </div>
-                    <h3>Acesso pelo Celular</h3>
-                    <p>Monitore e controle tudo pelo smartphone, de qualquer lugar do mundo.</p>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-certificate"></i>
-                    </div>
-                    <h3>Garantia Estendida</h3>
-                    <p>Todos os equipamentos com garantia e assistência técnica especializada.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Showcase -->
-    <section class="projects" id="projetos">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge"><i class="fas fa-building-columns"></i> Nosso Portfólio</span>
-                <h2 class="section-title">Projetos <span class="gradient-text">Realizados</span></h2>
-                <p class="section-description">
-                    Conheça alguns dos projetos que desenvolvemos para nossos clientes em todo o Brasil.
-                </p>
-            </div>
-            
-            <!-- Stats Bar -->
-            <div class="projects-stats">
-                <div class="projects-stat">
-                    <span class="stat-icon"><i class="fas fa-city"></i></span>
-                    <div class="stat-content">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Cidades Atendidas</span>
-                    </div>
-                </div>
-                <div class="projects-stat">
-                    <span class="stat-icon"><i class="fas fa-building"></i></span>
-                    <div class="stat-content">
-                        <span class="stat-number">300+</span>
-                        <span class="stat-label">Condomínios Protegidos</span>
-                    </div>
-                </div>
-                <div class="projects-stat">
-                    <span class="stat-icon"><i class="fas fa-tower-broadcast"></i></span>
-                    <div class="stat-content">
-                        <span class="stat-number">1200</span>
-                        <span class="stat-label">Totens Instalados</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="projects-showcase">
-                <!-- Projeto Destaque - SP Security -->
-                <div class="project-card featured">
-                    <div class="project-image">
-                        <img src="assets/projeto-spsecurity.png" alt="Totem SP Security">
-                        <div class="project-overlay">
-                            <span class="project-tag"><i class="fas fa-award"></i> Destaque</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Todo o Estado de SP</span>
-                        <h3>SP Security</h3>
-                    </div>
-                </div>
-                
-                <!-- Projeto Catanduva Segura -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/projeto-suzano.png" alt="Projeto Catanduva Segura">
-                        <div class="project-overlay">
-                            <span class="project-tag">Segurança Urbana</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Catanduva, SP</span>
-                        <h3>Catanduva Segura</h3>
-                    </div>
-                </div>
-                
-                <!-- Projeto Guarulhos -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/projeto-guarulhos.png" alt="Projeto Guarulhos">
-                        <div class="project-overlay">
-                            <span class="project-tag">Smart City</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Guarulhos, SP</span>
-                        <h3>Guarulhos Conectada</h3>
-                    </div>
-                </div>
-                
-                <!-- Projeto São Roque -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/projeto-sao-roque.png" alt="Projeto São Roque">
-                        <div class="project-overlay">
-                            <span class="project-tag">Turismo</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> São Roque, SP</span>
-                        <h3>São Roque</h3>
-                    </div>
-                </div>
-                
-                <!-- Projeto Lumy Ibira -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/projeto-lumy-ibira.png" alt="Projeto Lumy Ibira">
-                        <div class="project-overlay">
-                            <span class="project-tag">Empresarial</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> São Paulo, SP</span>
-                        <h3>Lumy Ibira</h3>
-                    </div>
-                </div>
-                
-                <!-- Projeto Jundiaí -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/projeto-jundiai.png" alt="Projeto Jundiaí">
-                        <div class="project-overlay">
-                            <span class="project-tag">Smart City</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Jundiaí, SP</span>
-                        <h3>Jundiaí é da Gente</h3>
-                    </div>
-                </div>
-                
-                <!-- Projeto Smart Suzano -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/projeto-smart-suzano.png" alt="Projeto Smart Suzano">
-                        <div class="project-overlay">
-                            <span class="project-tag">Cidade Inteligente</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Suzano, SP</span>
-                        <h3>Smart Suzano</h3>
-                    </div>
-                </div>
-                
-                <!-- Projeto Bares e Restaurantes -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/projeto-miolo.png" alt="Totem para Bares e Restaurantes">
-                        <div class="project-overlay">
-                            <span class="project-tag">Gastronomia</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Grande São Paulo</span>
-                        <h3>Segurança Gastronômica</h3>
-                    </div>
-                </div>
-
-                <!-- Totem X Net -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/totem-xnet.png" alt="Totem X Net">
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Segurança / Protege</span>
-                        <h3>X Net</h3>
-                    </div>
-                </div>
-                <!-- Totem 360 Security -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/totem-360security.png" alt="Totem 360 Security">
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Segurança e emergência</span>
-                        <h3>360 Security</h3>
-                    </div>
-                </div>
-                <!-- Totem Proqualy -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/totem-proqualy.png" alt="Totem Proqualy Serviços">
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Serviços e terceirização</span>
-                        <h3>Proqualy Serviços</h3>
-                    </div>
-                </div>
-                <!-- Totem SmartSampa -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/totem-smartsampa.png" alt="Totem SmartSampa">
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Smart City São Paulo</span>
-                        <h3>SmartSampa</h3>
-                    </div>
-                </div>
-                <!-- Totem SmartMorada -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/totem-smartmorada.png" alt="Totem SmartMorada / SP Security">
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Condomínio / Smart</span>
-                        <h3>SmartMorada</h3>
-                    </div>
-                </div>
-                <!-- Totem João Pessoa -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/totem-joaopessoa.png" alt="Totem Smart City João Pessoa">
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> João Pessoa, PB</span>
-                        <h3>Smart City João Pessoa</h3>
-                    </div>
-                </div>
-                <!-- Totem SmartGru -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/totem-smartgru.png" alt="Totem SmartGru">
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Guarulhos, SP</span>
-                        <h3>SmartGru</h3>
-                    </div>
-                </div>
-                <!-- Totem Aldeia Bianca II -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/totem-aldeiabianca.png" alt="Totem Aldeia Bianca II – SP Security">
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Condomínio Residencial</span>
-                        <h3>Aldeia Bianca II – SP Security</h3>
-                    </div>
-                </div>
-                <!-- Totem SMART Bertioga -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="assets/totem%20bertioga.jpeg" alt="Totem SMART Bertioga">
-                    </div>
-                    <div class="project-info">
-                        <span class="project-location"><i class="fas fa-location-dot"></i> Bertioga, SP</span>
-                        <h3>SMART Bertioga</h3>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- CTA após projetos -->
-            <div class="projects-cta">
-                <p>Quer um projeto personalizado para sua necessidade?</p>
                 <a href="#contato" class="btn btn-primary">
-                    <i class="fab fa-whatsapp"></i>
-                    Fale com um Especialista
+                    Solicitar análise de segurança
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How We Work Section -->
+    <section class="work-process" id="beneficios">
+        <div class="container">
+            <div class="work-process-header">
+                <div>
+                    <span class="section-badge">
+                        <i class="fas fa-route"></i>
+                        Como trabalhamos
+                    </span>
+                    <h2 class="work-process-title">
+                        Da análise do cenário à
+                        <span class="gradient-text">segurança estruturada.</span>
+                    </h2>
+                </div>
+                <p class="work-process-intro">
+                    Nosso trabalho começa pelo entendimento do ambiente. A partir disso, definimos como tecnologias e procedimentos podem atuar de forma integrada.
+                </p>
+            </div>
+
+            <ol class="work-process-steps">
+                <li class="work-process-step">
+                    <div class="work-process-marker">
+                        <span>01</span>
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="work-process-content">
+                        <span class="work-process-kicker">Entender a demanda</span>
+                        <h3>Diagnóstico da necessidade</h3>
+                        <p>Conversamos sobre prioridades, rotina, pontos de atenção e objetivos de proteção.</p>
+                    </div>
+                </li>
+
+                <li class="work-process-step">
+                    <div class="work-process-marker">
+                        <span>02</span>
+                        <i class="fas fa-magnifying-glass-location"></i>
+                    </div>
+                    <div class="work-process-content">
+                        <span class="work-process-kicker">Ler o contexto</span>
+                        <h3>Análise do ambiente</h3>
+                        <p>Avaliamos acessos, fluxos, áreas críticas e vulnerabilidades relevantes para o projeto.</p>
+                    </div>
+                </li>
+
+                <li class="work-process-step">
+                    <div class="work-process-marker">
+                        <span>03</span>
+                        <i class="fas fa-compass-drafting"></i>
+                    </div>
+                    <div class="work-process-content">
+                        <span class="work-process-kicker">Construir a estratégia</span>
+                        <h3>Definição das soluções</h3>
+                        <p>Selecionamos os recursos que melhor apoiam prevenção, controle e monitoramento.</p>
+                    </div>
+                </li>
+
+                <li class="work-process-step">
+                    <div class="work-process-marker">
+                        <span>04</span>
+                        <i class="fas fa-screwdriver-wrench"></i>
+                    </div>
+                    <div class="work-process-content">
+                        <span class="work-process-kicker">Colocar em operação</span>
+                        <h3>Implantação e integração</h3>
+                        <p>Organizamos a instalação e a conexão dos recursos conforme o projeto definido.</p>
+                    </div>
+                </li>
+
+                <li class="work-process-step">
+                    <div class="work-process-marker">
+                        <span>05</span>
+                        <i class="fas fa-person-chalkboard"></i>
+                    </div>
+                    <div class="work-process-content">
+                        <span class="work-process-kicker">Preparar a utilização</span>
+                        <h3>Orientação de uso</h3>
+                        <p>Apresentamos o funcionamento da solução e os cuidados necessários para sua operação.</p>
+                    </div>
+                </li>
+
+                <li class="work-process-step">
+                    <div class="work-process-marker">
+                        <span>06</span>
+                        <i class="fas fa-arrows-rotate"></i>
+                    </div>
+                    <div class="work-process-content">
+                        <span class="work-process-kicker">Manter a solução coerente</span>
+                        <h3>Acompanhamento e evolução</h3>
+                        <p>Avaliamos necessidades de ajuste, suporte ou evolução conforme o ambiente se transforma.</p>
+                    </div>
+                </li>
+            </ol>
+
+            <div class="work-process-closing">
+                <p>
+                    <strong>O processo é simples porque a decisão precisa ser clara.</strong>
+                    Cada etapa ajuda a transformar necessidades reais em uma estrutura de segurança coerente com a operação.
+                </p>
+                <a href="#contato" class="work-process-link">
+                    Conversar sobre o seu cenário
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects and Cases Section -->
+    <section class="project-cases" id="projetos">
+        <div class="container">
+            <div class="project-cases-header">
+                <div>
+                    <span class="section-badge">
+                        <i class="fas fa-folder-open"></i>
+                        Projetos e aplicações
+                    </span>
+                    <h2 class="project-cases-title">
+                        Experiência demonstrada com
+                        <span class="gradient-text">contexto e transparência.</span>
+                    </h2>
+                </div>
+                <p class="project-cases-intro">
+                    Registros visuais de projetos ajudam a demonstrar aplicações reais. Contexto, escopo e resultados serão detalhados após validação.
+                </p>
+            </div>
+
+            <div class="project-cases-grid">
+                <article class="case-card">
+                    <figure class="case-media" style="--case-image: url('../assets/projeto-lumy-ibira.png')">
+                        <img src="assets/projeto-lumy-ibira.png" alt="Registro visual de projeto da SpSecurity em ambiente residencial" loading="lazy" decoding="async">
+                        <figcaption><i class="fas fa-camera"></i> Registro de projeto</figcaption>
+                    </figure>
+                    <div class="case-content">
+                        <div class="case-meta">
+                            <span class="case-environment">Condomínio residencial</span>
+                            <span class="case-status"><i class="fas fa-clock"></i> Dados em validação</span>
+                        </div>
+                        <dl class="case-details">
+                            <div>
+                                <dt>Desafio</dt>
+                                <dd>Organizar acessos e ampliar a visibilidade sobre áreas comuns e perímetro.</dd>
+                            </div>
+                            <div>
+                                <dt>Solução prevista</dt>
+                                <dd>Controle de acesso, videomonitoramento e recursos perimetrais integrados.</dd>
+                            </div>
+                            <div class="case-result">
+                                <dt>Resultado real</dt>
+                                <dd>Inserir após validação do cliente e confirmação dos dados do projeto.</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </article>
+
+                <article class="case-card">
+                    <figure class="case-media" style="--case-image: url('../assets/projeto-spsecurity.png')">
+                        <img src="assets/projeto-spsecurity.png" alt="Registro visual de solução de segurança da SpSecurity" loading="lazy" decoding="async">
+                        <figcaption><i class="fas fa-camera"></i> Registro de projeto</figcaption>
+                    </figure>
+                    <div class="case-content">
+                        <div class="case-meta">
+                            <span class="case-environment">Empresa ou comércio</span>
+                            <span class="case-status"><i class="fas fa-clock"></i> Dados em validação</span>
+                        </div>
+                        <dl class="case-details">
+                            <div>
+                                <dt>Desafio</dt>
+                                <dd>Melhorar o controle de circulação e o acompanhamento de áreas críticas.</dd>
+                            </div>
+                            <div>
+                                <dt>Solução prevista</dt>
+                                <dd>Câmeras, controle de acesso e gestão integrada de eventos relevantes.</dd>
+                            </div>
+                            <div class="case-result">
+                                <dt>Resultado real</dt>
+                                <dd>Reservado para evidências, aprendizados e impacto confirmado.</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </article>
+
+                <article class="case-card">
+                    <figure class="case-media" style="--case-image: url('../assets/projeto-guarulhos.png')">
+                        <img src="assets/projeto-guarulhos.png" alt="Registro visual de projeto da SpSecurity em área perimetral" loading="lazy" decoding="async">
+                        <figcaption><i class="fas fa-camera"></i> Registro de projeto</figcaption>
+                    </figure>
+                    <div class="case-content">
+                        <div class="case-meta">
+                            <span class="case-environment">Área perimetral</span>
+                            <span class="case-status"><i class="fas fa-clock"></i> Dados em validação</span>
+                        </div>
+                        <dl class="case-details">
+                            <div>
+                                <dt>Desafio</dt>
+                                <dd>Reduzir pontos cegos e apoiar a identificação de movimentações no perímetro.</dd>
+                            </div>
+                            <div>
+                                <dt>Solução prevista</dt>
+                                <dd>Sensores perimetrais, câmeras e alertas organizados conforme o ambiente.</dd>
+                            </div>
+                            <div class="case-result">
+                                <dt>Resultado real</dt>
+                                <dd>Preencher com informações verificáveis após autorização de publicação.</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </article>
+
+                <article class="case-card">
+                    <figure class="case-media" style="--case-image: url('../assets/projeto-sao-roque.png')">
+                        <img src="assets/projeto-sao-roque.png" alt="Registro visual de projeto da SpSecurity em área externa" loading="lazy" decoding="async">
+                        <figcaption><i class="fas fa-camera"></i> Registro de projeto</figcaption>
+                    </figure>
+                    <div class="case-content">
+                        <div class="case-meta">
+                            <span class="case-environment">Estacionamento ou área externa</span>
+                            <span class="case-status"><i class="fas fa-clock"></i> Dados em validação</span>
+                        </div>
+                        <dl class="case-details">
+                            <div>
+                                <dt>Desafio</dt>
+                                <dd>Ampliar a visão sobre circulação de veículos, pessoas e acessos externos.</dd>
+                            </div>
+                            <div>
+                                <dt>Solução prevista</dt>
+                                <dd>Videomonitoramento, controle de entrada e pontos visíveis de segurança.</dd>
+                            </div>
+                            <div class="case-result">
+                                <dt>Resultado real</dt>
+                                <dd>Espaço preparado para resultado aprovado e contextualizado pelo cliente.</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </article>
+            </div>
+
+            <div class="project-cases-note">
+                <div>
+                    <strong>Publicação responsável de cases</strong>
+                    <p>Os registros disponíveis já compõem a seção. Nomes, escopo e resultados serão detalhados somente após validação e autorização.</p>
+                </div>
+                <a href="#contato" class="project-cases-link">
+                    Falar sobre um projeto
+                    <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
         </div>
@@ -589,61 +717,152 @@
     <!-- Nossa Tecnologia em Ação -->
     <section class="tech-action" id="tecnologia-acao">
         <div class="container">
-            <div class="section-header">
-                <span class="section-badge"><i class="fas fa-play-circle"></i> Vídeos</span>
-                <h2 class="section-title">Nossa Tecnologia em <span class="gradient-text">Ação</span></h2>
-                <p class="section-description">
-                    Demonstrações em vídeo das nossas soluções de segurança em uso.
-                </p>
+            <div class="tech-action-header">
+                <div>
+                    <span class="section-badge">
+                        <i class="fas fa-circle-play"></i>
+                        Demonstrações visuais
+                    </span>
+                    <h2 class="tech-action-title">
+                        Tecnologia que ganha contexto
+                        <span class="gradient-text">quando entra em operação.</span>
+                    </h2>
+                </div>
+                <div class="tech-action-intro">
+                    <p>
+                        Registros institucionais das soluções aplicadas à segurança patrimonial, sem reprodução automática.
+                    </p>
+                    <span>
+                        <i class="fas fa-eye"></i>
+                        Observe presença, visibilidade e apoio ao monitoramento.
+                    </span>
+                </div>
             </div>
+
             <div class="tech-action-grid">
-                <div class="tech-action-card">
+                <article class="tech-action-card">
                     <div class="tech-action-video-wrap">
-                        <video muted loop playsinline autoplay>
+                        <video controls playsinline preload="metadata" aria-label="Demonstração visual de solução de segurança em ambiente externo">
                             <source src="assets/totem-test.mp4" type="video/mp4">
+                            Seu navegador não oferece suporte à reprodução deste vídeo.
                         </video>
+                        <button type="button" class="tech-video-play" aria-label="Reproduzir demonstração 01">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <span class="tech-video-label">Demonstração 01</span>
                     </div>
-                </div>
-                <div class="tech-action-card">
+                    <div class="tech-action-content">
+                        <span class="tech-action-kicker"><i class="fas fa-shield-halved"></i> Presença preventiva</span>
+                        <h3>Solução aplicada em ambiente externo</h3>
+                        <p>Registro visual para observar a presença do equipamento e sua inserção no ambiente.</p>
+                    </div>
+                </article>
+
+                <article class="tech-action-card">
                     <div class="tech-action-video-wrap">
-                        <video muted loop playsinline autoplay>
+                        <video controls playsinline preload="metadata" aria-label="Demonstração visual noturna de solução de segurança">
                             <source src="assets/totem-test2.mp4" type="video/mp4">
+                            Seu navegador não oferece suporte à reprodução deste vídeo.
                         </video>
+                        <button type="button" class="tech-video-play" aria-label="Reproduzir demonstração 02">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <span class="tech-video-label">Demonstração 02</span>
                     </div>
-                </div>
-                <div class="tech-action-card">
+                    <div class="tech-action-content">
+                        <span class="tech-action-kicker"><i class="fas fa-lightbulb"></i> Visibilidade</span>
+                        <h3>Apresentação visual no período noturno</h3>
+                        <p>Conteúdo institucional que destaca identificação visual e presença em condições de baixa luz.</p>
+                    </div>
+                </article>
+
+                <article class="tech-action-card">
                     <div class="tech-action-video-wrap">
-                        <video muted loop playsinline autoplay>
+                        <video controls playsinline preload="metadata" aria-label="Apresentação institucional de equipamento de segurança em campo">
                             <source src="assets/totem-test3.mp4" type="video/mp4">
+                            Seu navegador não oferece suporte à reprodução deste vídeo.
                         </video>
+                        <button type="button" class="tech-video-play" aria-label="Reproduzir demonstração 03">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <span class="tech-video-label">Demonstração 03</span>
                     </div>
-                </div>
-                <div class="tech-action-card">
+                    <div class="tech-action-content">
+                        <span class="tech-action-kicker"><i class="fas fa-location-crosshairs"></i> Aplicação em campo</span>
+                        <h3>Apresentação institucional da solução</h3>
+                        <p>Uma visão contextual do equipamento e de como ele pode compor uma estrutura de segurança.</p>
+                    </div>
+                </article>
+
+                <article class="tech-action-card">
                     <div class="tech-action-video-wrap">
-                        <video muted loop playsinline autoplay>
+                        <video controls playsinline preload="metadata" aria-label="Demonstração visual relacionada ao monitoramento de movimentação">
                             <source src="assets/totem-test4.mp4" type="video/mp4">
+                            Seu navegador não oferece suporte à reprodução deste vídeo.
                         </video>
+                        <button type="button" class="tech-video-play" aria-label="Reproduzir demonstração 04">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <span class="tech-video-label">Demonstração 04</span>
                     </div>
+                    <div class="tech-action-content">
+                        <span class="tech-action-kicker"><i class="fas fa-video"></i> Apoio ao monitoramento</span>
+                        <h3>Observação visual de movimentação</h3>
+                        <p>Demonstração institucional sobre o uso de imagens para ampliar visibilidade e apoiar a análise do ambiente.</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="tech-action-closing">
+                <div>
+                    <strong>Vídeo demonstra. O diagnóstico define a solução.</strong>
+                    <p>A aplicação adequada depende do ambiente, dos riscos e da operação que precisa ser protegida.</p>
                 </div>
+                <a href="#contato" class="tech-action-link">
+                    Solicitar análise de segurança
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Totem Customizer Section - Estilo Configurador de Carros de Luxo -->
+    <!-- Totem Visual Configuration Section -->
     <section class="customizer-premium" id="customizar">
         <div class="container">
-            <div class="section-header">
-                <span class="section-badge"><i class="fas fa-palette"></i> Configure</span>
-                <h2 class="section-title">Configure Seu <span class="gradient-text">Totem SP Security</span></h2>
-                <p class="section-description">
-                    Personalize as cores e veja seu totem em tempo real, como nos configuradores de carros de luxo.
-                </p>
+            <div class="customizer-header">
+                <div>
+                    <span class="section-badge">
+                        <i class="fas fa-swatchbook"></i>
+                        Referência visual do projeto
+                    </span>
+                    <h2 class="customizer-title">
+                        Personalize uma referência inicial
+                        <span class="gradient-text">para o seu ambiente.</span>
+                    </h2>
+                </div>
+                <div class="customizer-intro">
+                    <p>
+                        O totem é uma das soluções que podem compor o ecossistema de segurança da SpSecurity. Use as opções para simular possibilidades de aplicação.
+                    </p>
+                    <span>
+                        <i class="fas fa-circle-info"></i>
+                        A definição final deve considerar ambiente, risco, operação e necessidade de monitoramento.
+                    </span>
+                </div>
             </div>
             
             <div class="customizer-premium-container">
                 <!-- Preview do Totem -->
                 <div class="totem-preview-area">
                     <div class="preview-stage">
+                        <div class="preview-stage-header">
+                            <div>
+                                <span>Preview da configuração</span>
+                                <strong>Referência visual</strong>
+                            </div>
+                            <span class="preview-status"><i class="fas fa-eye"></i> Visualização ativa</span>
+                        </div>
+
                         <!-- Sistema de Imagens Reais (como Audi/Mercedes/BMW) -->
                         <div class="totem-image-container">
                             <img src="assets/totem-azul-classico.png" alt="Totem SP Security" class="totem-real-image" id="totemRealImage">
@@ -666,12 +885,13 @@
                     
                     <!-- Informações do modelo -->
                     <div class="model-info">
+                        <span class="model-info-label">Solução dentro do projeto integrado</span>
                         <h3>Totem SP Security</h3>
-                        <p>Modelo Premium com Câmeras 4K</p>
+                        <p>A configuração visual é uma referência inicial e deve ser validada conforme o ambiente de instalação.</p>
                         <div class="model-specs">
-                            <span><i class="fas fa-ruler-vertical"></i> 3,5m altura</span>
-                            <span><i class="fas fa-video"></i> 3 câmeras</span>
-                            <span><i class="fas fa-display"></i> Iluminação em LED</span>
+                            <span><i class="fas fa-layer-group"></i> Aplicação sob medida</span>
+                            <span><i class="fas fa-shield-halved"></i> Validação técnica</span>
+                            <span><i class="fas fa-diagram-project"></i> Integração ao projeto</span>
                         </div>
                     </div>
                 </div>
@@ -679,19 +899,20 @@
                 <!-- Painel de Customização -->
                 <div class="customization-panel">
                     <div class="panel-header">
-                        <h3><i class="fas fa-sliders"></i> Opções de Personalização</h3>
-                        <p>Selecione as cores para cada componente</p>
+                        <span class="panel-step">Configuração visual</span>
+                        <h3><i class="fas fa-sliders"></i> Escolha uma combinação de referência</h3>
+                        <p>Selecione uma opção para atualizar o preview e comparar possibilidades visuais.</p>
                     </div>
                     
                     <!-- Configurações Pré-Definidas (Presets) -->
                     <div class="preset-configurations">
                         <div class="preset-header">
-                            <h4><i class="fas fa-star"></i> Configurações Prontas</h4>
-                            <p>Clique para aplicar uma combinação completa</p>
+                            <h4><i class="fas fa-grid-2"></i> Combinações disponíveis</h4>
+                            <p>Todas as opções atuais foram preservadas. Selecione uma para aplicar ao preview.</p>
                         </div>
                         <div class="preset-grid">
                             <!-- Preset 1: Azul Clássico (Original) -->
-                            <button class="preset-card active" data-preset="classic-blue">
+                            <button class="preset-card active" type="button" data-preset="classic-blue" aria-pressed="true">
                                 <div class="preset-preview">
                                     <div class="preset-body" style="background: #0a0a0f;"></div>
                                     <div class="preset-led" style="background: #3b82f6;"></div>
@@ -705,7 +926,7 @@
                             </button>
                             
                             <!-- Preset 2: Branco Moderno -->
-                            <button class="preset-card" data-preset="modern-white">
+                            <button class="preset-card" type="button" data-preset="modern-white" aria-pressed="false">
                                 <div class="preset-preview">
                                     <div class="preset-body" style="background: #ffffff;"></div>
                                     <div class="preset-led" style="background: #10b981;"></div>
@@ -719,7 +940,7 @@
                             </button>
                             
                             <!-- Preset 3: Preto Premium -->
-                            <button class="preset-card" data-preset="premium-black">
+                            <button class="preset-card" type="button" data-preset="premium-black" aria-pressed="false">
                                 <div class="preset-preview">
                                     <div class="preset-body" style="background: #0a0a0f;"></div>
                                     <div class="preset-led" style="background: #10b981;"></div>
@@ -733,7 +954,7 @@
                             </button>
                             
                             <!-- Preset 4: Azul Escuro -->
-                            <button class="preset-card" data-preset="minimal-white">
+                            <button class="preset-card" type="button" data-preset="minimal-white" aria-pressed="false">
                                 <div class="preset-preview">
                                     <div class="preset-body" style="background: #1e3a8a;"></div>
                                     <div class="preset-led" style="background: #3b82f6;"></div>
@@ -747,7 +968,7 @@
                             </button>
                             
                             <!-- Preset 5: SP Security Vermelho -->
-                            <button class="preset-card" data-preset="sp-red">
+                            <button class="preset-card" type="button" data-preset="sp-red" aria-pressed="false">
                                 <div class="preset-preview">
                                     <div class="preset-body" style="background: #0a0a0f;"></div>
                                     <div class="preset-led" style="background: #ef4444;"></div>
@@ -761,7 +982,7 @@
                             </button>
                             
                             <!-- Preset 6: Azul Claro -->
-                            <button class="preset-card" data-preset="elegant-white">
+                            <button class="preset-card" type="button" data-preset="elegant-white" aria-pressed="false">
                                 <div class="preset-preview">
                                     <div class="preset-body" style="background: #1e3a8a;"></div>
                                     <div class="preset-led" style="background: #06b6d4;"></div>
@@ -775,7 +996,7 @@
                             </button>
                             
                             <!-- Preset 7: Laranja Dourado -->
-                            <button class="preset-card" data-preset="orange-gold">
+                            <button class="preset-card" type="button" data-preset="orange-gold" aria-pressed="false">
                                 <div class="preset-preview">
                                     <div class="preset-body" style="background: #0a0a0f;"></div>
                                     <div class="preset-led" style="background: #f59e0b;"></div>
@@ -789,7 +1010,7 @@
                             </button>
                             
                             <!-- Preset 8: Azul Tech -->
-                            <button class="preset-card" data-preset="blue-tech">
+                            <button class="preset-card" type="button" data-preset="blue-tech" aria-pressed="false">
                                 <div class="preset-preview">
                                     <div class="preset-body" style="background: #0a0a0f;"></div>
                                     <div class="preset-led" style="background: #3b82f6;"></div>
@@ -803,7 +1024,7 @@
                             </button>
                             
                             <!-- Preset 9: Violeta Laranja -->
-                            <button class="preset-card" data-preset="purple-orange">
+                            <button class="preset-card" type="button" data-preset="purple-orange" aria-pressed="false">
                                 <div class="preset-preview">
                                     <div class="preset-body" style="background: #6b21a8;"></div>
                                     <div class="preset-led" style="background: #f97316;"></div>
@@ -820,7 +1041,10 @@
                     
                     <!-- Resumo da Configuração -->
                     <div class="config-summary">
-                        <h4><i class="fas fa-clipboard-check"></i> Sua Configuração</h4>
+                        <div class="config-summary-header">
+                            <h4><i class="fas fa-clipboard-check"></i> Resumo da referência</h4>
+                            <span>Simulação visual</span>
+                        </div>
                         <div class="summary-items">
                             <div class="summary-item">
                                 <span class="summary-label">Corpo:</span>
@@ -838,18 +1062,21 @@
                     </div>
                     
                     <!-- Botões de Ação -->
+                    <p class="action-guidance">
+                        Salve a referência para consultar depois ou envie a configuração para validação comercial.
+                    </p>
                     <div class="action-buttons">
-                        <button class="btn-reset" id="resetConfig">
+                        <button type="button" class="btn-reset" id="resetConfig">
                             <i class="fas fa-rotate-left"></i>
-                            Resetar
+                            Restaurar padrão
                         </button>
-                        <button class="btn-save" id="saveConfig">
+                        <button type="button" class="btn-save" id="saveConfig">
                             <i class="fas fa-save"></i>
-                            Salvar Configuração
+                            Salvar referência
                         </button>
-                        <button class="btn-quote" id="requestQuote">
+                        <button type="button" class="btn-quote" id="requestQuote">
                             <i class="fab fa-whatsapp"></i>
-                            Solicitar Orçamento
+                            Validar com especialista
                         </button>
                     </div>
                 </div>
@@ -877,18 +1104,158 @@
         </div>
     </section>
 
-    <!-- Onde Estamos - Mapa -->
+    <!-- Aplicações de segurança -->
     <section class="map-section" id="onde-estamos">
         <div class="container">
-            <div class="section-header">
-                <span class="section-badge"><i class="fas fa-map-location-dot"></i> Cobertura</span>
-                <h2 class="section-title">Onde <span class="gradient-text">Estamos?</span></h2>
+            <div class="section-header map-section-header">
+                <span class="section-badge"><i class="fas fa-diagram-project"></i> Aplicações</span>
+                <h2 class="section-title">Segurança integrada para <span class="gradient-text">diferentes ambientes</span></h2>
                 <p class="section-description">
-                    Atendemos toda a Grande São Paulo e principais cidades do estado com excelência e rapidez.
+                    Explore exemplos de aplicação e veja como diferentes ambientes podem combinar monitoramento, controle de acesso, prevenção e resposta.
                 </p>
             </div>
-            <div class="map-wrapper">
-                <img src="assets/mapa-onde-estamos.png" alt="Mapa de atuação SP Security - Grande São Paulo e principais cidades do estado" class="map-static-image">
+
+            <div class="security-map-shell">
+                <div class="security-map-stage" aria-label="Mapa interativo de aplicações de segurança por tipo de ambiente">
+                    <div class="security-map-toolbar">
+                        <div>
+                            <span class="security-map-toolbar-label">Matriz de aplicações</span>
+                            <strong>Ambientes conectados</strong>
+                        </div>
+                        <span class="security-map-toolbar-hint">
+                            <i class="fas fa-arrow-pointer" aria-hidden="true"></i>
+                            Selecione um ponto
+                        </span>
+                    </div>
+
+                    <div class="security-map-canvas">
+                        <svg class="security-map-visual" viewBox="0 0 760 520" role="img" aria-labelledby="securityMapTitle securityMapDescription">
+                            <title id="securityMapTitle">Diagrama abstrato de aplicações de segurança</title>
+                            <desc id="securityMapDescription">Composição tecnológica sem representação geográfica real, com seis pontos interativos para diferentes tipos de ambiente.</desc>
+                            <defs>
+                                <linearGradient id="mapSurface" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0" stop-color="#10213b"/>
+                                    <stop offset="1" stop-color="#07111f"/>
+                                </linearGradient>
+                                <linearGradient id="mapRoute" x1="0" y1="0" x2="1" y2="0">
+                                    <stop offset="0" stop-color="#2563eb" stop-opacity=".12"/>
+                                    <stop offset=".5" stop-color="#60a5fa" stop-opacity=".72"/>
+                                    <stop offset="1" stop-color="#06b6d4" stop-opacity=".12"/>
+                                </linearGradient>
+                                <pattern id="mapGrid" width="38" height="38" patternUnits="userSpaceOnUse">
+                                    <path d="M 38 0 L 0 0 0 38" fill="none" stroke="#93c5fd" stroke-opacity=".065" stroke-width="1"/>
+                                </pattern>
+                                <filter id="mapGlow">
+                                    <feGaussianBlur stdDeviation="8" result="blur"/>
+                                    <feMerge>
+                                        <feMergeNode in="blur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+
+                            <rect width="760" height="520" fill="url(#mapSurface)"/>
+                            <rect width="760" height="520" fill="url(#mapGrid)"/>
+
+                            <g fill="none" stroke-linecap="round">
+                                <path d="M-30 402 C112 322 158 361 272 271 S483 171 790 82" stroke="#172c48" stroke-width="58" opacity=".82"/>
+                                <path d="M-30 402 C112 322 158 361 272 271 S483 171 790 82" stroke="url(#mapRoute)" stroke-width="2.5" stroke-dasharray="8 12"/>
+                                <path d="M83 58 C180 149 234 154 323 117 S503 69 680 179" stroke="#183150" stroke-width="32" opacity=".72"/>
+                                <path d="M83 58 C180 149 234 154 323 117 S503 69 680 179" stroke="#3b82f6" stroke-opacity=".28" stroke-width="1.5" stroke-dasharray="6 11"/>
+                                <path d="M128 484 C194 405 289 393 372 428 S535 488 663 401" stroke="#15304e" stroke-width="26" opacity=".64"/>
+                                <path d="M128 484 C194 405 289 393 372 428 S535 488 663 401" stroke="#38bdf8" stroke-opacity=".2" stroke-width="1.5" stroke-dasharray="5 10"/>
+                            </g>
+
+                            <g fill="#10233d" stroke="#36577f" stroke-opacity=".46">
+                                <path d="M32 88 139 35 213 91 170 183 61 173Z"/>
+                                <path d="M235 25 359 37 389 134 295 183 205 116Z"/>
+                                <path d="M422 36 535 19 596 106 536 183 419 145Z"/>
+                                <path d="M590 126 733 96 774 211 683 276 575 224Z"/>
+                                <path d="M37 215 157 199 211 292 129 367 24 322Z"/>
+                                <path d="M247 205 370 171 431 266 371 360 248 339 208 270Z"/>
+                                <path d="M461 232 568 203 644 290 597 373 475 370 424 300Z"/>
+                                <path d="M106 386 222 343 301 421 255 520 125 511Z"/>
+                                <path d="M327 389 453 361 531 439 491 520 338 520 296 453Z"/>
+                                <path d="M560 387 674 323 759 383 760 520 596 520 534 453Z"/>
+                            </g>
+
+                            <g fill="none" stroke="#60a5fa" stroke-opacity=".18">
+                                <circle cx="380" cy="260" r="112"/>
+                                <circle cx="380" cy="260" r="184" stroke-dasharray="4 12"/>
+                                <path d="M380 60V460M180 260H580"/>
+                            </g>
+
+                            <g filter="url(#mapGlow)">
+                                <circle cx="380" cy="260" r="8" fill="#60a5fa" opacity=".42"/>
+                                <circle cx="380" cy="260" r="3" fill="#e0f2fe"/>
+                            </g>
+                        </svg>
+
+                        <div class="security-map-points" id="securityMapPoints">
+                            <button class="security-map-point is-active" type="button" data-application="condominio" style="--point-x: 19%; --point-y: 25%;" aria-label="Ver aplicação para condomínio" aria-pressed="true">
+                                <span class="security-map-point-pulse" aria-hidden="true"></span>
+                                <span class="security-map-point-core" aria-hidden="true">01</span>
+                            </button>
+                            <button class="security-map-point" type="button" data-application="empresa" style="--point-x: 48%; --point-y: 20%;" aria-label="Ver aplicação para empresa" aria-pressed="false">
+                                <span class="security-map-point-pulse" aria-hidden="true"></span>
+                                <span class="security-map-point-core" aria-hidden="true">02</span>
+                            </button>
+                            <button class="security-map-point" type="button" data-application="comercio" style="--point-x: 76%; --point-y: 31%;" aria-label="Ver aplicação para comércio" aria-pressed="false">
+                                <span class="security-map-point-pulse" aria-hidden="true"></span>
+                                <span class="security-map-point-core" aria-hidden="true">03</span>
+                            </button>
+                            <button class="security-map-point" type="button" data-application="perimetro" style="--point-x: 29%; --point-y: 57%;" aria-label="Ver aplicação para perímetro" aria-pressed="false">
+                                <span class="security-map-point-pulse" aria-hidden="true"></span>
+                                <span class="security-map-point-core" aria-hidden="true">04</span>
+                            </button>
+                            <button class="security-map-point" type="button" data-application="estacionamento" style="--point-x: 61%; --point-y: 55%;" aria-label="Ver aplicação para estacionamento" aria-pressed="false">
+                                <span class="security-map-point-pulse" aria-hidden="true"></span>
+                                <span class="security-map-point-core" aria-hidden="true">05</span>
+                            </button>
+                            <button class="security-map-point" type="button" data-application="operacao" style="--point-x: 76%; --point-y: 78%;" aria-label="Ver aplicação para operação" aria-pressed="false">
+                                <span class="security-map-point-pulse" aria-hidden="true"></span>
+                                <span class="security-map-point-core" aria-hidden="true">06</span>
+                            </button>
+                        </div>
+
+                        <div class="security-map-axis" aria-hidden="true">
+                            <span>Monitoramento</span>
+                            <span>Prevenção</span>
+                            <span>Resposta</span>
+                        </div>
+                    </div>
+
+                    <div class="security-map-legend" aria-label="Legenda do mapa">
+                        <span><i class="legend-point" aria-hidden="true"></i> Ponto selecionável</span>
+                        <span><i class="legend-point legend-point-active" aria-hidden="true"></i> Aplicação ativa</span>
+                        <span class="security-map-legend-note">Diagrama conceitual, sem indicação geográfica</span>
+                    </div>
+                </div>
+
+                <aside class="security-map-details" id="securityMapDetails" aria-live="polite">
+                    <div class="security-map-placeholder" id="securityMapPlaceholder"></div>
+                    <div class="security-map-details-body">
+                        <span class="security-map-details-kicker">Aplicação selecionada <b id="securityMapIndex">01</b></span>
+                        <h3 id="securityMapTitleText">Condomínio</h3>
+                        <p id="securityMapDescriptionText">Camadas de segurança para organizar acessos, ampliar a visibilidade das áreas comuns e apoiar respostas a eventos.</p>
+
+                        <dl class="security-map-details-list">
+                            <div>
+                                <dt>Solução sugerida</dt>
+                                <dd id="securityMapSolution">CFTV + controle de acesso</dd>
+                            </div>
+                            <div>
+                                <dt>Status do material</dt>
+                                <dd><span class="security-map-status" id="securityMapStatus">Material em validação</span></dd>
+                            </div>
+                        </dl>
+
+                        <a href="#contato" class="btn btn-primary security-map-cta">
+                            Solicitar análise de segurança
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </aside>
             </div>
         </div>
     </section>
@@ -976,6 +1343,7 @@
     <!-- Scripts -->
     <script src="js/security.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/customizer-premium.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/customizer-premium.js?v=2"></script>
 </body>
 </html>
