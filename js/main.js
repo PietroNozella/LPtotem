@@ -417,7 +417,7 @@ function openProjectModal(colors) {
             `${summaryUrl}\n\n` +
             `Aguardo contato para discutirmos os próximos passos!`
         );
-        whatsappLink.href = `https://wa.me/5511969218791?text=${message}`;
+        whatsappLink.href = `https://wa.me/5511936215057?text=${message}`;
     }
     
     // Show modal

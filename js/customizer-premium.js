@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 `✍️ Texto: ${currentConfig.text.name}\n\n` +
                 `Aguardo retorno!`;
             
-            const whatsappURL = `https://wa.me/5511969218791?text=${encodeURIComponent(message)}`;
+            const whatsappURL = `https://wa.me/5511936215057?text=${encodeURIComponent(message)}`;
             window.open(whatsappURL, '_blank');
         });
     }
