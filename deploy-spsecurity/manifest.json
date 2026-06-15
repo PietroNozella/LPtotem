@@ -1,0 +1,27 @@
+{
+    "name": "SP Security - Soluções em Segurança Eletrônica",
+    "short_name": "SP Security",
+    "description": "Soluções completas em segurança eletrônica: CFTV, controle de acesso facial, fechaduras inteligentes e totens para condomínios, prefeituras e empresas.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a0a0f",
+    "theme_color": "#3b82f6",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "assets/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["business", "security"],
+    "lang": "pt-BR",
+    "dir": "ltr"
+}
