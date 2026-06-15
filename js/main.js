@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initActiveNavigation();
     initAmbientMotion();
     initVideoShowcase();
+    initMonitoringCenterCarousel();
     initModal();
     initTouchSupport();
     initViewportFix();
@@ -55,6 +56,133 @@ function initHeroVideo() {
     document.addEventListener('visibilitychange', () => {
         if (!document.hidden && video.paused) playVideo();
     });
+}
+
+/**
+ * Controls the monitoring center image carousel.
+ */
+function initMonitoringCenterCarousel() {
+    const carousel = document.getElementById('monitoringCenterCarousel');
+    const media = carousel?.closest('.monitoring-center-media');
+    const slides = Array.from(carousel?.querySelectorAll('.monitoring-center-slide') || []);
+    const dots = Array.from(media?.querySelectorAll('[data-carousel-dot]') || []);
+    const previousButton = media?.querySelector('[data-carousel-previous]');
+    const nextButton = media?.querySelector('[data-carousel-next]');
+    const toggleButton = media?.querySelector('[data-carousel-toggle]');
+    const currentLabel = media?.querySelector('[data-carousel-current]');
+
+    if (!media || slides.length < 2 || !previousButton || !nextButton) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    let currentIndex = 0;
+    let autoplayId;
+    let touchStartX = 0;
+    let userPaused = reduceMotion;
+
+    const showSlide = (index) => {
+        currentIndex = (index + slides.length) % slides.length;
+
+        slides.forEach((slide, slideIndex) => {
+            const isActive = slideIndex === currentIndex;
+            slide.classList.toggle('is-active', isActive);
+            slide.setAttribute('aria-hidden', String(!isActive));
+        });
+
+        dots.forEach((dot, dotIndex) => {
+            const isActive = dotIndex === currentIndex;
+            dot.classList.toggle('is-active', isActive);
+            if (isActive) {
+                dot.setAttribute('aria-current', 'true');
+            } else {
+                dot.removeAttribute('aria-current');
+            }
+        });
+
+        if (currentLabel) {
+            currentLabel.textContent = String(currentIndex + 1).padStart(2, '0');
+        }
+    };
+
+    const stopAutoplay = () => {
+        window.clearInterval(autoplayId);
+        autoplayId = undefined;
+    };
+
+    const startAutoplay = () => {
+        const isInteracting = media.contains(document.activeElement) || (supportsHover && media.matches(':hover'));
+        if (userPaused || autoplayId || isInteracting) return;
+        autoplayId = window.setInterval(() => showSlide(currentIndex + 1), 5500);
+    };
+
+    const updateToggleButton = () => {
+        if (!toggleButton) return;
+
+        toggleButton.innerHTML = userPaused
+            ? '<i class="fas fa-play" aria-hidden="true"></i>'
+            : '<i class="fas fa-pause" aria-hidden="true"></i>';
+        toggleButton.setAttribute(
+            'aria-label',
+            userPaused ? 'Reproduzir troca automática de imagens' : 'Pausar troca automática de imagens'
+        );
+    };
+
+    previousButton.addEventListener('click', () => {
+        showSlide(currentIndex - 1);
+        stopAutoplay();
+        startAutoplay();
+    });
+
+    nextButton.addEventListener('click', () => {
+        showSlide(currentIndex + 1);
+        stopAutoplay();
+        startAutoplay();
+    });
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showSlide(index);
+            stopAutoplay();
+            startAutoplay();
+        });
+    });
+
+    toggleButton?.addEventListener('click', () => {
+        userPaused = !userPaused;
+        stopAutoplay();
+        updateToggleButton();
+        startAutoplay();
+    });
+
+    media.addEventListener('mouseenter', stopAutoplay);
+    media.addEventListener('mouseleave', startAutoplay);
+    media.addEventListener('focusin', stopAutoplay);
+    media.addEventListener('focusout', startAutoplay);
+
+    media.addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+        stopAutoplay();
+    }, { passive: true });
+
+    media.addEventListener('touchend', (event) => {
+        const touchDistance = event.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(touchDistance) > 45) {
+            showSlide(currentIndex + (touchDistance < 0 ? 1 : -1));
+        }
+        startAutoplay();
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopAutoplay();
+        } else {
+            startAutoplay();
+        }
+    });
+
+    showSlide(0);
+    updateToggleButton();
+    startAutoplay();
 }
 
 /**
@@ -179,7 +307,7 @@ function initParticles(isMobile) {
 function initScrollAnimations() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const animatedElements = document.querySelectorAll(
-        '.authority-intro, .authority-card, .authority-closing, .risks-header, .risk-card, .risks-transition, .integrated-solutions-header, .solution-group, .integrated-solutions-closing, .work-process-header, .work-process-step, .work-process-closing, .project-cases-header, .case-card, .project-cases-note, .tech-action-header, .tech-action-card, .tech-action-closing, .customizer-header, .totem-preview-area, .customization-panel, .cta-content, .map-section-header, .security-map-shell, .footer-grid'
+        '.authority-intro, .authority-card, .authority-closing, .risks-header, .risk-card, .risks-transition, .integrated-solutions-header, .solution-group, .integrated-solutions-closing, .monitoring-center-header, .monitoring-center-showcase, .monitoring-center-card, .work-process-header, .work-process-step, .work-process-closing, .project-cases-header, .case-card, .project-cases-note, .tech-action-header, .tech-action-card, .tech-action-closing, .customizer-header, .totem-preview-area, .customization-panel, .cta-content, .map-section-header, .security-map-shell, .footer-grid'
     );
 
     if (reduceMotion || !('IntersectionObserver' in window)) {
