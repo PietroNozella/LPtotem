@@ -383,6 +383,19 @@ input, button, select, textarea {
     .logo {
         font-size: 1.25rem;
     }
+
+    .navbar-logo {
+        gap: 8px;
+    }
+
+    .navbar-logo-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .navbar-logo-text {
+        font-size: 20px;
+    }
     
     .logo-icon {
         width: 36px;
@@ -531,18 +544,28 @@ input, button, select, textarea {
 /* ===== Hero Refresh: mobile ===== */
 @media (max-width: 768px) {
     .hero {
-        min-height: auto;
-        padding: calc(108px + env(safe-area-inset-top)) 0 64px;
+        min-height: calc(100vh - env(safe-area-inset-top));
+        padding: calc(112px + env(safe-area-inset-top)) 0 64px;
     }
 
     .hero-content {
         grid-template-columns: 1fr;
-        gap: 42px;
+        gap: 0;
         text-align: left;
+        min-height: auto;
+    }
+
+    .hero-bg {
+        background: url('../assets/hero-camera-security.jpg') 74% center / cover no-repeat, #030a18;
+    }
+
+    .hero-gradient {
+        background: linear-gradient(90deg, rgba(3,10,24,.98) 0%, rgba(3,10,24,.92) 52%, rgba(3,10,24,.58) 100%);
     }
 
     .hero-title {
-        font-size: clamp(2.15rem, 9vw, 3.25rem);
+        font-size: 2.65rem;
+        letter-spacing: 0;
     }
 
     .hero-description {
@@ -558,18 +581,27 @@ input, button, select, textarea {
         width: 100%;
     }
 
-    .hero-visual {
-        order: initial;
+    .hero-proofs {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        max-width: none;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
     }
 
-    .hero-media-frame {
-        min-height: 370px;
+    .hero-proofs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hero-proofs span {
+        flex: 0 0 auto;
     }
 }
 
 @media (max-width: 480px) {
     .hero-title {
-        font-size: clamp(2rem, 10.5vw, 2.65rem);
+        font-size: 2.15rem;
         line-height: 1.05;
     }
 
@@ -580,45 +612,17 @@ input, button, select, textarea {
 
     .hero-badge {
         font-size: 0.68rem;
-        letter-spacing: 0.06em;
+        letter-spacing: 0;
     }
 
-    .hero-trust {
-        align-items: flex-start;
-        font-size: 0.82rem;
-    }
-
-    .hero-sectors {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .hero-media-topline {
-        align-items: flex-start;
-        font-size: 0.66rem;
-    }
-
-    .hero-media-frame {
-        min-height: 330px;
-        padding: 24px;
-    }
-
-    .media-placeholder-copy strong {
-        font-size: 1.45rem;
-    }
-
-    .media-placeholder-copy p {
-        font-size: 0.84rem;
+    .hero-proofs {
+        display: flex;
     }
 }
 
 @media (max-width: 360px) {
     .hero-title {
         font-size: 1.9rem;
-    }
-
-    .hero-sectors {
-        grid-template-columns: 1fr;
     }
 }
 

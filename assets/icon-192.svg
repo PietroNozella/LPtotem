@@ -1,23 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
-  <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#3b82f6"/>
-      <stop offset="100%" style="stop-color:#06b6d4"/>
-    </linearGradient>
-  </defs>
-  
-  <!-- Background -->
-  <rect width="192" height="192" rx="40" fill="#0a0a0f"/>
-  
-  <!-- Shield Icon -->
-  <path d="M96 30 L145 50 L145 100 C145 135 120 160 96 170 C72 160 47 135 47 100 L47 50 Z" 
-        fill="url(#grad)" opacity="0.9"/>
-  
-  <!-- Inner shield detail -->
-  <path d="M96 45 L130 60 L130 95 C130 120 112 140 96 148 C80 140 62 120 62 95 L62 60 Z" 
-        fill="#0a0a0f"/>
-  
-  <!-- Checkmark -->
-  <path d="M78 95 L90 107 L114 83" 
-        stroke="url(#grad)" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48" width="192" height="144" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M15 5.5c0-.8.7-1.5 1.5-1.5h31c.8 0 1.5.7 1.5 1.5V13H15V5.5Zm24.5 5.1a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2Zm5 0a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2Z"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M17 16h30c0 13.8-6.7 23-15 23s-15-9.2-15-23Zm15 7.2a7.8 7.8 0 1 0 0 15.6 7.8 7.8 0 0 0 0-15.6Z"/>
+  <circle cx="32" cy="31" r="3.2"/>
 </svg>
