@@ -4713,6 +4713,37 @@ section {
     }
 }
 
+.whatsapp-float {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1000;
+    display: flex;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    background: #25d366;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    font-size: 2rem;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-float:hover {
+    color: #fff;
+    background: #1fba59;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.38);
+    transform: translateY(-3px);
+}
+
+.whatsapp-float:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+}
+
 @media (hover: hover) and (pointer: fine) {
     .btn:hover::before {
         transform: translateX(520%) rotate(18deg);
@@ -4767,6 +4798,14 @@ section {
 }
 
 @media (max-width: 768px) {
+    .whatsapp-float {
+        right: 16px;
+        bottom: 16px;
+        width: 56px;
+        height: 56px;
+        font-size: 1.85rem;
+    }
+
     .motion-ready .reveal-item {
         transform: translate3d(0, 16px, 0);
         transition-duration: 0.56s;
