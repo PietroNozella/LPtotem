@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initModal();
     initTouchSupport();
     initViewportFix();
+    initHeroFloatingWhatsapp();
 });
 
 /**
@@ -73,6 +74,43 @@ function initNavbar() {
     
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Initial check
+}
+
+/**
+ * Hides the fixed WhatsApp shortcut while the mobile hero is visible.
+ */
+function initHeroFloatingWhatsapp() {
+    const hero = document.querySelector('.hero');
+    const floatingWhatsapp = document.querySelector('.whatsapp-float');
+    const mobileQuery = window.matchMedia('(max-width: 768px)');
+
+    if (!hero || !floatingWhatsapp) return;
+
+    let ticking = false;
+
+    const updateVisibility = () => {
+        ticking = false;
+
+        if (!mobileQuery.matches) {
+            document.body.classList.remove('is-hero-visible-mobile');
+            return;
+        }
+
+        const heroBounds = hero.getBoundingClientRect();
+        const isHeroVisible = heroBounds.bottom > 80 && heroBounds.top < window.innerHeight;
+        document.body.classList.toggle('is-hero-visible-mobile', isHeroVisible);
+    };
+
+    const requestUpdate = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(updateVisibility);
+    };
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate, { passive: true });
+    mobileQuery.addEventListener?.('change', requestUpdate);
+    updateVisibility();
 }
 
 /**
