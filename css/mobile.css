@@ -558,6 +558,16 @@ input, button, select, textarea {
 }
 
 @media (max-width: 768px) {
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        position: relative;
+    }
+
     .navbar {
         padding: calc(10px + env(safe-area-inset-top)) 0 10px;
     }
@@ -579,15 +589,22 @@ input, button, select, textarea {
     }
 
     .hero {
+        width: 100%;
+        max-width: 100%;
         min-height: 720px !important;
+        min-height: min(720px, 100svh) !important;
+        min-height: min(720px, 100dvh) !important;
         padding: calc(92px + env(safe-area-inset-top)) 0 42px;
         align-items: center;
+        overflow: hidden;
     }
 
     .hero-content {
         grid-template-columns: 1fr;
         gap: 0;
         text-align: left;
+        width: 100%;
+        max-width: 100%;
         min-height: auto;
         min-width: 0;
     }
@@ -597,17 +614,17 @@ input, button, select, textarea {
         z-index: 2;
         width: 100%;
         min-width: 0;
-        max-width: 560px;
+        max-width: 100%;
     }
 
     .hero-bg {
-        background: url('../assets/hero-camera-security.jpg') 76% 26% / cover no-repeat, #030a18;
+        background: url('../assets/hero-camera-security.jpg') 88% 18% / cover no-repeat, #030a18;
     }
 
     .hero-gradient {
         background:
-            linear-gradient(0deg, rgba(3,10,24,.98) 0%, rgba(3,10,24,.78) 44%, rgba(3,10,24,.5) 100%),
-            linear-gradient(90deg, rgba(3,10,24,.99) 0%, rgba(3,10,24,.94) 48%, rgba(3,10,24,.64) 100%);
+            linear-gradient(to bottom, rgba(3, 9, 22, 0.86), rgba(3, 9, 22, 0.96)),
+            linear-gradient(90deg, rgba(3,10,24,.99) 0%, rgba(3,10,24,.96) 54%, rgba(3,10,24,.72) 100%);
     }
 
     .hero-grid {
@@ -621,40 +638,47 @@ input, button, select, textarea {
 
     .hero-title {
         width: 100%;
-        max-width: 560px;
+        max-width: 100%;
+        min-width: 0;
         margin-bottom: 18px;
-        font-size: clamp(2.375rem, 5.75vw, 2.75rem);
-        line-height: 1.05;
+        font-size: clamp(2.28rem, 8.6vw, 2.75rem);
+        line-height: 1.06;
         letter-spacing: 0;
-        text-wrap: initial;
+        overflow-wrap: normal;
+        text-wrap: balance;
     }
 
     .hero-title-line {
         display: block;
+        width: 100%;
         max-width: 100%;
-        white-space: nowrap;
+        min-width: 0;
+        white-space: normal;
     }
 
     .hero-description {
         margin-left: 0;
         margin-right: 0;
         margin-bottom: 26px;
-        max-width: 520px;
+        max-width: 100%;
         color: #e2e8f0;
         font-size: 1rem;
         line-height: 1.52;
     }
 
     .hero-cta {
-        flex-direction: row;
+        flex-direction: column;
         justify-content: flex-start;
         gap: 12px;
+        width: 100%;
+        max-width: 100%;
         margin-bottom: 16px;
     }
 
     .hero-cta .btn {
-        width: auto;
-        min-height: 50px;
+        width: 100%;
+        max-width: 100%;
+        min-height: 56px;
         padding: 14px 18px;
         font-size: 0.98rem;
     }
@@ -662,9 +686,13 @@ input, button, select, textarea {
     .hero-proofs {
         justify-content: flex-start;
         flex-wrap: nowrap;
-        max-width: none;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
         overflow-x: auto;
-        padding-bottom: 4px;
+        overflow-y: hidden;
+        gap: 12px;
+        padding: 0 84px 8px 0;
         scrollbar-width: none;
         -webkit-overflow-scrolling: touch;
     }
@@ -680,6 +708,15 @@ input, button, select, textarea {
         font-size: 0.8rem;
     }
 
+    .whatsapp-float {
+        right: 16px;
+        bottom: calc(20px + env(safe-area-inset-bottom));
+        width: 56px;
+        height: 56px;
+        font-size: 1.7rem;
+        z-index: 80;
+    }
+
     .hero-proofs .desktop-proof-text {
         display: none;
     }
@@ -691,16 +728,11 @@ input, button, select, textarea {
     }
 
     .hero-cta {
-        flex-direction: column;
         gap: 11px;
-        width: min(100%, 420px);
-        max-width: 420px;
     }
 
     .hero-cta .btn {
-        width: 100%;
-        max-width: 100%;
-        min-height: 50px;
+        min-height: 56px;
     }
 
     .hero-cta .btn-outline {
@@ -718,21 +750,21 @@ input, button, select, textarea {
 
     .hero {
         min-height: 720px !important;
+        min-height: min(720px, 100svh) !important;
+        min-height: min(720px, 100dvh) !important;
         padding-bottom: 36px;
     }
 
     .hero-bg {
-        background-position: 78% 24%;
+        background-position: 90% 18%;
     }
 
     .hero-title {
-        max-width: 100%;
-        font-size: clamp(2.22rem, 8.5vw, 2.55rem);
-        line-height: 1.04;
+        font-size: clamp(1.86rem, 8vw, 2.25rem);
+        line-height: 1.05;
     }
 
     .hero-description {
-        max-width: 34rem;
         font-size: 0.96rem;
         line-height: 1.5;
     }
@@ -751,11 +783,13 @@ input, button, select, textarea {
 @media (max-width: 391px) {
     .hero {
         min-height: 700px !important;
+        min-height: min(700px, 100svh) !important;
+        min-height: min(700px, 100dvh) !important;
         padding-top: calc(86px + env(safe-area-inset-top));
     }
 
     .hero-title {
-        font-size: 2.25rem;
+        font-size: clamp(1.86rem, 8vw, 2.05rem);
     }
 
     .hero-description {
@@ -763,7 +797,7 @@ input, button, select, textarea {
     }
 
     .hero-cta .btn {
-        min-height: 48px;
+        min-height: 54px;
     }
 }
 
@@ -773,7 +807,7 @@ input, button, select, textarea {
     }
 
     .hero-title {
-        font-size: 2.08rem;
+        font-size: clamp(1.82rem, 7.8vw, 1.95rem);
         line-height: 1.03;
     }
 
