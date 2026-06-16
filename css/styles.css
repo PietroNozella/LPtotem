@@ -2489,7 +2489,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .hero-title {
         max-width: 640px;
-        font-size: clamp(3.5rem, 4.6vw, 4.75rem);
+        font-size: clamp(3.35rem, 3.3vw, 4.05rem);
         line-height: 1.02;
     }
 
@@ -2519,7 +2519,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .hero-title {
         max-width: 650px;
-        font-size: clamp(4rem, 4.2vw, 4.75rem);
+        font-size: clamp(3.35rem, 3.3vw, 4.05rem);
     }
 }
 
