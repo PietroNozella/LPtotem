@@ -850,55 +850,71 @@ input, button, select, textarea {
     }
 }
 
-/* ===== Authority and Positioning: mobile ===== */
+/* ===== Security Fragmentation: mobile ===== */
 @media (max-width: 600px) {
-    .authority {
+    .security-fragmentation {
         padding: 68px 0;
     }
 
-    .authority-title {
-        font-size: clamp(2rem, 9.5vw, 2.55rem);
+    .security-fragmentation-layout {
+        gap: 38px;
     }
 
-    .authority-copy {
-        padding: 0;
-        border-left: 0;
-    }
-
-    .authority-lead {
-        font-size: 1rem;
-    }
-
-    .authority-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    .authority-card {
-        min-height: auto;
-        padding: 24px;
-    }
-
-    .authority-card::before {
-        left: 24px;
-    }
-
-    .authority-card-icon {
-        width: 44px;
-        height: 44px;
+    .security-fragmentation-step {
         margin-bottom: 22px;
+        font-size: 1.08rem;
     }
 
-    .authority-card h3 {
+    .security-fragmentation-step span {
+        width: 68px;
+    }
+
+    .security-fragmentation-lead {
+        margin-bottom: 42px;
         font-size: 1.12rem;
     }
 
-    .authority-closing {
-        margin-top: 24px;
+    .security-fragmentation-eyebrow {
+        margin-bottom: 14px;
+        font-size: 1rem;
+    }
+
+    .security-fragmentation-title {
+        margin-bottom: 28px;
+        font-size: 2.5rem;
+        line-height: 1.02;
+    }
+
+    .security-fragmentation-cta {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .security-fragmentation-cards {
+        gap: 18px;
+    }
+
+    .security-fragmentation-card {
+        border-radius: 24px;
+    }
+
+    .security-fragmentation-card img {
+        height: 214px;
+    }
+
+    .security-fragmentation-card-body {
         padding: 24px;
     }
 
-    .authority-link {
+    .security-fragmentation-card h3 {
+        font-size: 1.55rem;
+    }
+
+    .security-fragmentation-card p {
+        font-size: 1rem;
+    }
+
+    .security-fragmentation-card-link {
         width: 100%;
         justify-content: space-between;
     }
