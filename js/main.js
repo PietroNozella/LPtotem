@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initActiveNavigation();
     initAmbientMotion();
     initVideoShowcase();
+    initRiskCarousel();
     initModal();
     initTouchSupport();
     initViewportFix();
@@ -217,7 +218,7 @@ function initParticles(isMobile) {
 function initScrollAnimations() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const animatedElements = document.querySelectorAll(
-        '.authority-intro, .authority-card, .authority-closing, .risks-header, .risk-card, .risks-transition, .integrated-solutions-header, .solution-group, .integrated-solutions-closing, .work-process-header, .work-process-step, .work-process-closing, .project-cases-header, .case-card, .project-cases-note, .tech-action-header, .tech-action-card, .tech-action-closing, .customizer-header, .totem-preview-area, .customization-panel, .cta-content, .map-section-header, .security-map-shell, .footer-grid'
+        '.authority-intro, .authority-card, .authority-closing, .risks-header, .risk-map-copy, .risk-card, .risk-map-action, .risks-transition, .integrated-solutions-header, .solution-group, .integrated-solutions-closing, .work-process-header, .work-process-step, .work-process-closing, .project-cases-header, .case-card, .project-cases-note, .tech-action-header, .tech-action-card, .tech-action-closing, .customizer-header, .totem-preview-area, .customization-panel, .cta-content, .map-section-header, .security-map-shell, .footer-grid'
     );
 
     if (reduceMotion || !('IntersectionObserver' in window)) {
@@ -381,6 +382,177 @@ function initVideoShowcase() {
             videos.forEach(video => video.pause());
         }
     });
+}
+
+/**
+ * Manual carousel for the operational risk map section.
+ */
+function initRiskCarousel() {
+    const carousel = document.querySelector('[data-risk-carousel]');
+    const track = carousel?.querySelector('.risk-carousel-track');
+    const viewport = carousel?.querySelector('.risk-carousel-viewport');
+    const cards = Array.from(carousel?.querySelectorAll('.risk-card') || []);
+    const dots = Array.from(carousel?.querySelectorAll('[data-risk-carousel-dot]') || []);
+    const prevButton = carousel?.querySelector('[data-risk-carousel-prev]');
+    const nextButton = carousel?.querySelector('[data-risk-carousel-next]');
+    const mobileQuery = window.matchMedia('(max-width: 640px)');
+
+    if (!carousel || !track || !viewport || !cards.length) return;
+
+    let activePage = 0;
+    let groupSize = mobileQuery.matches ? 1 : 2;
+    let pageCount = Math.ceil(cards.length / groupSize);
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let layoutFrame = null;
+    let currentOffset = 0;
+    let dragStartX = 0;
+    let dragStartOffset = 0;
+    let isDragging = false;
+
+    const getPageStartIndex = (page) => Math.min(page * groupSize, cards.length - 1);
+    const getPageOffset = (page) => {
+        const targetCard = cards[getPageStartIndex(page)];
+        return targetCard ? targetCard.offsetLeft : 0;
+    };
+
+    const setDotMode = () => {
+        dots.forEach((dot, index) => {
+            const isVisible = index < pageCount;
+            dot.hidden = !isVisible;
+            dot.setAttribute('aria-hidden', String(!isVisible));
+            dot.setAttribute(
+                'aria-label',
+                groupSize === 1 ? `Ir para risco ${index + 1}` : `Ir para grupo ${index + 1} de riscos`
+            );
+        });
+    };
+
+    const updateCardStates = () => {
+        const startIndex = getPageStartIndex(activePage);
+        const peekIndex = startIndex + groupSize;
+
+        cards.forEach((card, index) => {
+            const isActive = index >= startIndex && index < startIndex + groupSize;
+            const isPeek = !mobileQuery.matches && index === peekIndex && activePage < pageCount - 1;
+            card.classList.toggle('is-active', isActive);
+            card.classList.toggle('is-peek', isPeek);
+            card.setAttribute('aria-hidden', String(!isActive));
+            card.querySelectorAll('a, button').forEach(element => {
+                element.tabIndex = isActive ? 0 : -1;
+            });
+        });
+    };
+
+    const updateControls = () => {
+        activePage = Math.max(0, Math.min(activePage, pageCount - 1));
+
+        dots.forEach((dot, dotIndex) => {
+            const isActive = dotIndex === activePage && dotIndex < pageCount;
+            dot.classList.toggle('is-active', isActive);
+            dot.setAttribute('aria-selected', String(isActive));
+        });
+
+        if (prevButton) prevButton.disabled = activePage === 0;
+        if (nextButton) nextButton.disabled = activePage === pageCount - 1;
+
+        updateCardStates();
+    };
+
+    const setTrackOffset = (offset, withTransition = true) => {
+        track.classList.toggle('is-dragging', !withTransition);
+        currentOffset = Math.max(0, Math.min(offset, getPageOffset(pageCount - 1)));
+        track.style.transform = `translate3d(${-currentOffset}px, 0, 0)`;
+    };
+
+    const moveToPage = (page, withTransition = true) => {
+        activePage = Math.max(0, Math.min(page, pageCount - 1));
+        setTrackOffset(getPageOffset(activePage), withTransition);
+        updateControls();
+    };
+
+    const refreshLayout = () => {
+        const previousStartIndex = getPageStartIndex(activePage);
+        groupSize = mobileQuery.matches ? 1 : 2;
+        pageCount = Math.ceil(cards.length / groupSize);
+        activePage = Math.min(Math.floor(previousStartIndex / groupSize), pageCount - 1);
+        setDotMode();
+        updateControls();
+
+        if (layoutFrame) window.cancelAnimationFrame(layoutFrame);
+        layoutFrame = window.requestAnimationFrame(() => {
+            moveToPage(activePage);
+            layoutFrame = null;
+        });
+    };
+
+    prevButton?.addEventListener('click', () => moveToPage(activePage - 1));
+    nextButton?.addEventListener('click', () => moveToPage(activePage + 1));
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            moveToPage(Number(dot.dataset.riskCarouselDot));
+        });
+    });
+
+    track.addEventListener('keydown', event => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        moveToPage(activePage + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+
+    viewport.addEventListener('touchstart', event => {
+        const touch = event.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', event => {
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+
+        if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+        moveToPage(activePage + (deltaX < 0 ? 1 : -1));
+    }, { passive: true });
+
+    viewport.addEventListener('pointerdown', event => {
+        if (event.pointerType !== 'mouse' || event.button !== 0 || event.target.closest('button')) return;
+        isDragging = true;
+        dragStartX = event.clientX;
+        dragStartOffset = currentOffset;
+        viewport.classList.add('is-dragging');
+        viewport.setPointerCapture?.(event.pointerId);
+        setTrackOffset(currentOffset, false);
+    });
+
+    viewport.addEventListener('pointermove', event => {
+        if (!isDragging) return;
+        const deltaX = event.clientX - dragStartX;
+        setTrackOffset(dragStartOffset - deltaX, false);
+    });
+
+    const endDrag = (event) => {
+        if (!isDragging) return;
+        isDragging = false;
+        viewport.classList.remove('is-dragging');
+        viewport.releasePointerCapture?.(event.pointerId);
+
+        const pageOffsets = Array.from({ length: pageCount }, (_, index) => getPageOffset(index));
+        const nearestPage = pageOffsets.reduce((nearest, offset, index) => {
+            return Math.abs(offset - currentOffset) < Math.abs(pageOffsets[nearest] - currentOffset) ? index : nearest;
+        }, 0);
+
+        moveToPage(nearestPage);
+    };
+
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+    viewport.addEventListener('pointerleave', endDrag);
+
+    mobileQuery.addEventListener?.('change', refreshLayout);
+    window.addEventListener('resize', refreshLayout, { passive: true });
+    refreshLayout();
 }
 
 /**

@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=12">
+    <link rel="stylesheet" href="css/styles.css?v=18">
     <link rel="stylesheet" href="css/mobile.css?v=2">
     <link rel="stylesheet" href="css/customizer-premium.css?v=2">
     <!-- Security: Prevent clickjacking -->
@@ -200,93 +200,113 @@
         </div>
     </section>
 
-    <!-- Risks and Problems Section -->
-    <section class="risks" id="riscos">
+    <!-- Operational Risk Map Section -->
+    <section class="risks risk-map" id="riscos" aria-labelledby="risk-map-title">
         <div class="container">
-            <div class="risks-header">
-                <div class="risks-heading">
-                    <span class="section-badge">
-                        <i class="fas fa-shield-virus"></i>
-                        Riscos que exigem atenção
-                    </span>
-                    <h2 class="risks-title">
-                        Vulnerabilidades crescem quando a segurança
-                        <span class="gradient-text">opera em partes.</span>
+            <div class="risk-map-layout">
+                <div class="risk-map-copy">
+                    <div class="risk-map-step" aria-label="Seção 02 de 04">
+                        <strong>02</strong>
+                        <span></span>
+                        <em>Pontos críticos</em>
+                    </div>
+                    <p class="risk-map-lead">
+                        Entradas, perímetros e áreas de circulação concentram sinais que precisam ser lidos em conjunto.
+                    </p>
+                    <span class="risk-map-eyebrow">MAPA DE RISCOS OPERACIONAIS</span>
+                    <h2 class="risks-title" id="risk-map-title">
+                        O risco cresce nos pontos sem visibilidade.
                     </h2>
+                    <p class="risks-intro">
+                        Quando acessos, alertas e movimentações não estão conectados, situações relevantes podem passar despercebidas.
+                    </p>
+                    <div class="risk-map-action">
+                        <a href="#contato" class="btn btn-primary">
+                            Mapear riscos do meu ambiente
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-                <p class="risks-intro">
-                    Ambientes sem visão integrada dificultam a prevenção, reduzem o controle sobre áreas críticas e tornam a resposta menos coordenada.
-                </p>
-            </div>
 
-            <div class="risks-grid">
-                <article class="risk-card">
-                    <div class="risk-card-top">
-                        <span class="risk-icon"><i class="fas fa-user-lock"></i></span>
-                        <span class="risk-index">01</span>
+                <div class="risk-map-visual">
+                    <div class="risk-carousel" data-risk-carousel>
+                        <div class="risk-carousel-shell">
+                            <div class="risk-carousel-viewport">
+                                <div class="risk-carousel-track" id="riskCarouselTrack" tabindex="0" aria-label="Mapa de riscos operacionais">
+                                    <article class="risk-card">
+                                        <div class="risk-card-media">
+                                            <img src="assets/risco-acessos-sensiveis.png" alt="Entrada com portão, guarita e controle de acesso monitorados" loading="lazy" width="1680" height="944">
+                                            <span class="risk-card-signal" aria-hidden="true"></span>
+                                        </div>
+                                        <div class="risk-card-content">
+                                            <span class="risk-index">01</span>
+                                            <h3>Acessos sensíveis</h3>
+                                            <p>Entradas e saídas sem leitura integrada ampliam a exposição do ambiente.</p>
+                                            <a href="#contato" class="risk-card-link">Ver risco <i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </article>
+
+                                    <article class="risk-card">
+                                        <div class="risk-card-media">
+                                            <img src="assets/risco-perimetro-exposto.png" alt="Perímetro lateral com cerca, câmera e área externa monitorada" loading="lazy" width="1680" height="944">
+                                            <span class="risk-card-signal" aria-hidden="true"></span>
+                                        </div>
+                                        <div class="risk-card-content">
+                                            <span class="risk-index">02</span>
+                                            <h3>Perímetro exposto</h3>
+                                            <p>Limites pouco monitorados dificultam a identificação antecipada de riscos.</p>
+                                            <a href="#contato" class="risk-card-link">Ver risco <i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </article>
+
+                                    <article class="risk-card">
+                                        <div class="risk-card-media">
+                                            <img src="assets/risco-baixa-visibilidade-interna.png" alt="Corredor interno com controle de acesso, câmeras e pontos de monitoramento" loading="lazy" width="1680" height="944">
+                                            <span class="risk-card-signal" aria-hidden="true"></span>
+                                        </div>
+                                        <div class="risk-card-content">
+                                            <span class="risk-index">03</span>
+                                            <h3>Baixa visibilidade interna</h3>
+                                            <p>Corredores e áreas comuns sem acompanhamento favorecem pontos cegos.</p>
+                                            <a href="#contato" class="risk-card-link">Ver risco <i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </article>
+
+                                    <article class="risk-card">
+                                        <div class="risk-card-media">
+                                            <img src="assets/risco-areas-externas-vulneraveis.png" alt="Estacionamento externo com veículos, câmera e monitoramento visual" loading="lazy" width="1680" height="944">
+                                            <span class="risk-card-signal" aria-hidden="true"></span>
+                                        </div>
+                                        <div class="risk-card-content">
+                                            <span class="risk-index">04</span>
+                                            <h3>Áreas externas vulneráveis</h3>
+                                            <p>Ambientes abertos exigem controle visual e resposta mais rápida.</p>
+                                            <a href="#contato" class="risk-card-link">Ver risco <i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+
+                            <div class="risk-carousel-controls" aria-label="Navegação do carrossel de riscos">
+                                <button class="risk-carousel-arrow" type="button" data-risk-carousel-prev aria-label="Ver risco anterior">
+                                    <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                                </button>
+                                <button class="risk-carousel-arrow" type="button" data-risk-carousel-next aria-label="Ver próximo risco">
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="risk-carousel-indicator">
+                            <div class="risk-carousel-dots" role="tablist" aria-label="Selecionar risco operacional">
+                                <button type="button" class="risk-carousel-dot is-active" data-risk-carousel-dot="0" aria-label="Ir para Acessos sensíveis" aria-selected="true"></button>
+                                <button type="button" class="risk-carousel-dot" data-risk-carousel-dot="1" aria-label="Ir para Perímetro exposto" aria-selected="false"></button>
+                                <button type="button" class="risk-carousel-dot" data-risk-carousel-dot="2" aria-label="Ir para Baixa visibilidade interna" aria-selected="false"></button>
+                                <button type="button" class="risk-carousel-dot" data-risk-carousel-dot="3" aria-label="Ir para Áreas externas vulneráveis" aria-selected="false"></button>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Acessos não autorizados</h3>
-                    <p>Entradas e saídas sem controle consistente aumentam a exposição de pessoas, ativos e áreas restritas.</p>
-                </article>
-
-                <article class="risk-card">
-                    <div class="risk-card-top">
-                        <span class="risk-icon"><i class="fas fa-eye-slash"></i></span>
-                        <span class="risk-index">02</span>
-                    </div>
-                    <h3>Pontos cegos no monitoramento</h3>
-                    <p>Áreas sem cobertura adequada reduzem a visibilidade sobre movimentações e situações relevantes.</p>
-                </article>
-
-                <article class="risk-card">
-                    <div class="risk-card-top">
-                        <span class="risk-icon"><i class="fas fa-link-slash"></i></span>
-                        <span class="risk-index">03</span>
-                    </div>
-                    <h3>Sistemas desconectados</h3>
-                    <p>Recursos isolados fragmentam informações e dificultam uma leitura coordenada do ambiente protegido.</p>
-                </article>
-
-                <article class="risk-card">
-                    <div class="risk-card-top">
-                        <span class="risk-icon"><i class="fas fa-clock-rotate-left"></i></span>
-                        <span class="risk-index">04</span>
-                    </div>
-                    <h3>Resposta pouco coordenada</h3>
-                    <p>Sem informações organizadas, a avaliação de ocorrências pode levar mais tempo e depender de ações dispersas.</p>
-                </article>
-
-                <article class="risk-card">
-                    <div class="risk-card-top">
-                        <span class="risk-icon"><i class="fas fa-border-all"></i></span>
-                        <span class="risk-index">05</span>
-                    </div>
-                    <h3>Perímetros vulneráveis</h3>
-                    <p>Limites mal monitorados facilitam aproximações e acessos sem identificação antecipada.</p>
-                </article>
-
-                <article class="risk-card">
-                    <div class="risk-card-top">
-                        <span class="risk-icon"><i class="fas fa-building-circle-exclamation"></i></span>
-                        <span class="risk-index">06</span>
-                    </div>
-                    <h3>Baixa visibilidade operacional</h3>
-                    <p>A falta de uma visão central dificulta acompanhar áreas críticas e priorizar ações de prevenção.</p>
-                </article>
-            </div>
-
-            <div class="risks-transition">
-                <div class="risks-transition-mark" aria-hidden="true">
-                    <i class="fas fa-diagram-project"></i>
                 </div>
-                <p>
-                    <strong>O problema raramente está em um único ponto.</strong>
-                    Está na falta de integração entre prevenção, controle, monitoramento e resposta.
-                </p>
-                <a href="#solucoes" class="risks-link">
-                    Ver como estruturamos a proteção
-                    <i class="fas fa-arrow-right"></i>
-                </a>
             </div>
         </div>
     </section>
@@ -1425,7 +1445,7 @@
 
     <!-- Scripts -->
     <script src="js/security.js"></script>
-    <script src="js/main.js?v=2"></script>
+    <script src="js/main.js?v=5"></script>
     <script src="js/map.js?v=2"></script>
     <script src="js/customizer-premium.js?v=2"></script>
 </body>
