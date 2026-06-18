@@ -880,7 +880,7 @@ function initProjectCasesCarousel() {
     };
 
     const canAutoplay = () => {
-        return !reduceMotionQuery.matches && !document.hidden && !isPointerInside && !isFocusInside && !isDragging;
+        return !document.hidden && !isPointerInside && !isFocusInside && !isDragging;
     };
 
     const startAutoplay = () => {
@@ -1066,13 +1066,7 @@ function initProjectCasesCarousel() {
         startAutoplay();
     });
 
-    reduceMotionQuery.addEventListener?.('change', () => {
-        if (reduceMotionQuery.matches) {
-            pauseAutoplay();
-            return;
-        }
-        startAutoplay();
-    });
+    reduceMotionQuery.addEventListener?.('change', startAutoplay);
 
     window.addEventListener('resize', refreshLayout, { passive: true });
     moveToPage(0, false);
