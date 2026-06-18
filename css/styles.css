@@ -4821,8 +4821,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .method-zone-label-monitoring {
-    right: 7%;
-    bottom: 12%;
+    display: none;
 }
 
 .work-method-node {
@@ -4858,13 +4857,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .work-method-node--design {
-    right: 17%;
-    top: 45%;
+    right: 21%;
+    top: 35%;
+    width: min(198px, 34%);
 }
 
 .work-method-node--operate {
-    right: 5%;
-    bottom: 19%;
+    right: 4%;
+    bottom: 22%;
+    width: min(198px, 34%);
 }
 
 .work-method-pin {
@@ -4909,7 +4910,7 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     z-index: 3;
     right: clamp(24px, 4vw, 44px);
-    bottom: clamp(22px, 3vw, 36px);
+    bottom: clamp(18px, 2.6vw, 28px);
 }
 
 .work-method-result span {
