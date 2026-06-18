@@ -1136,76 +1136,12 @@ input, button, select, textarea {
 
 /* ===== How We Work: mobile ===== */
 @media (max-width: 600px) {
-    .work-process {
+    .work-process.risk-map {
         padding: 68px 0;
     }
 
-    .work-process-title {
-        font-size: clamp(2rem, 9.5vw, 2.55rem);
-    }
-
-    .work-process-intro {
-        padding: 0;
-        border-left: 0;
-        font-size: 0.95rem;
-    }
-
-    .work-process-steps {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-
-    .work-process-step {
-        display: grid;
-        grid-template-columns: 44px minmax(0, 1fr);
-        column-gap: 16px;
-        min-height: auto;
-        padding: 20px;
-    }
-
-    .work-process-marker {
-        grid-column: 1;
-        grid-row: 1;
-        margin-bottom: 0;
-    }
-
-    .work-process-marker span {
-        width: 42px;
-        height: 42px;
-        box-shadow: none;
-    }
-
-    .work-process-marker i {
-        display: none;
-    }
-
-    .work-process-content {
-        grid-column: 2;
-    }
-
-    .work-process-kicker {
-        margin-bottom: 6px;
-        font-size: 0.62rem;
-    }
-
-    .work-process-content h3 {
-        margin-bottom: 8px;
-        font-size: 1.08rem;
-    }
-
-    .work-process-content p {
-        font-size: 0.85rem;
-    }
-
-    .work-process-closing {
-        margin-top: 22px;
-        padding: 22px;
-    }
-
-    .work-process-link {
-        width: 100%;
-        justify-content: space-between;
-        white-space: normal;
+    .work-method-panel {
+        margin-top: 2px;
     }
 }
 
@@ -1215,63 +1151,33 @@ input, button, select, textarea {
         padding: 68px 0;
     }
 
+    .project-cases-layout {
+        gap: 40px;
+    }
+
     .project-cases-title {
-        font-size: clamp(2rem, 9.5vw, 2.55rem);
+        font-size: clamp(2rem, 10vw, 2.45rem);
     }
 
     .project-cases-intro {
-        padding: 0;
-        border-left: 0;
-        font-size: 0.95rem;
+        margin-bottom: 26px;
     }
 
-    .project-cases-grid {
-        gap: 12px;
+    .project-cases-carousel-viewport {
+        margin-right: calc(var(--container-padding, 24px) * -1);
+        padding-right: var(--container-padding, 24px);
     }
 
-    .case-media {
-        height: 240px;
-    }
-
-    .case-content {
-        padding: 22px;
-    }
-
-    .case-meta {
-        gap: 10px;
-        margin-bottom: 18px;
-    }
-
-    .case-environment {
-        font-size: 1rem;
-    }
-
-    .case-details {
-        gap: 12px;
-    }
-
-    .case-details > div {
-        grid-template-columns: 1fr;
-        gap: 6px;
-        padding-top: 13px;
-    }
-
-    .case-details .case-result {
-        padding: 14px;
-    }
-
-    .project-cases-note {
-        margin-top: 22px;
-        padding: 22px;
-    }
-
-    .project-cases-link {
-        width: 100%;
-        justify-content: space-between;
+    .project-case-badge {
+        max-width: 100%;
         white-space: normal;
+        line-height: 1.2;
+    }
+
+    .project-cases-carousel-controls {
+        gap: 8px;
     }
 }
-
 /* ===== Security Applications Map: mobile ===== */
 @media (max-width: 980px) {
     .security-map-shell {

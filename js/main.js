@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initVideoShowcase();
     initRiskCarousel();
     initSolutionCarousel();
+    initProjectCasesCarousel();
     initModal();
     initTouchSupport();
     initViewportFix();
@@ -306,7 +307,7 @@ function initParticles(isMobile) {
 function initScrollAnimations() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const animatedElements = document.querySelectorAll(
-        '.authority-intro, .authority-card, .authority-closing, .risks-header, .risk-map-copy, .risk-card, .risk-map-action, .risks-transition, .integrated-solutions-copy, .solution-carousel, .integrated-solution-card, .work-process-header, .work-process-step, .work-process-closing, .project-cases-header, .case-card, .project-cases-note, .tech-action-header, .tech-action-card, .tech-action-closing, .customizer-header, .totem-preview-area, .customization-panel, .cta-content, .map-section-header, .security-map-shell, .footer-grid'
+        '.authority-intro, .authority-card, .authority-closing, .risks-header, .risk-map-copy, .risk-card, .risk-map-action, .risks-transition, .integrated-solutions-copy, .solution-carousel, .integrated-solution-card, .work-process-header, .work-process-step, .work-process-closing, .project-cases-copy, .project-cases-carousel, .project-case-card, .tech-action-header, .tech-action-card, .tech-action-closing, .customizer-header, .totem-preview-area, .customization-panel, .cta-content, .map-section-header, .security-map-shell, .footer-grid'
     );
 
     if (reduceMotion || !('IntersectionObserver' in window)) {
@@ -839,6 +840,245 @@ function initSolutionCarousel() {
 }
 
 /**
+ * Visual carousel for the project cases section.
+ */
+function initProjectCasesCarousel() {
+    const carousel = document.querySelector('[data-project-cases-carousel]');
+    const track = carousel?.querySelector('.project-cases-carousel-track');
+    const viewport = carousel?.querySelector('.project-cases-carousel-viewport');
+    const cards = Array.from(carousel?.querySelectorAll('.project-case-card') || []);
+    const dots = Array.from(carousel?.querySelectorAll('[data-project-cases-carousel-dot]') || []);
+    const prevButton = carousel?.querySelector('[data-project-cases-carousel-prev]');
+    const nextButton = carousel?.querySelector('[data-project-cases-carousel-next]');
+    const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    if (!carousel || !track || !viewport || !cards.length) return;
+
+    const autoplayDelay = 4500;
+    let activePage = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let layoutFrame = null;
+    let currentOffset = 0;
+    let dragStartX = 0;
+    let dragStartOffset = 0;
+    let isDragging = false;
+    let isPointerInside = false;
+    let isFocusInside = false;
+    let resumeTimer = null;
+    let autoplayTimer = null;
+
+    const pageCount = cards.length;
+    const getPageOffset = (page) => cards[page]?.offsetLeft || 0;
+    const getMaxOffset = () => getPageOffset(pageCount - 1);
+
+    const pauseAutoplay = () => {
+        if (autoplayTimer) {
+            window.clearInterval(autoplayTimer);
+            autoplayTimer = null;
+        }
+    };
+
+    const canAutoplay = () => {
+        return !reduceMotionQuery.matches && !document.hidden && !isPointerInside && !isFocusInside && !isDragging;
+    };
+
+    const startAutoplay = () => {
+        pauseAutoplay();
+        if (!canAutoplay() || pageCount < 2) return;
+        autoplayTimer = window.setInterval(() => moveToPage(activePage + 1), autoplayDelay);
+    };
+
+    const scheduleAutoplay = () => {
+        if (resumeTimer) window.clearTimeout(resumeTimer);
+        resumeTimer = window.setTimeout(() => {
+            resumeTimer = null;
+            startAutoplay();
+        }, autoplayDelay);
+    };
+
+    const pauseForInteraction = () => {
+        pauseAutoplay();
+        scheduleAutoplay();
+    };
+
+    const playCurrentVideo = () => {
+        cards.forEach((card, index) => {
+            const video = card.querySelector('video');
+            if (!video) return;
+
+            if (index === activePage) {
+                video.muted = true;
+                video.play()?.catch(() => {});
+            } else {
+                video.pause();
+            }
+        });
+    };
+
+    const updateCardStates = () => {
+        const peekIndex = activePage + 1;
+
+        cards.forEach((card, index) => {
+            const isActive = index === activePage;
+            const isPeek = index === peekIndex && activePage < pageCount - 1;
+            card.classList.toggle('is-active', isActive);
+            card.classList.toggle('is-peek', isPeek);
+            card.setAttribute('aria-hidden', String(!isActive));
+        });
+
+        playCurrentVideo();
+    };
+
+    const updateDots = () => {
+        dots.forEach((dot, dotIndex) => {
+            const isActive = dotIndex === activePage;
+            dot.classList.toggle('is-active', isActive);
+            dot.setAttribute('aria-selected', String(isActive));
+        });
+    };
+
+    const setTrackOffset = (offset, withTransition = true) => {
+        track.classList.toggle('is-dragging', !withTransition);
+        currentOffset = Math.max(0, Math.min(offset, getMaxOffset()));
+        track.style.transform = `translate3d(${-currentOffset}px, 0, 0)`;
+    };
+
+    function moveToPage(page, withTransition = true) {
+        activePage = ((page % pageCount) + pageCount) % pageCount;
+        setTrackOffset(getPageOffset(activePage), withTransition);
+        updateDots();
+        updateCardStates();
+    }
+
+    const refreshLayout = () => {
+        if (layoutFrame) window.cancelAnimationFrame(layoutFrame);
+        layoutFrame = window.requestAnimationFrame(() => {
+            moveToPage(activePage);
+            layoutFrame = null;
+        });
+    };
+
+    prevButton?.addEventListener('click', () => {
+        pauseForInteraction();
+        moveToPage(activePage - 1);
+    });
+
+    nextButton?.addEventListener('click', () => {
+        pauseForInteraction();
+        moveToPage(activePage + 1);
+    });
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            pauseForInteraction();
+            moveToPage(Number(dot.dataset.projectCasesCarouselDot));
+        });
+    });
+
+    track.addEventListener('keydown', event => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        pauseForInteraction();
+        moveToPage(activePage + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+
+    carousel.addEventListener('mouseenter', () => {
+        isPointerInside = true;
+        pauseAutoplay();
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+        isPointerInside = false;
+        startAutoplay();
+    });
+
+    carousel.addEventListener('focusin', () => {
+        isFocusInside = true;
+        pauseAutoplay();
+    });
+
+    carousel.addEventListener('focusout', () => {
+        isFocusInside = false;
+        scheduleAutoplay();
+    });
+
+    viewport.addEventListener('touchstart', event => {
+        const touch = event.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        pauseAutoplay();
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', event => {
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+
+        if (Math.abs(deltaX) >= 48 && Math.abs(deltaX) > Math.abs(deltaY)) {
+            moveToPage(activePage + (deltaX < 0 ? 1 : -1));
+        }
+
+        scheduleAutoplay();
+    }, { passive: true });
+
+    viewport.addEventListener('pointerdown', event => {
+        if (event.pointerType !== 'mouse' || event.button !== 0 || event.target.closest('button')) return;
+        isDragging = true;
+        dragStartX = event.clientX;
+        dragStartOffset = currentOffset;
+        viewport.classList.add('is-dragging');
+        viewport.setPointerCapture?.(event.pointerId);
+        pauseAutoplay();
+        setTrackOffset(currentOffset, false);
+    });
+
+    viewport.addEventListener('pointermove', event => {
+        if (!isDragging) return;
+        const deltaX = event.clientX - dragStartX;
+        setTrackOffset(dragStartOffset - deltaX, false);
+    });
+
+    const endDrag = (event) => {
+        if (!isDragging) return;
+        isDragging = false;
+        viewport.classList.remove('is-dragging');
+        viewport.releasePointerCapture?.(event.pointerId);
+
+        const pageOffsets = Array.from({ length: pageCount }, (_, index) => getPageOffset(index));
+        const nearestPage = pageOffsets.reduce((nearest, offset, index) => {
+            return Math.abs(offset - currentOffset) < Math.abs(pageOffsets[nearest] - currentOffset) ? index : nearest;
+        }, 0);
+
+        moveToPage(nearestPage);
+        scheduleAutoplay();
+    };
+
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+    viewport.addEventListener('pointerleave', endDrag);
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            pauseAutoplay();
+            return;
+        }
+        startAutoplay();
+    });
+
+    reduceMotionQuery.addEventListener?.('change', () => {
+        if (reduceMotionQuery.matches) {
+            pauseAutoplay();
+            return;
+        }
+        startAutoplay();
+    });
+
+    window.addEventListener('resize', refreshLayout, { passive: true });
+    moveToPage(0, false);
+    startAutoplay();
+}
+/**
  * Modal functionality
  */
 function initModal() {
@@ -947,7 +1187,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
  */
 function initTouchSupport() {
     // Add touch feedback to interactive elements
-    const touchElements = document.querySelectorAll('.btn, .benefit-card, .case-card, .preset');
+    const touchElements = document.querySelectorAll('.btn, .benefit-card, .project-case-card, .preset');
     
     touchElements.forEach(el => {
         el.addEventListener('touchstart', function() {
