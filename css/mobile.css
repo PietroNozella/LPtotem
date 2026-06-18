@@ -1076,81 +1076,61 @@ input, button, select, textarea {
         padding: 68px 0;
     }
 
-    .integrated-solutions-title {
-        font-size: clamp(2rem, 9.5vw, 2.55rem);
+    .integrated-solutions-layout {
+        gap: 38px;
     }
 
-    .integrated-solutions-intro {
-        padding: 0;
-        border-left: 0;
-        font-size: 0.95rem;
+    .integrated-solutions-step {
+        margin-bottom: 22px;
+        font-size: 1.08rem;
     }
 
-    .solution-groups {
-        gap: 14px;
+    .integrated-solutions-step span {
+        width: 68px;
     }
 
-    .solution-group {
-        gap: 14px;
-        padding: 18px;
+    .integrated-solutions-lead {
+        margin-bottom: 42px;
+        font-size: 1.12rem;
     }
 
-    .solution-group-heading {
-        align-items: flex-start;
-        padding: 2px 0 8px;
-    }
-
-    .solution-group-grid {
-        grid-template-columns: 1fr;
-        gap: 9px;
-    }
-
-    .integrated-solution-card,
-    .integrated-solution-card:last-child:nth-child(3) {
-        display: grid;
-        grid-template-columns: 42px minmax(0, 1fr);
-        column-gap: 14px;
-        min-height: auto;
-        padding: 19px;
-        grid-column: auto;
-    }
-
-    .integrated-solution-icon {
-        grid-column: 1;
-        grid-row: 1 / span 3;
-        width: 42px;
-        height: 42px;
-        margin-bottom: 0;
-    }
-
-    .integrated-solution-card h4,
-    .integrated-solution-card p,
-    .solution-application {
-        grid-column: 2;
-    }
-
-    .integrated-solution-card h4 {
-        margin: 1px 0 7px;
+    .integrated-solutions-eyebrow {
+        margin-bottom: 14px;
         font-size: 1rem;
     }
 
-    .integrated-solution-card p {
-        margin-bottom: 11px;
-        font-size: 0.82rem;
+    .integrated-solutions-title {
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+        line-height: 1.02;
     }
 
-    .solution-application {
-        padding-top: 10px;
-        font-size: 0.69rem;
+    .integrated-solutions-intro {
+        margin-bottom: 28px;
+        font-size: 0.95rem;
     }
 
-    .integrated-solutions-closing {
-        margin-top: 22px;
-        padding: 22px;
-    }
-
-    .integrated-solutions-closing .btn {
+    .integrated-solutions-cta {
         width: 100%;
+        justify-content: space-between;
+    }
+
+    .integrated-solution-card-body {
+        min-height: 370px;
+        padding: 24px;
+    }
+
+    .integrated-solution-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .integrated-solution-card p {
+        font-size: 0.875rem;
+    }
+
+    .integrated-solution-resources {
+        padding-top: 16px;
+        font-size: 0.76rem;
     }
 }
 
