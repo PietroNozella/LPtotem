@@ -88,7 +88,7 @@ body {
 .mobile-menu-btn span {
     width: 22px;
     height: 2px;
-    background: white;
+    background: #e2eeff;
     border-radius: 2px;
     transition: all 0.3s ease;
 }
@@ -144,7 +144,7 @@ input, button, select, textarea {
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(10, 10, 15, 0.98);
+        background: rgba(8, 18, 32, 0.97);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         z-index: 999;

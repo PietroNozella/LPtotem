@@ -18,9 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize all modules
     initNavbar();
     initMobileMenu();
+    initSmoothAnchorScroll();
     initHeroVideo();
     initParticles(isMobile);
     initScrollAnimations();
+    initPillNavigation();
     initActiveNavigation();
     initAmbientMotion();
     initVideoShowcase();
@@ -146,6 +148,91 @@ function initMobileMenu() {
 }
 
 /**
+ * Smoothly scrolls internal anchors while keeping URLs shareable.
+ */
+function initSmoothAnchorScroll() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const links = document.querySelectorAll('a[href^="#"]');
+
+    links.forEach(link => {
+        link.addEventListener('click', event => {
+            const href = link.getAttribute('href');
+            if (!href || href === '#') return;
+
+            const target = document.getElementById(href.slice(1));
+            if (!target) return;
+
+            event.preventDefault();
+            target.scrollIntoView({
+                behavior: reduceMotion ? 'auto' : 'smooth',
+                block: 'start'
+            });
+
+            if (window.location.hash !== href) {
+                history.pushState(null, '', href);
+            }
+        });
+    });
+}
+
+/**
+ * Moves the desktop pill surface between active, hovered and focused links.
+ */
+function initPillNavigation() {
+    const pillNav = document.querySelector('.pill-nav');
+    const indicator = pillNav?.querySelector('.pill-nav-indicator');
+    const links = Array.from(pillNav?.querySelectorAll('a[href^="#"]') || []);
+    const desktopQuery = window.matchMedia('(min-width: 769px)');
+
+    if (!pillNav || !indicator || !links.length) return;
+
+    let activeLink = links[0];
+    let frame = null;
+
+    const moveIndicator = link => {
+        if (!desktopQuery.matches || !link) {
+            indicator.style.opacity = '0';
+            return;
+        }
+
+        if (frame) window.cancelAnimationFrame(frame);
+
+        frame = window.requestAnimationFrame(() => {
+            const navBounds = pillNav.getBoundingClientRect();
+            const linkBounds = link.getBoundingClientRect();
+            const x = linkBounds.left - navBounds.left;
+
+            indicator.style.width = `${linkBounds.width}px`;
+            indicator.style.transform = `translate3d(${x}px, 0, 0)`;
+            indicator.style.opacity = '1';
+            frame = null;
+        });
+    };
+
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => moveIndicator(link));
+        link.addEventListener('focus', () => moveIndicator(link));
+    });
+
+    pillNav.addEventListener('mouseleave', () => moveIndicator(activeLink));
+    pillNav.addEventListener('focusout', event => {
+        if (!pillNav.contains(event.relatedTarget)) {
+            moveIndicator(activeLink);
+        }
+    });
+
+    document.addEventListener('spsecurity:navigation-active-change', event => {
+        if (!event.detail?.link) return;
+        activeLink = event.detail.link;
+        moveIndicator(activeLink);
+    });
+
+    window.addEventListener('resize', () => moveIndicator(activeLink), { passive: true });
+    desktopQuery.addEventListener?.('change', () => moveIndicator(activeLink));
+    moveIndicator(activeLink);
+}
+
+/**
  * Particles background effect
  * Reduced for mobile performance
  */
@@ -259,35 +346,59 @@ function initScrollAnimations() {
 function initActiveNavigation() {
     if (!('IntersectionObserver' in window)) return;
 
-    const links = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+    const links = Array.from(document.querySelectorAll('.pill-nav .nav-links a[href^="#"]'));
     const sections = links
         .map(link => document.querySelector(link.getAttribute('href')))
         .filter(Boolean);
 
     if (!sections.length) return;
 
-    const observer = new IntersectionObserver(entries => {
-        const visibleEntry = entries
-            .filter(entry => entry.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    const visibleSections = new Map();
+    let activeHref = '';
 
-        if (!visibleEntry) return;
+    const setActiveLink = sectionId => {
+        const nextHref = `#${sectionId}`;
+        if (nextHref === activeHref) return;
+
+        activeHref = nextHref;
+        let activeLink = null;
 
         links.forEach(link => {
-            const isActive = link.getAttribute('href') === `#${visibleEntry.target.id}`;
+            const isActive = link.getAttribute('href') === nextHref;
             link.classList.toggle('is-active', isActive);
             if (isActive) {
                 link.setAttribute('aria-current', 'page');
+                activeLink = link;
             } else {
                 link.removeAttribute('aria-current');
             }
         });
+
+        document.dispatchEvent(new CustomEvent('spsecurity:navigation-active-change', {
+            detail: { href: nextHref, link: activeLink }
+        }));
+    };
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                visibleSections.set(entry.target.id, entry.intersectionRatio);
+            } else {
+                visibleSections.delete(entry.target.id);
+            }
+        });
+
+        const visibleSection = Array.from(visibleSections.entries())
+            .sort((a, b) => b[1] - a[1])[0];
+
+        if (visibleSection) setActiveLink(visibleSection[0]);
     }, {
         rootMargin: '-28% 0px -58% 0px',
         threshold: [0, 0.2, 0.6]
     });
 
     sections.forEach(section => observer.observe(section));
+    setActiveLink(sections[0].id);
 }
 
 /**

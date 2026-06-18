@@ -61,7 +61,7 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container">
-            <a href="#" class="logo navbar-logo" aria-label="SP Security">
+            <a href="#inicio" class="logo navbar-logo" aria-label="SP Security">
                 <svg class="navbar-logo-icon" viewBox="0 0 64 48" fill="currentColor" role="img" aria-hidden="true" focusable="false">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M15 5.5c0-.8.7-1.5 1.5-1.5h31c.8 0 1.5.7 1.5 1.5V13H15V5.5Zm24.5 5.1a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2Zm5 0a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2Z"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M17 16h30c0 13.8-6.7 23-15 23s-15-9.2-15-23Zm15 7.2a7.8 7.8 0 1 0 0 15.6 7.8 7.8 0 0 0 0-15.6Z"/>
@@ -69,13 +69,16 @@
                 </svg>
                 <span class="navbar-logo-text">SP <span>Security</span></span>
             </a>
-            <ul class="nav-links">
-                <li><a href="#segmentos">Sobre</a></li>
-                <li><a href="#solucoes">Soluções</a></li>
-                <li><a href="#projetos">Projetos</a></li>
-                <li><a href="#customizar">Ambientes</a></li>
-                <li><a href="#onde-estamos">Onde Estamos</a></li>
-            </ul>
+            <div class="pill-nav" aria-label="Navegação principal">
+                <span class="pill-nav-indicator" aria-hidden="true"></span>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#riscos">Riscos</a></li>
+                    <li><a href="#solucao">Solução</a></li>
+                    <li><a href="#processo">Processo</a></li>
+                    <li><a href="#ambientes">Ambientes</a></li>
+                </ul>
+            </div>
             <a href="#contato" class="btn btn-primary nav-cta">Solicitar análise</a>
             <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Abrir menu" aria-controls="mobileMenu" aria-expanded="false">
                 <span></span>
@@ -88,17 +91,17 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <ul class="mobile-nav-links">
-            <li><a href="#segmentos">Sobre</a></li>
-            <li><a href="#solucoes">Soluções</a></li>
-            <li><a href="#projetos">Projetos</a></li>
-            <li><a href="#customizar">Ambientes</a></li>
-            <li><a href="#onde-estamos">Onde Estamos</a></li>
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#riscos">Riscos</a></li>
+            <li><a href="#solucao">Solução</a></li>
+            <li><a href="#processo">Processo</a></li>
+            <li><a href="#ambientes">Ambientes</a></li>
             <li><a href="#contato" class="btn btn-primary">Solicitar análise</a></li>
         </ul>
     </div>
 
     <!-- Hero Section -->
-    <section class="hero" id="hero">
+    <section class="hero" id="inicio">
         <div class="hero-grid" aria-hidden="true"></div>
         <div class="hero-bg">
             <div class="hero-gradient"></div>
@@ -312,7 +315,8 @@
     </section>
 
     <!-- Solutions Section -->
-    <section class="integrated-solutions" id="solucoes">
+    <span class="section-anchor" id="solucoes" aria-hidden="true"></span>
+    <section class="integrated-solutions" id="solucao">
         <div class="container">
             <div class="integrated-solutions-layout">
                 <div class="integrated-solutions-copy">
@@ -449,7 +453,8 @@
     </section>
 
     <!-- How We Work Section -->
-    <section class="work-process" id="beneficios">
+    <span class="section-anchor" id="beneficios" aria-hidden="true"></span>
+    <section class="work-process" id="processo">
         <div class="container">
             <div class="work-process-header">
                 <div>
@@ -1198,7 +1203,8 @@
     </section>
 
     <!-- Aplicações de segurança -->
-    <section class="map-section" id="onde-estamos">
+    <span class="section-anchor" id="onde-estamos" aria-hidden="true"></span>
+    <section class="map-section" id="ambientes">
         <div class="container">
             <div class="section-header map-section-header">
                 <span class="section-badge"><i class="fas fa-diagram-project"></i> Aplicações</span>
