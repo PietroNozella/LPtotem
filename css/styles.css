@@ -1857,32 +1857,6 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.72;
 }
 
-.footer-whatsapp {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    min-height: 40px;
-    padding: 9px 14px;
-    color: #dfffea;
-    background: rgba(34, 197, 94, 0.085);
-    border: 1px solid rgba(34, 197, 94, 0.22);
-    border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
-}
-
-.footer-whatsapp i {
-    color: #25d366;
-    font-size: 1rem;
-}
-
-.footer-whatsapp:hover {
-    color: #ffffff;
-    background: rgba(34, 197, 94, 0.14);
-    border-color: rgba(34, 197, 94, 0.34);
-    transform: translateY(-1px);
-}
 
 .footer-links h4,
 .footer-contact h4 {
@@ -6484,14 +6458,10 @@ section {
     }
 }
 
-    100% {
-        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
-    }
-}
-
 .whatsapp-float {
     position: fixed;
     right: 24px;
+    left: auto;
     bottom: 24px;
     z-index: 1000;
     display: flex;
