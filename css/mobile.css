@@ -1391,3 +1391,67 @@ input, button, select, textarea {
         font-size: 0.84rem;
     }
 }
+/* ===== SP Security UI polish: mobile containment ===== */
+@media (max-width: 768px) {
+    .hero-grid {
+        opacity: 0.18;
+        background-size: 88px 88px;
+    }
+
+    .hero::before,
+    .hero-particles {
+        display: none;
+    }
+
+    .hero-gradient {
+        background:
+            linear-gradient(90deg, rgba(3, 10, 24, 0.98) 0%, rgba(3, 10, 24, 0.92) 58%, rgba(3, 10, 24, 0.62) 100%),
+            linear-gradient(180deg, rgba(3, 10, 24, 0.12) 0%, rgba(3, 10, 24, 0.82) 100%);
+    }
+
+    .hero-title,
+    .security-fragmentation-title,
+    .risks-title,
+    .integrated-solutions-title,
+    .tech-action-title,
+    .project-cases-title,
+    .security-applications-title,
+    .cta-content h2 {
+        letter-spacing: 0;
+    }
+
+    .hero-proofs span,
+    .cta-chips span {
+        box-shadow: none;
+    }
+
+    .security-fragmentation-card,
+    .risk-map .risk-card,
+    .integrated-solution-card,
+    .project-case-card,
+    .tech-action-card,
+    .security-map-shell,
+    .cta-content,
+    .footer-shell {
+        box-shadow: 0 14px 36px rgba(6, 16, 31, 0.1);
+    }
+
+    .solution-carousel-arrow,
+    .risk-carousel-arrow,
+    .project-cases-carousel-arrow,
+    .tech-action-carousel-arrow {
+        box-shadow: 0 8px 22px rgba(6, 16, 31, 0.12);
+    }
+}
+
+@media (max-width: 480px) {
+    .btn,
+    .security-fragmentation-cta,
+    .integrated-solutions-cta,
+    .project-cases-cta,
+    .tech-action-cta,
+    .security-applications-cta,
+    .security-map-cta {
+        min-height: 52px;
+    }
+}

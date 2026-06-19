@@ -5099,6 +5099,7 @@ h1, h2, h3, h4, h5, h6 {
     .integrated-solutions-cta {
         width: 100%;
         justify-content: space-between;
+        white-space: normal;
     }
 
     .solution-carousel-track {
@@ -5167,9 +5168,6 @@ h1, h2, h3, h4, h5, h6 {
     .solution-carousel-track,
     .integrated-solution-card {
         transition: none;
-    }
-}
-        white-space: normal;
     }
 }
 
@@ -6582,5 +6580,199 @@ section {
     .security-map-details.is-updating .security-map-details-body,
     .security-map-details.is-updating .security-map-placeholder > * {
         animation: none;
+    }
+}
+
+/* ===== SP Security UI polish: restrained premium layer ===== */
+:root {
+    --shadow-glow: 0 18px 48px rgba(6, 16, 31, 0.16);
+}
+
+.hero-title,
+.section-title,
+.security-fragmentation-title,
+.risks-title,
+.integrated-solutions-title,
+.tech-action-title,
+.project-cases-title,
+.security-applications-title,
+.cta-content h2 {
+    letter-spacing: 0;
+}
+
+.hero-grid {
+    opacity: 0.32;
+    background-size: 96px 96px;
+}
+
+.hero::before {
+    opacity: 0.42;
+    box-shadow:
+        0 0 0 72px rgba(59, 130, 246, 0.014),
+        0 0 0 148px rgba(59, 130, 246, 0.01);
+}
+
+.hero-particles {
+    opacity: 0.06;
+}
+
+.hero-gradient {
+    background:
+        linear-gradient(90deg, rgba(3, 10, 24, 0.97) 0%, rgba(3, 10, 24, 0.82) 44%, rgba(3, 10, 24, 0.42) 100%),
+        linear-gradient(180deg, rgba(3, 10, 24, 0.18) 0%, rgba(3, 10, 24, 0.76) 100%);
+}
+
+.hero-badge,
+.section-badge,
+.security-fragmentation-card-badge,
+.integrated-solution-badge,
+.tech-video-label,
+.cta-eyebrow,
+.cta-chips span {
+    box-shadow: none;
+}
+
+.btn::before {
+    display: none;
+}
+
+.btn,
+.security-fragmentation-cta,
+.integrated-solutions-cta,
+.project-cases-cta,
+.tech-action-cta,
+.security-applications-cta,
+.security-map-cta {
+    transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        background-color 180ms ease,
+        box-shadow 180ms ease,
+        color 180ms ease;
+}
+
+.btn-primary,
+.hero-cta .btn-primary,
+.cta-primary {
+    background: linear-gradient(135deg, #1d4ed8 0%, #0891b2 100%);
+    box-shadow: 0 14px 34px rgba(8, 145, 178, 0.2);
+}
+
+.hero-cta .btn-outline,
+.cta-secondary {
+    border-color: rgba(203, 213, 225, 0.24);
+    background: rgba(15, 23, 42, 0.5);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.hero-proofs span {
+    border-color: rgba(148, 163, 184, 0.22);
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.5);
+    box-shadow: none;
+}
+
+.security-fragmentation-card,
+.risk-map .risk-card,
+.integrated-solution-card,
+.project-case-card,
+.tech-action-card,
+.security-map-shell,
+.work-method-panel,
+.cta-content,
+.footer-shell {
+    border-color: rgba(8, 24, 40, 0.1);
+    box-shadow: 0 18px 54px rgba(6, 16, 31, 0.1);
+}
+
+.security-fragmentation-card,
+.risk-map .risk-card,
+.integrated-solution-card,
+.project-case-card,
+.tech-action-card {
+    transform-origin: center;
+}
+
+.security-fragmentation-card::before,
+.risk-map .risk-card::before,
+.integrated-solution-card::before,
+.project-case-card::after,
+.tech-action::before,
+.map-section::before,
+.cta-content::after {
+    opacity: 0.42;
+}
+
+.risk-card-signal,
+.media-status::before {
+    box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.08);
+}
+
+.solution-card-image,
+.tech-action-video-wrap video,
+.project-case-media img,
+.project-case-media video,
+.risk-card-media img,
+.security-fragmentation-card img {
+    filter: saturate(0.98) contrast(1.03);
+}
+
+.solution-card-overlay {
+    background:
+        linear-gradient(180deg, rgba(4, 12, 24, 0.02) 0%, rgba(4, 12, 24, 0.66) 100%);
+}
+
+.integrated-solution-card:hover .solution-card-image,
+.tech-action-card:hover .tech-action-video-wrap video,
+.project-case-card:hover .project-case-media img,
+.project-case-card:hover .project-case-media video,
+.risk-map .risk-card:hover .risk-card-media img {
+    filter: saturate(1.02) contrast(1.04);
+}
+
+.solution-carousel-arrow,
+.risk-carousel-arrow,
+.project-cases-carousel-arrow,
+.tech-action-carousel-arrow {
+    box-shadow: 0 10px 26px rgba(6, 16, 31, 0.12);
+}
+
+.solution-carousel-dot,
+.risk-carousel-dot,
+.project-cases-carousel-dot,
+.tech-action-carousel-dot {
+    opacity: 0.78;
+}
+
+.solution-carousel-dot.is-active,
+.risk-carousel-dot.is-active,
+.project-cases-carousel-dot.is-active,
+.tech-action-carousel-dot.is-active {
+    background: #0891b2;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .btn:hover,
+    .security-fragmentation-cta:hover,
+    .integrated-solutions-cta:hover,
+    .project-cases-cta:hover,
+    .tech-action-cta:hover,
+    .security-applications-cta:hover,
+    .security-map-cta:hover {
+        transform: translateY(-2px);
+    }
+
+    .project-case-card:hover,
+    .risk-card:hover,
+    .tech-action-card.is-active:hover,
+    .integrated-solution-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .solution-carousel-arrow:hover,
+    .risk-carousel-arrow:hover,
+    .project-cases-carousel-arrow:hover,
+    .tech-action-carousel-arrow:hover {
+        box-shadow: 0 14px 32px rgba(6, 16, 31, 0.14);
     }
 }
