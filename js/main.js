@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initRiskCarousel();
     initSolutionCarousel();
     initProjectCasesCarousel();
+    initTechActionCarousel();
     initModal();
     initTouchSupport();
     initViewportFix();
@@ -307,7 +308,7 @@ function initParticles(isMobile) {
 function initScrollAnimations() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const animatedElements = document.querySelectorAll(
-        '.authority-intro, .authority-card, .authority-closing, .risks-header, .risk-map-copy, .risk-card, .risk-map-action, .risks-transition, .integrated-solutions-copy, .solution-carousel, .integrated-solution-card, .work-process-header, .work-process-step, .work-process-closing, .project-cases-copy, .project-cases-carousel, .project-case-card, .tech-action-header, .tech-action-card, .tech-action-closing, .customizer-header, .totem-preview-area, .customization-panel, .cta-content, .map-section-header, .security-map-shell, .footer-grid'
+        '.authority-intro, .authority-card, .authority-closing, .risks-header, .risk-map-copy, .risk-card, .risk-map-action, .risks-transition, .integrated-solutions-copy, .solution-carousel, .integrated-solution-card, .work-process-header, .work-process-step, .work-process-closing, .project-cases-copy, .project-cases-carousel, .project-case-card, .tech-action-copy, .tech-action-carousel, .tech-action-card, .customizer-header, .totem-preview-area, .customization-panel, .cta-content, .map-section-header, .security-map-shell, .footer-grid'
     );
 
     if (reduceMotion || !('IntersectionObserver' in window)) {
@@ -1072,6 +1073,152 @@ function initProjectCasesCarousel() {
     moveToPage(0, false);
     startAutoplay();
 }
+/**
+ * Manual carousel for the visual demonstrations section.
+ */
+function initTechActionCarousel() {
+    const carousel = document.querySelector('[data-tech-action-carousel]');
+    const track = carousel?.querySelector('.tech-action-grid');
+    const viewport = carousel?.querySelector('.tech-action-carousel-viewport');
+    const cards = Array.from(carousel?.querySelectorAll('.tech-action-card') || []);
+    const dots = Array.from(carousel?.querySelectorAll('[data-tech-action-carousel-dot]') || []);
+    const prevButton = carousel?.querySelector('[data-tech-action-carousel-prev]');
+    const nextButton = carousel?.querySelector('[data-tech-action-carousel-next]');
+
+    if (!carousel || !track || !viewport || !cards.length) return;
+
+    let activePage = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let layoutFrame = null;
+    let currentOffset = 0;
+    let dragStartX = 0;
+    let dragStartOffset = 0;
+    let isDragging = false;
+
+    const pageCount = cards.length;
+    const getPageOffset = (page) => cards[page]?.offsetLeft || 0;
+    const getMaxOffset = () => getPageOffset(pageCount - 1);
+
+    const pauseVideos = () => {
+        cards.forEach(card => card.querySelector('video')?.pause());
+    };
+
+    const updateCardStates = () => {
+        const peekIndex = activePage + 1;
+
+        cards.forEach((card, index) => {
+            const isActive = index === activePage;
+            const isPeek = index === peekIndex && activePage < pageCount - 1;
+            card.classList.toggle('is-active', isActive);
+            card.classList.toggle('is-peek', isPeek);
+            card.setAttribute('aria-hidden', String(!isActive));
+            card.querySelectorAll('button, video').forEach(element => {
+                element.tabIndex = isActive ? 0 : -1;
+            });
+        });
+    };
+
+    const updateDots = () => {
+        dots.forEach((dot, dotIndex) => {
+            const isActive = dotIndex === activePage;
+            dot.classList.toggle('is-active', isActive);
+            dot.setAttribute('aria-selected', String(isActive));
+        });
+    };
+
+    const setTrackOffset = (offset, withTransition = true) => {
+        track.classList.toggle('is-dragging', !withTransition);
+        currentOffset = Math.max(0, Math.min(offset, getMaxOffset()));
+        track.style.transform = 'translate3d(' + (-currentOffset) + 'px, 0, 0)';
+    };
+
+    const moveToPage = (page, withTransition = true) => {
+        activePage = Math.max(0, Math.min(page, pageCount - 1));
+        pauseVideos();
+        setTrackOffset(getPageOffset(activePage), withTransition);
+        updateDots();
+        updateCardStates();
+    };
+
+    const refreshLayout = () => {
+        if (layoutFrame) window.cancelAnimationFrame(layoutFrame);
+        layoutFrame = window.requestAnimationFrame(() => {
+            moveToPage(activePage);
+            layoutFrame = null;
+        });
+    };
+
+    prevButton?.addEventListener('click', () => moveToPage(activePage - 1));
+    nextButton?.addEventListener('click', () => moveToPage(activePage + 1));
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            moveToPage(Number(dot.dataset.techActionCarouselDot));
+        });
+    });
+
+    track.addEventListener('keydown', event => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        moveToPage(activePage + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+
+    viewport.addEventListener('touchstart', event => {
+        const touch = event.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', event => {
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+
+        if (Math.abs(deltaX) >= 48 && Math.abs(deltaX) > Math.abs(deltaY)) {
+            moveToPage(activePage + (deltaX < 0 ? 1 : -1));
+        }
+    }, { passive: true });
+
+    viewport.addEventListener('pointerdown', event => {
+        if (event.pointerType !== 'mouse' || event.button !== 0 || event.target.closest('button, video')) return;
+        isDragging = true;
+        dragStartX = event.clientX;
+        dragStartOffset = currentOffset;
+        viewport.classList.add('is-dragging');
+        viewport.setPointerCapture?.(event.pointerId);
+        setTrackOffset(currentOffset, false);
+    });
+
+    viewport.addEventListener('pointermove', event => {
+        if (!isDragging) return;
+        const deltaX = event.clientX - dragStartX;
+        setTrackOffset(dragStartOffset - deltaX, false);
+    });
+
+    const endDrag = (event) => {
+        if (!isDragging) return;
+        isDragging = false;
+        viewport.classList.remove('is-dragging');
+        viewport.releasePointerCapture?.(event.pointerId);
+
+        const pageOffsets = Array.from({ length: pageCount }, (_, index) => getPageOffset(index));
+        const nearestPage = pageOffsets.reduce((nearest, offset, index) => {
+            return Math.abs(offset - currentOffset) < Math.abs(pageOffsets[nearest] - currentOffset) ? index : nearest;
+        }, 0);
+
+        moveToPage(nearestPage);
+    };
+
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+    viewport.addEventListener('pointerleave', endDrag);
+
+    window.addEventListener('resize', refreshLayout, { passive: true });
+    moveToPage(0, false);
+    track.classList.remove('is-dragging');
+}
+
 /**
  * Modal functionality
  */
