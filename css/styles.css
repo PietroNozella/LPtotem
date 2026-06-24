@@ -5424,7 +5424,7 @@ h1, h2, h3, h4, h5, h6 {
 .project-cases-layout {
     display: grid;
     grid-template-columns: minmax(380px, 500px) minmax(0, 1fr);
-    align-items: center;
+    align-items: start;
     column-gap: 72px;
 }
 
@@ -5557,8 +5557,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .project-case-featured .project-case-media {
-    aspect-ratio: 16 / 9;
-    max-height: 520px;
+    aspect-ratio: 4 / 3;
+    max-height: 360px;
 }
 
 .project-cases-gallery .project-case-media {
