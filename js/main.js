@@ -326,7 +326,9 @@ function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('is-revealed');
+                requestAnimationFrame(() => {
+                    entry.target.classList.add('is-revealed');
+                });
                 observer.unobserve(entry.target);
             }
         });
