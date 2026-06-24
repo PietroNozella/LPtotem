@@ -5524,7 +5524,6 @@ h1, h2, h3, h4, h5, h6 {
     gap: 18px;
 }
 
-.project-case-featured,
 .project-cases-gallery .project-case-card {
     position: relative;
     display: flex;
@@ -5545,7 +5544,6 @@ h1, h2, h3, h4, h5, h6 {
     transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
 }
 
-.project-case-featured:hover,
 .project-cases-gallery .project-case-card:hover {
     transform: translateY(-4px);
     border-color: rgba(8, 145, 178, 0.18);
@@ -5554,11 +5552,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .project-cases-gallery .project-case-card::after {
     display: none;
-}
-
-.project-case-featured .project-case-media {
-    aspect-ratio: 4 / 3;
-    max-height: 360px;
 }
 
 .project-cases-gallery .project-case-media {
@@ -5585,7 +5578,6 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(1.01);
 }
 
-.project-case-featured:hover .project-case-media img,
 .project-cases-gallery .project-case-card:hover .project-case-media img,
 .project-cases-gallery .project-case-card:hover .project-case-media video {
     transform: scale(1.04);
@@ -5602,10 +5594,6 @@ h1, h2, h3, h4, h5, h6 {
     color: #06101f;
 }
 
-.project-case-featured .project-case-content {
-    padding: 26px;
-}
-
 .project-cases-gallery .project-case-badge {
     margin-bottom: 14px;
     border-color: rgba(8, 145, 178, 0.14);
@@ -5613,20 +5601,14 @@ h1, h2, h3, h4, h5, h6 {
     color: #075985;
 }
 
-.project-cases-gallery .project-case-card h3,
-.project-case-featured h3 {
+.project-cases-gallery .project-case-card h3 {
     margin: 0 0 10px;
     color: #06101f;
     font-size: 1.12rem;
     line-height: 1.14;
 }
 
-.project-case-featured h3 {
-    font-size: clamp(1.6rem, 2vw, 2rem);
-}
-
-.project-cases-gallery .project-case-card p,
-.project-case-featured p {
+.project-cases-gallery .project-case-card p {
     display: block;
     margin: 0;
     overflow: visible;
@@ -5634,10 +5616,6 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.94rem;
     line-height: 1.4;
     -webkit-line-clamp: unset;
-}
-
-.project-case-featured p {
-    font-size: 1rem;
 }
 
 .project-case-grid {
@@ -5659,10 +5637,6 @@ h1, h2, h3, h4, h5, h6 {
     .project-cases-lead {
         margin-bottom: 46px;
     }
-
-    .project-case-featured .project-case-media {
-        max-height: 400px;
-    }
 }
 
 @media (max-width: 768px) {
@@ -5678,15 +5652,13 @@ h1, h2, h3, h4, h5, h6 {
         grid-template-columns: 1fr;
     }
 
-    .project-case-featured .project-case-media,
     .project-cases-gallery .project-case-media {
         height: 220px;
     }
 }
 
 @media (max-width: 640px) {
-    .project-cases-gallery .project-case-content,
-    .project-case-featured .project-case-content {
+    .project-cases-gallery .project-case-content {
         min-height: auto;
         padding: 20px;
     }
