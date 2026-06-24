@@ -304,7 +304,7 @@ function initParticles(isMobile) {
 function initScrollAnimations() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const animatedElements = document.querySelectorAll(
-        '.authority-intro, .authority-card, .authority-closing, .risks-header, .risk-map-copy, .risk-card, .risk-map-action, .risks-transition, .integrated-solutions-copy, .solution-architecture, .solution-architecture-card, .work-process-header, .work-process-step, .work-process-closing, .project-cases-copy, .project-cases-gallery, .project-case-card, .tech-action-copy, .field-records, .tech-action-card, .customizer-header, .totem-preview-area, .customization-panel, .cta-content, .map-section-header, .security-map-shell, .footer-grid'
+        '.authority-intro, .authority-card, .authority-closing, .risks-header, .risk-map-copy, .risk-card, .risk-map-action, .risks-transition, .integrated-solutions-copy, .solution-architecture, .solution-architecture-card, .work-process-header, .work-process-step, .work-process-closing, .project-case-card, .project-case-gallery-v2, .field-record-card, .field-records-grid, .customizer-header, .totem-preview-area, .customization-panel, .cta-content, .map-section-header, .security-map-shell, .footer-grid'
     );
 
     if (reduceMotion || !('IntersectionObserver' in window)) {
@@ -441,12 +441,12 @@ function initAmbientMotion() {
  * Keeps video playback intentional and limits concurrent media work.
  */
 function initVideoShowcase() {
-    const videos = document.querySelectorAll('.tech-action-video-wrap video');
+    const videos = document.querySelectorAll('.field-record-video-wrap video');
     if (!videos.length) return;
 
     videos.forEach(video => {
-        const card = video.closest('.tech-action-card');
-        const playButton = card?.querySelector('.tech-video-play');
+        const card = video.closest('.field-record-card');
+        const playButton = card?.querySelector('.field-video-play');
 
         playButton?.addEventListener('click', () => {
             const playRequest = video.play();
@@ -462,7 +462,7 @@ function initVideoShowcase() {
                 }
             });
 
-            document.querySelectorAll('.tech-action-card.is-playing').forEach(activeCard => {
+            document.querySelectorAll('.field-record-card.is-playing').forEach(activeCard => {
                 activeCard.classList.remove('is-playing');
             });
             card?.classList.add('is-playing');

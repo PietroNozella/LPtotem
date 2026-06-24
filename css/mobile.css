@@ -212,9 +212,8 @@ input, button, select, textarea {
         cursor: pointer;
     }
     
-    /* Safe area horizontal para secções projetos e vídeos (notch) */
-    .projects .container,
-    .tech-action .container {
+    /* Safe area horizontal (notch) */
+    .projects .container {
         padding-left: max(16px, env(safe-area-inset-left));
         padding-right: max(16px, env(safe-area-inset-right));
     }
@@ -920,39 +919,7 @@ input, button, select, textarea {
     }
 }
 
-/* ===== Technology in Action: mobile ===== */
-@media (max-width: 600px) {
-    .tech-action {
-        padding: 68px 0;
-    }
-    .tech-action-layout {
-        gap: 40px;
-    }
-    .tech-action-title {
-        font-size: clamp(2rem, 10vw, 2.45rem);
-    }
-    .tech-action-intro {
-        margin-bottom: 26px;
-    }
-    .tech-action-carousel-viewport {
-        margin-right: calc(var(--container-padding, 24px) * -1);
-        padding-right: var(--container-padding, 24px);
-    }
-    .tech-video-label {
-        top: 10px;
-        left: 10px;
-        max-width: calc(100% - 20px);
-        padding: 5px 8px;
-        font-size: 0.62rem;
-    }
-    .tech-video-play {
-        width: 44px;
-        height: 44px;
-    }
-    .tech-action-carousel-controls {
-        gap: 8px;
-    }
-}
+
 /* ===== Risks and Problems: mobile ===== */
 @media (max-width: 600px) {
     .risks {
@@ -1111,31 +1078,10 @@ input, button, select, textarea {
         padding: 68px 0;
     }
 
-    .project-cases-layout {
-        gap: 40px;
-    }
-
-    .project-cases-title {
-        font-size: clamp(2rem, 10vw, 2.45rem);
-    }
-
-    .project-cases-intro {
-        margin-bottom: 26px;
-    }
-
-    .project-cases-carousel-viewport {
-        margin-right: calc(var(--container-padding, 24px) * -1);
-        padding-right: var(--container-padding, 24px);
-    }
-
     .project-case-badge {
         max-width: 100%;
         white-space: normal;
         line-height: 1.2;
-    }
-
-    .project-cases-carousel-controls {
-        gap: 8px;
     }
 }
 /* ===== Security Applications Panel: mobile ===== */
@@ -1413,7 +1359,6 @@ input, button, select, textarea {
     .security-fragmentation-title,
     .risks-title,
     .integrated-solutions-title,
-    .tech-action-title,
     .project-cases-title,
     .security-applications-title,
     .cta-content h2 {
@@ -1429,7 +1374,6 @@ input, button, select, textarea {
     .risk-map .risk-card,
     .integrated-solution-card,
     .project-case-card,
-    .tech-action-card,
     .security-map-shell,
     .cta-content,
     .footer-shell {
@@ -1438,8 +1382,7 @@ input, button, select, textarea {
 
     .solution-carousel-arrow,
     .risk-carousel-arrow,
-    .project-cases-carousel-arrow,
-    .tech-action-carousel-arrow {
+    .project-cases-carousel-arrow {
         box-shadow: 0 8px 22px rgba(6, 16, 31, 0.12);
     }
 }
@@ -1449,7 +1392,6 @@ input, button, select, textarea {
     .security-fragmentation-cta,
     .integrated-solutions-cta,
     .project-cases-cta,
-    .tech-action-cta,
     .security-applications-cta,
     .security-map-cta {
         min-height: 52px;
