@@ -30,6 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initTouchSupport();
     initViewportFix();
     initHeroFloatingWhatsapp();
+    initReadingProgress();
+    initStepCounter();
+    initMouseParallax();
 });
 
 /**
@@ -300,28 +303,95 @@ function initParticles(isMobile) {
 
 /**
  * Scroll animations using Intersection Observer
+ * with section-specific entry types and staggered timing
  */
 function initScrollAnimations() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const animatedElements = document.querySelectorAll(
-        '.authority-intro, .authority-card, .authority-closing, .risks-header, .risk-map-copy, .risk-card, .risk-map-action, .risks-transition, .integrated-solutions-copy, .solution-architecture, .solution-architecture-card, .work-process-header, .work-process-step, .work-process-closing, .project-case-card, .project-case-gallery-v2, .field-record-card, .field-records-grid, .customizer-header, .totem-preview-area, .customization-panel, .cta-content, .map-section-header, .security-map-shell, .footer-grid'
-    );
 
-    if (reduceMotion || !('IntersectionObserver' in window)) {
-        animatedElements.forEach(el => el.classList.add('is-revealed'));
+    // Map of selectors to animation types and base stagger
+    const groups = [
+        // — Hero Section —
+        { sel: '.hero-badge', type: 'reveal-fade', stagger: 0 },
+        { sel: '.hero-title-line', type: '', stagger: 100 },
+        { sel: '.hero-description', type: '', stagger: 180 },
+        { sel: '.hero-cta', type: '', stagger: 260 },
+        { sel: '.hero-proofs span', type: '', stagger: 80 },
+
+        // — Risk Diagnosis —
+        { sel: '.risk-diagnosis .risk-map-step strong', type: 'reveal-fade', stagger: 0 },
+        { sel: '.risk-diagnosis .risk-map-lead', type: '', stagger: 0 },
+        { sel: '.risk-diagnosis .risks-title', type: '', stagger: 40 },
+        { sel: '.risk-diagnosis .risks-intro', type: '', stagger: 80 },
+        { sel: '.risk-card', type: 'reveal-scale', stagger: 110 },
+        { sel: '.risk-diagnosis .risk-map-action', type: '', stagger: 150 },
+
+        // — Integrated Solutions —
+        { sel: '.integrated-solutions .integrated-solutions-step strong', type: 'reveal-fade', stagger: 0 },
+        { sel: '.integrated-solutions-lead', type: '', stagger: 0 },
+        { sel: '.integrated-solutions-title', type: '', stagger: 40 },
+        { sel: '.integrated-solutions-intro', type: '', stagger: 80 },
+        { sel: '.solution-architecture-card', type: 'reveal-scale', stagger: 90 },
+        { sel: '.integrated-solutions-cta', type: '', stagger: 140 },
+
+        // — Work Process —
+        { sel: '#processo .risk-map-step strong', type: 'reveal-fade', stagger: 0 },
+        { sel: '#processo .risk-map-lead', type: '', stagger: 0 },
+        { sel: '#processo .risks-title', type: '', stagger: 40 },
+        { sel: '#processo .risks-intro', type: '', stagger: 80 },
+        { sel: '.work-method-node', type: '', stagger: 140 },
+
+        // — Project Cases —
+        { sel: '.project-cases-step strong', type: 'reveal-fade', stagger: 0 },
+        { sel: '.project-cases-title', type: '', stagger: 40 },
+        { sel: '.project-case-card', type: 'reveal-scale', stagger: 90 },
+
+        // — Field Records —
+        { sel: '.field-records-step strong', type: 'reveal-fade', stagger: 0 },
+        { sel: '.field-records-title', type: '', stagger: 40 },
+        { sel: '.field-record-card', type: 'reveal-blur', stagger: 110 },
+
+        // — Applications —
+        { sel: '.security-applications-step strong', type: 'reveal-fade', stagger: 0 },
+        { sel: '.security-applications-lead', type: '', stagger: 0 },
+        { sel: '.security-applications-title', type: '', stagger: 40 },
+        { sel: '.security-applications-intro', type: '', stagger: 80 },
+        { sel: '.security-application-option', type: '', stagger: 50 },
+        { sel: '.security-map-shell', type: 'reveal-fade', stagger: 0 },
+
+        // — CTA —
+        { sel: '.cta-eyebrow', type: 'reveal-fade', stagger: 0 },
+        { sel: '.cta-content h2', type: '', stagger: 80 },
+        { sel: '.cta-content .cta-copy p', type: '', stagger: 120 },
+        { sel: '.cta-chips span', type: 'reveal-scale', stagger: 50 },
+        { sel: '.cta-buttons', type: '', stagger: 180 },
+
+        // — Footer —
+        { sel: '.footer-grid', type: 'reveal-fade', stagger: 0 },
+    ];
+
+    // Collect all matching elements
+    const allElements = [];
+    groups.forEach(g => {
+        document.querySelectorAll(g.sel).forEach((el, i) => {
+            const delay = Math.min(g.stagger * i, 500);
+            el.classList.add('reveal-item');
+            if (g.type) el.classList.add(g.type);
+            el.style.setProperty('--reveal-delay', `${delay}ms`);
+            allElements.push(el);
+        });
+    });
+
+    // Add card-tilt class for mouse parallax on interactive cards
+    document.querySelectorAll('.risk-card, .solution-architecture-card, .project-case-card, .field-record-card').forEach(el => {
+        el.classList.add('card-tilt');
+    });
+
+    if (reduceMotion || !('IntersectionObserver' in window) || !allElements.length) {
+        allElements.forEach(el => el.classList.add('is-revealed'));
         return;
     }
 
     document.body.classList.add('motion-ready');
-
-    const groups = new Map();
-    animatedElements.forEach(el => {
-        const group = el.parentElement;
-        const groupIndex = groups.get(group) || 0;
-        el.classList.add('reveal-item');
-        el.style.setProperty('--reveal-delay', `${Math.min(groupIndex * 70, 280)}ms`);
-        groups.set(group, groupIndex + 1);
-    });
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -337,7 +407,7 @@ function initScrollAnimations() {
         rootMargin: '0px 0px -8% 0px'
     });
 
-    animatedElements.forEach(el => observer.observe(el));
+    allElements.forEach(el => observer.observe(el));
 }
 
 /**
@@ -662,6 +732,95 @@ function initViewportFix() {
         }
     `;
     document.head.appendChild(style);
+}
+
+/**
+ * Reading progress bar that fills as user scrolls
+ */
+function initReadingProgress() {
+    const bar = document.getElementById('readingProgress');
+    if (!bar) return;
+
+    let ticking = false;
+    const update = () => {
+        ticking = false;
+        const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollMax <= 0) return;
+        const pct = Math.min((window.scrollY / scrollMax) * 100, 100);
+        bar.style.width = `${pct}%`;
+    };
+
+    const requestTick = () => {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+    };
+
+    window.addEventListener('scroll', requestTick, { passive: true });
+    window.addEventListener('resize', requestTick, { passive: true });
+    update();
+}
+
+/**
+ * Animate section step numbers (01, 02, etc.) when they scroll into view
+ */
+function initStepCounter() {
+    if (!('IntersectionObserver' in window)) return;
+
+    const stepBadges = document.querySelectorAll(
+        '.risk-map-step strong, .integrated-solutions-step strong, ' +
+        '.project-cases-step strong, .field-records-step strong, ' +
+        '.security-applications-step strong'
+    );
+
+    if (!stepBadges.length) return;
+
+    stepBadges.forEach(el => el.classList.add('reveal-counter'));
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-counted');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    stepBadges.forEach(el => observer.observe(el));
+}
+
+/**
+ * Mouse parallax tilt effect on cards (desktop only)
+ * Creates a subtle 3D rotation following the cursor
+ */
+function initMouseParallax() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (reduceMotion || !supportsFinePointer) return;
+
+    const cards = document.querySelectorAll('.risk-card, .solution-architecture-card, .project-case-card, .field-record-card');
+    if (!cards.length) return;
+
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.willChange = 'transform';
+        });
+
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            const tiltX = (y - 0.5) * -4;
+            const tiltY = (x - 0.5) * 4;
+            card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-2px)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.willChange = '';
+        });
+    });
 }
 
 /**

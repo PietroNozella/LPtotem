@@ -5336,6 +5336,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 100%;
     object-fit: cover;
     transform: scale(1.01);
+    transition: transform 500ms ease, filter 250ms ease;
 }
 
 .project-case-card:hover .project-case-media img,
@@ -5937,6 +5938,118 @@ section {
 .motion-ready .reveal-item.is-revealed {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+}
+
+/* Reveal animation variants */
+
+/* Scale + fade (cards em grids) */
+.motion-ready .reveal-item.reveal-scale {
+    transform: translate3d(0, 12px, 0) scale(0.94);
+}
+.motion-ready .reveal-item.reveal-scale.is-revealed {
+    transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Blur + fade (vídeos, mídia) */
+.motion-ready .reveal-item.reveal-blur {
+    filter: blur(6px);
+    transition:
+        opacity 0.9s var(--motion-ease) var(--reveal-delay, 0ms),
+        transform 0.9s var(--motion-ease) var(--reveal-delay, 0ms),
+        filter 0.9s var(--motion-ease) var(--reveal-delay, 0ms);
+}
+.motion-ready .reveal-item.reveal-blur.is-revealed {
+    filter: blur(0);
+}
+
+/* Just fade (step badges, elementos pequenos) */
+.motion-ready .reveal-item.reveal-fade {
+    transform: none;
+}
+
+/* Slide from left */
+.motion-ready .reveal-item.reveal-left {
+    transform: translate3d(-32px, 0, 0);
+}
+.motion-ready .reveal-item.reveal-left.is-revealed {
+    transform: translate3d(0, 0, 0);
+}
+
+/* Slide from right */
+.motion-ready .reveal-item.reveal-right {
+    transform: translate3d(32px, 0, 0);
+}
+.motion-ready .reveal-item.reveal-right.is-revealed {
+    transform: translate3d(0, 0, 0);
+}
+
+/* Zoom-in (CTA final) */
+.motion-ready .reveal-item.reveal-zoom {
+    transform: translate3d(0, 0, 0) scale(0.88);
+    transition:
+        opacity 0.8s var(--motion-ease) var(--reveal-delay, 0ms),
+        transform 0.8s var(--motion-ease) var(--reveal-delay, 0ms),
+        box-shadow 0.8s var(--motion-ease) var(--reveal-delay, 0ms);
+}
+.motion-ready .reveal-item.reveal-zoom.is-revealed {
+    transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Reading progress bar */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary-light));
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+    pointer-events: none;
+    transition: width 80ms linear;
+}
+
+/* Section step number counter animation */
+.reveal-counter {
+    display: inline-block;
+    transition: opacity 0.5s ease;
+}
+.reveal-counter.is-counted {
+    animation: counterPop 0.5s var(--motion-spring);
+}
+@keyframes counterPop {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Mouse parallax tilt on cards
+   Cards already have their own transform transitions;
+   this just adds a subtle active press effect */
+@media (hover: hover) and (pointer: fine) {
+    .card-tilt:active {
+        transform: scale(0.98) !important;
+    }
+}
+
+/* Reduced motion overrides for animation variants */
+@media (prefers-reduced-motion: reduce) {
+    .motion-ready .reveal-item.reveal-scale,
+    .motion-ready .reveal-item.reveal-blur,
+    .motion-ready .reveal-item.reveal-fade,
+    .motion-ready .reveal-item.reveal-left,
+    .motion-ready .reveal-item.reveal-right,
+    .motion-ready .reveal-item.reveal-zoom,
+    .motion-ready .reveal-item.reveal-blur.is-revealed,
+    .motion-ready .reveal-item.reveal-scale.is-revealed,
+    .motion-ready .reveal-item.reveal-left.is-revealed,
+    .motion-ready .reveal-item.reveal-right.is-revealed,
+    .motion-ready .reveal-item.reveal-zoom.is-revealed {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+    }
 }
 
 .hero-grid {
